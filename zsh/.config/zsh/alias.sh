@@ -1,0 +1,17 @@
+alias ll="exa -l -g --icons"
+alias llt="exa -lg --icons --tree"
+alias ls="exa --icons"
+alias lt="exa --icons --tree"
+alias ls1="exa -1 --icons"
+alias la="exa -a --icons"
+alias lat="exa -a --icons --tree"
+alias la1="exa -a1 --icons"
+alias lla="exa -la --icons"
+alias llat="exa -la --icons --tree"
+
+alias vim="lvim"
+alias vi="lvim"
+alias oldvi="/usr/bin/vi"
+
+alias gitl="git log --oneline --graph --all --decorate"
+alias gits="git status"
