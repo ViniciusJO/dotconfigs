@@ -1,13 +1,6 @@
 local M = {}
 
 M.on_attach = function(_, bufnr)
-  local nmap = function(keys, func, desc)
-    if desc then
-      desc = 'LSP: ' .. desc
-    end
-
-    vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
-  end
   local buf = vim.lsp.buf
 
   require('which-key').register({

@@ -1,20 +1,11 @@
-require('configs.lazy')
-require('plugins')
-require('configs')
-require('keymaps')
-require('options')
+require 'configs.lazy'
+require 'plugins'
+require 'configs'
+require 'keymaps'
+require 'options'
 --require('my-plugin')
 
-vim.cmd('colorscheme enfocado')
-
-
-
-
-
-
-
-
-
+vim.cmd 'colorscheme enfocado'
 
 --[[
 local pattern = '\'.*\''

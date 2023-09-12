@@ -2,18 +2,19 @@ require('configs.lazy').bootstrap()
 
 require('lazy').setup({
   { 'folke/which-key.nvim',   opts = {} }, -- Keymaps helper
-  { 'tpope/vim-fugitive' },               -- Git integration
-  { 'lewis6991/gitsigns.nvim' },          -- Git signalization
+  { 'tpope/vim-fugitive' },              -- Git integration
+  { 'lewis6991/gitsigns.nvim' },         -- Git signalization
   { 'tpope/vim-sleuth' },
   {
-    "nvim-neo-tree/neo-tree.nvim", -- File tree
-    branch = "v3.x",
+    'nvim-neo-tree/neo-tree.nvim', -- File tree
+    branch = 'v3.x',
     dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-tree/nvim-web-devicons",
-      "MunifTanjim/nui.nvim",
-    }
+      'nvim-lua/plenary.nvim',
+      'nvim-tree/nvim-web-devicons',
+      'MunifTanjim/nui.nvim',
+    },
   },
+  {'akinsho/bufferline.nvim', version = "*", dependencies = 'nvim-tree/nvim-web-devicons'},
   {
     'neovim/nvim-lspconfig',
     dependencies = {
@@ -21,6 +22,14 @@ require('lazy').setup({
       'williamboman/mason-lspconfig.nvim',          -- LSP Mason integration
       { 'j-hui/fidget.nvim',       tag = 'legacy' }, -- Shows tasks progress
       'folke/neodev.nvim',                          -- Neovim completions and lsp
+    },
+  },
+  {
+    'mfussenegger/nvim-dap',
+    dependencies = {
+      'rcarriga/nvim-dap-ui',
+      'williamboman/mason.nvim',
+      'jay-babu/mason-nvim-dap.nvim',
     },
   },
   {
@@ -35,8 +44,8 @@ require('lazy').setup({
 
   -- Themes
   { 'wuelnerdotexe/vim-enfocado',         priority = 1000 },
-  { "catppuccin/nvim",                    name = "catppuccin", priority = 1000 },
-  { "rebelot/kanagawa.nvim",              priority = 1000 },
+  { 'catppuccin/nvim',                    name = 'catppuccin', priority = 1000 },
+  { 'rebelot/kanagawa.nvim',              priority = 1000 },
   { 'nvim-lualine/lualine.nvim' },           -- Lualine e statusline
   { 'lukas-reineke/indent-blankline.nvim' }, -- Identation lines
   { 'numToStr/Comment.nvim',              opts = {} }, -- "gc" to comment visual regions/lines
@@ -48,19 +57,23 @@ require('lazy').setup({
       {
         'nvim-telescope/telescope-fzf-native.nvim',
         build = 'make',
-        cond = function() return vim.fn.executable 'make' == 1 end
-      }
-    }
+        cond = function()
+          return vim.fn.executable 'make' == 1
+        end,
+      },
+    },
   },
   {
     'nvim-treesitter/nvim-treesitter', -- Highlight, edit, and navigate code
     dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects' },
-    build = ':TSUpdate'
+    build = ':TSUpdate',
   },
   {
-    "folke/trouble.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" }
-  }
+    'folke/trouble.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+  },
+
+
 
   -- require 'kickstart.plugins.autoformat',
   -- require 'kickstart.plugins.debug',
