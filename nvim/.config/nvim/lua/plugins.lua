@@ -1,27 +1,37 @@
 require('configs.lazy').bootstrap()
 
 require('lazy').setup({
-  { 'folke/which-key.nvim',   opts = {} }, -- Keymaps helper
-  { 'tpope/vim-fugitive' },              -- Git integration
-  { 'lewis6991/gitsigns.nvim' },         -- Git signalization
-  { 'tpope/vim-sleuth' },
+  { 'folke/which-key.nvim',   opts = {} },                                  -- Keymaps helper
+  { 'tpope/vim-fugitive' },                                                 -- Git integration
+  { 'lewis6991/gitsigns.nvim' },                                            -- Git signalization
+  { 'tpope/vim-sleuth' },                                                   -- Fix tabstops
+  { 'echasnovski/mini.nvim',  version = '*' },
+  { 'ThePrimeagen/harpoon',   dependencies = { 'nvim-lua/plenary.nvim' } }, -- Movement arround marked files
   {
-    'nvim-neo-tree/neo-tree.nvim', -- File tree
+    'nvim-neo-tree/neo-tree.nvim',                                          -- File tree
     branch = 'v3.x',
     dependencies = {
       'nvim-lua/plenary.nvim',
       'nvim-tree/nvim-web-devicons',
       'MunifTanjim/nui.nvim',
+      'miversen33/netman.nvim'
     },
   },
-  {'akinsho/bufferline.nvim', version = "*", dependencies = 'nvim-tree/nvim-web-devicons'},
+  { 'akinsho/bufferline.nvim',            version = "*",       dependencies = 'nvim-tree/nvim-web-devicons' }, -- Shows buffers and tabs in a pretty way
+  {
+    's1n7ax/nvim-window-picker',
+    name = 'window-picker',
+    event = 'VeryLazy',
+    version = '2.*'
+  },
   {
     'neovim/nvim-lspconfig',
     dependencies = {
-      { 'williamboman/mason.nvim', config = true }, -- Adapters package manager
-      'williamboman/mason-lspconfig.nvim',          -- LSP Mason integration
+      { 'williamboman/mason.nvim', config = true },  -- Adapters package manager
+      'williamboman/mason-lspconfig.nvim',           -- LSP Mason integration
       { 'j-hui/fidget.nvim',       tag = 'legacy' }, -- Shows tasks progress
-      'folke/neodev.nvim',                          -- Neovim completions and lsp
+      'folke/neoconf.nvim',
+      'folke/neodev.nvim',                           -- Neovim completions and lsp
     },
   },
   {
@@ -41,16 +51,30 @@ require('lazy').setup({
       'hrsh7th/cmp-nvim-lsp',         -- Lsp autocompletions
     },
   },
+  {
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "rcarriga/nvim-notify",
+    }
+  },
+
+  {
+    "folke/persistence.nvim",         
+    event = "BufReadPre",
+  },
 
   -- Themes
   { 'wuelnerdotexe/vim-enfocado',         priority = 1000 },
+  { 'whatsthatsmell/codesmell_dark.vim' },
   { 'catppuccin/nvim',                    name = 'catppuccin', priority = 1000 },
   { 'rebelot/kanagawa.nvim',              priority = 1000 },
-  { 'nvim-lualine/lualine.nvim' },           -- Lualine e statusline
-  { 'lukas-reineke/indent-blankline.nvim' }, -- Identation lines
+  { 'nvim-lualine/lualine.nvim' },                     -- Lualine e statusline
+  { 'lukas-reineke/indent-blankline.nvim' },           -- Identation lines
   { 'numToStr/Comment.nvim',              opts = {} }, -- "gc" to comment visual regions/lines
   {
-    'nvim-telescope/telescope.nvim',         -- Fuzzy finder
+    'nvim-telescope/telescope.nvim',                   -- Fuzzy finder
     branch = '0.1.x',
     dependencies = {
       'nvim-lua/plenary.nvim',

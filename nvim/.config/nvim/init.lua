@@ -3,9 +3,8 @@ require 'plugins'
 require 'configs'
 require 'keymaps'
 require 'options'
+require 'colorscheme'
 --require('my-plugin')
-
-vim.cmd 'colorscheme enfocado'
 
 --[[
 local pattern = '\'.*\''

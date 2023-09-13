@@ -1,3 +1,4 @@
+require('configs.lsp.neoconf')
 local opts = require('configs.lsp.opts')
 local mason_lspconfig = require 'mason-lspconfig'
 

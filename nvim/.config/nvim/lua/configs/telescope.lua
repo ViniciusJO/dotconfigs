@@ -1,6 +1,8 @@
+local telescope = require('telescope')
+
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
-require('telescope').setup {
+telescope.setup {
   defaults = {
     mappings = {
       i = {
@@ -11,8 +13,10 @@ require('telescope').setup {
   },
 }
 
--- Enable telescope fzf native, if installed
-pcall(require('telescope').load_extension, 'fzf')
+-- Enable telescope extensions, if installed
+pcall(telescope.load_extension, 'fzf')
+pcall(telescope.load_extension, 'harpoon')
+pcall(telescope.load_extension, 'notify')
 
 -- See `:help telescope.builtin`
 local tel_builtin = require('telescope.builtin')
@@ -28,6 +32,7 @@ require('which-key').register({
     l = { tel_builtin.live_grep, 'Find Live Grep' },
     d = { tel_builtin.diagnostics, 'Find Diagnostics' },
     r = { tel_builtin.resume, 'Find Resume' },
+    n = { require('telescope').extensions.notify.notify, 'Find Notify' },
     ['/'] = { function()
       tel_builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
         winblend = 10,

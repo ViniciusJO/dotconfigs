@@ -17,10 +17,13 @@ require("which-key").register({
   ['<F1>'] = { dap.step_into, 'Debug: Step Into' },
   ['<F2>'] = { dap.step_over, 'Debug: Step Over' },
   ['<F3>'] = { dap.step_out, 'Debug: Step Out' },
-  ['<leader>b'] = { dap.toggle_breakpoint, 'Debug: Toggle Breakpoint' },
-  ['<leader>B'] = { function()
-    dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
-  end, 'Debug: Set Breakpoint' },
+  ['<leader>d'] = {
+    name = 'Debug',
+    b = { dap.toggle_breakpoint, 'Debug: Toggle Breakpoint' },
+    B = { function()
+      dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
+    end, 'Debug: Set Breakpoint' },
+  },
   ['<F7>'] = { dapui.toggle, 'Debug: See last session result.' },
 })
 
@@ -28,11 +31,14 @@ require("which-key").register({
 -- vim.highlight.create('DapLogPoint', { ctermbg=0, guifg='#61afef', guibg='#31353f' }, false)
 -- vim.highlight.create('DapStopped', { ctermbg=0, guifg='#98c379', guibg='#31353f' }, false)
 
-vim.fn.sign_define('DapBreakpoint', { text='', texthl='DapBreakpoint', linehl='DapBreakpoint', numhl='DapBreakpoint' })
-vim.fn.sign_define('DapBreakpointCondition', { text='ﳁ', texthl='DapBreakpoint', linehl='DapBreakpoint', numhl='DapBreakpoint' })
-vim.fn.sign_define('DapBreakpointRejected', { text='', texthl='DapBreakpoint', linehl='DapBreakpoint', numhl= 'DapBreakpoint' })
-vim.fn.sign_define('DapLogPoint', { text='', texthl='DapLogPoint', linehl='DapLogPoint', numhl= 'DapLogPoint' })
-vim.fn.sign_define('DapStopped', { text='', texthl='DapStopped', linehl='DapStopped', numhl= 'DapStopped' })
+vim.fn.sign_define('DapBreakpoint', { text = '', texthl = 'DapBreakpoint', linehl = 'DapBreakpoint',
+  numhl = 'DapBreakpoint' })
+vim.fn.sign_define('DapBreakpointCondition',
+  { text = 'ﳁ', texthl = 'DapBreakpoint', linehl = 'DapBreakpoint', numhl = 'DapBreakpoint' })
+vim.fn.sign_define('DapBreakpointRejected',
+  { text = '', texthl = 'DapBreakpoint', linehl = 'DapBreakpoint', numhl = 'DapBreakpoint' })
+vim.fn.sign_define('DapLogPoint', { text = '', texthl = 'DapLogPoint', linehl = 'DapLogPoint', numhl = 'DapLogPoint' })
+vim.fn.sign_define('DapStopped', { text = '', texthl = 'DapStopped', linehl = 'DapStopped', numhl = 'DapStopped' })
 
 -- Dap UI setup
 -- For more information, see |:help nvim-dap-ui|

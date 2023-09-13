@@ -5,6 +5,8 @@ vim.o.hlsearch = true
 vim.o.number = true
 vim.o.relativenumber = true
 
+vim.o.wrap = false
+
 -- Enable mouse mode
 vim.o.mouse = 'a'
 
@@ -17,6 +19,12 @@ vim.o.undofile = true
 -- Case-insensitive searching UNLESS \C or capital in search
 vim.o.ignorecase = true
 vim.o.smartcase = true
+
+-- Tabstop
+vim.o.tabstop = 2
+vim.o.shiftwidth = 2
+vim.o.smarttab = true
+vim.o.expandtab = true
 
 -- Keep signcolumn on by default
 vim.wo.signcolumn = 'yes'

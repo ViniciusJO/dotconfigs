@@ -10,7 +10,7 @@ gs.setup({
   },
   on_attach = function(bufnr)
     require("which-key").register({
-      ['<leader>h'] = {
+      ['<leader>s'] = {
         name = "Gitsign Hunk",
         p = { gs.prev_hunk, 'Goto  Previous', { buffer = bufnr } },
         n = { gs.next_hunk, 'Goto Next', { buffer = bufnr } },
