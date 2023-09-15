@@ -17,7 +17,12 @@ require('lazy').setup({
       'miversen33/netman.nvim'
     },
   },
-  { 'akinsho/bufferline.nvim',            version = "*",       dependencies = 'nvim-tree/nvim-web-devicons' }, -- Shows buffers and tabs in a pretty way
+  {
+    'akinsho/bufferline.nvim',
+    version = "*",
+    dependencies =
+    'nvim-tree/nvim-web-devicons'
+  },                               -- Shows buffers and tabs in a pretty way
   {
     's1n7ax/nvim-window-picker',
     name = 'window-picker',
@@ -59,17 +64,33 @@ require('lazy').setup({
       "rcarriga/nvim-notify",
     }
   },
-
   {
-    "folke/persistence.nvim",         
+    "utilyre/barbecue.nvim", -- Winbar navic context
+    name = "barbecue",
+    version = "*",
+    dependencies = {
+      "SmiteshP/nvim-navic",
+      "nvim-tree/nvim-web-devicons", -- optional dependency
+    },
+  },
+  {
+    "folke/persistence.nvim",
     event = "BufReadPre",
   },
+  { 'kevinhwang91/nvim-ufo',            dependencies = 'kevinhwang91/promise-async' },
 
   -- Themes
-  { 'wuelnerdotexe/vim-enfocado',         priority = 1000 },
+  { 'wuelnerdotexe/vim-enfocado',       priority = 1000 },
   { 'whatsthatsmell/codesmell_dark.vim' },
-  { 'catppuccin/nvim',                    name = 'catppuccin', priority = 1000 },
-  { 'rebelot/kanagawa.nvim',              priority = 1000 },
+  { 'catppuccin/nvim',                  name = 'catppuccin',                        priority = 1000 },
+  { 'rebelot/kanagawa.nvim',            priority = 1000 },
+  {
+    'glepnir/dashboard-nvim',
+    event = 'VimEnter',
+    dependencies = { { 'nvim-tree/nvim-web-devicons' } }
+  },
+
+
   { 'nvim-lualine/lualine.nvim' },                     -- Lualine e statusline
   { 'lukas-reineke/indent-blankline.nvim' },           -- Identation lines
   { 'numToStr/Comment.nvim',              opts = {} }, -- "gc" to comment visual regions/lines

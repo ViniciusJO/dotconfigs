@@ -11,6 +11,7 @@ vim.keymap.set('n', '<leader><F11>', '<cmd>source $HOME/.config/nvim/init.lua<cr
 
 -- Copy to systems clipboard
 vim.keymap.set('n', 'Y', '"+y', { desc = 'Yank to systems clipboard' });
+vim.keymap.set('v', '<C-c>', '"+y', { desc = 'Yank to systems clipboard' });
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
@@ -34,3 +35,6 @@ vim.keymap.set('n', '<C-up>', '1<C-w>+', { noremap = true, silent = true, desc =
 vim.keymap.set('n', '<C-down>', '1<C-w>-', { noremap = true, silent = true, desc = 'Vertically resize windows (-)' })
 vim.keymap.set('n', '<C-left>', '1<C-w>>', { noremap = true, silent = true, desc = 'Horizontally resize windows (+)' })
 vim.keymap.set('n', '<C-right>', '1<C-w><', { noremap = true, silent = true, desc = 'Horizontally resize windows (-)' })
+
+-- Clear search
+vim.keymap.set('n', '<leader>h', '<cmd>set hlsearch!<CR>', { noremap = true, silent = true, desc = 'Toggle search highlight' })
