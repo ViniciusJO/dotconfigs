@@ -1,5 +1,9 @@
-require('configs.mini.bufremove')
 require('configs.mini.indentscope')
 
-
 require('mini.animate').setup()
+require('mini.bufremove').setup()
+require('mini.cursorword').setup()
+require('mini.move').setup()
+require('mini.operators').setup()
+require('mini.pairs').setup()
+require('mini.surround').setup()

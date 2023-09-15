@@ -1,2 +1,4 @@
 -- Setup neovim lua configuration
-require('neodev').setup()
+require('neodev').setup({
+	library = { plugins = { "neotest" }, types = true },
+})

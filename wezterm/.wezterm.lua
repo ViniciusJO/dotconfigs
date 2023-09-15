@@ -11,9 +11,6 @@ if wezterm.config_builder then
 end
 
 -- This is where you actually apply your config choices
-config.font = 'JetBrainsMono NF'
--- For example, changing the color scheme:
-config.color_scheme = 'AdventureTime'
 
 -- and finally, return the configuration to wezterm
 return config

@@ -22,7 +22,7 @@ require('lazy').setup({
     version = "*",
     dependencies =
     'nvim-tree/nvim-web-devicons'
-  },                               -- Shows buffers and tabs in a pretty way
+  }, -- Shows buffers and tabs in a pretty way
   {
     's1n7ax/nvim-window-picker',
     name = 'window-picker',
@@ -78,6 +78,11 @@ require('lazy').setup({
     event = "BufReadPre",
   },
   { 'kevinhwang91/nvim-ufo',            dependencies = 'kevinhwang91/promise-async' },
+  {
+    "folke/todo-comments.nvim", -- TODO pretty coments
+    dependencies = { "nvim-lua/plenary.nvim" },
+  },
+  { 'stevearc/dressing.nvim', },
 
   -- Themes
   { 'wuelnerdotexe/vim-enfocado',       priority = 1000 },
@@ -110,12 +115,23 @@ require('lazy').setup({
   },
   {
     'nvim-treesitter/nvim-treesitter', -- Highlight, edit, and navigate code
-    dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects' },
+    dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects', 'JoosepAlviste/nvim-ts-context-commentstring' },
     build = ':TSUpdate',
   },
   {
     'folke/trouble.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
+  },
+  {
+    "nvim-neotest/neotest",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "antoinemadec/FixCursorHold.nvim",
+      -- Addapters
+      'marilari88/neotest-vitest',
+      'nvim-neotest/neotest-plenary',
+    }
   },
 
 
