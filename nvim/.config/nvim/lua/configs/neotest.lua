@@ -9,13 +9,13 @@ neotest.setup({
 require('which-key').register({
 	['<leader>T'] = {
 		name = 'Teste',
-		r = {neotest.run.run(), 'Run nearest'},
-		f = {neotest.run.run(vim.fn.expand('%')), 'Run file'	},
+		r = {neotest.run.run, 'Run nearest'},
+		f = {function() neotest.run.run(vim.fn.expand('%')) end, 'Run file'	},
 		d = {
-			d = {neotest.run.run({strategy = 'dap'}), 'Debub nearest'},
-			f = {neotest.run.run(vim.fn.expand('%'),{strategy = 'dap'}), 'Debub file'},
+			d = {function() neotest.run.run({strategy = 'dap'}) end, 'Debub nearest'},
+			f = {function() neotest.run.run(vim.fn.expand('%'),{strategy = 'dap'}) end, 'Debub file'},
 		},
-		s = {neotest.run.stop(), 'Stop nearest'},
-		a = {neotest.run.attatch(), 'Attatch to nearest'}
+		s = {neotest.run.stop, 'Stop nearest'},
+		a = {neotest.run.attatch, 'Attatch to nearest'}
 	}
 })

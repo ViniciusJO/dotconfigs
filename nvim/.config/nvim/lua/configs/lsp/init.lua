@@ -16,3 +16,5 @@ mason_lspconfig.setup_handlers {
     }
   end
 }
+
+require('lspconfig.ui.windows').default_options.border = 'single'

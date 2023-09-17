@@ -17,6 +17,8 @@ telescope.setup {
 pcall(telescope.load_extension, 'fzf')
 pcall(telescope.load_extension, 'harpoon')
 pcall(telescope.load_extension, 'notify')
+pcall(telescope.load_extension, 'undo')
+pcall(telescope.load_extension, 'noice')
 
 -- See `:help telescope.builtin`
 local tel_builtin = require('telescope.builtin')

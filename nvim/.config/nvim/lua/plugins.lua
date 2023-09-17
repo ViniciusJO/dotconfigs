@@ -80,17 +80,27 @@ require('lazy').setup({
     "folke/persistence.nvim",
     event = "BufReadPre",
   },
-  { 'kevinhwang91/nvim-ufo',            dependencies = 'kevinhwang91/promise-async' },
+  { 'kevinhwang91/nvim-ufo',  dependencies = 'kevinhwang91/promise-async' },
   {
     "folke/todo-comments.nvim", -- TODO pretty coments
     dependencies = { "nvim-lua/plenary.nvim" },
   },
   { 'stevearc/dressing.nvim', },
+  { 'mbbill/undotree' },
+  {
+    "nvim-zh/colorful-winsep.nvim",
+    config = true,
+    event = { "WinNew" },
+  },
+  {
+    'ggandor/leap.nvim',
+    dependencies = {'tpope/vim-repeat'}
+  },
 
   -- Themes
   { 'wuelnerdotexe/vim-enfocado',       priority = 1000 },
   { 'whatsthatsmell/codesmell_dark.vim' },
-  { 'catppuccin/nvim',                  name = 'catppuccin',                        priority = 1000 },
+  { 'catppuccin/nvim',                  name = 'catppuccin', priority = 1000 },
   { 'rebelot/kanagawa.nvim',            priority = 1000 },
   {
     'glepnir/dashboard-nvim',
@@ -114,6 +124,7 @@ require('lazy').setup({
           return vim.fn.executable 'make' == 1
         end,
       },
+      { 'debugloop/telescope-undo.nvim' },
     },
   },
   {

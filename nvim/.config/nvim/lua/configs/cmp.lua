@@ -1,7 +1,7 @@
 -- [[ Configure nvim-cmp ]]
 -- See `:help cmp`
-local cmp = require 'cmp'
-local luasnip = require 'luasnip'
+local cmp = require('cmp')
+local luasnip = require('luasnip')
 require('luasnip.loaders.from_vscode').lazy_load()
 luasnip.config.setup {}
 
@@ -47,7 +47,24 @@ cmp.setup {
     { name = 'async-path' },
     { name = 'buffer' },
   },
+  border = {
+    completion = true,
+    documentation = true
+  }
+  -- window = {
+  --
+  --   completion = {
+  --     -- border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+  --     border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+  --     winhighlight = "Normal:CmpPmenu,FloatBorder:CmpBorder,CursorLine:PmenuSel,Search:None",
+  --   },
+  --   documentation = {
+  --     border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+  --     winhighlight = "Normal:CmpPmenu,FloatBorder:CmpBorder,CursorLine:PmenuSel,Search:None",
+  --   },
+  -- },
 }
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=0 et
+--

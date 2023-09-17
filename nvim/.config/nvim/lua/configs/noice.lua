@@ -127,4 +127,7 @@ require('noice').setup({
 	format = {},
 })
 
-vim.notify("TESTE")
+require('which-key').register({
+	['<leader>fm'] = { '<cmd>Noice telescope<cr>', 'Find messages'  }
+})
+
