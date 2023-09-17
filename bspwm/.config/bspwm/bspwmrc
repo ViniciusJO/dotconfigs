@@ -11,6 +11,10 @@ if [[ $(xrandr -q | grep '^DP-1 connected') ]]; then
    xrandr --output DP-1 --mode 1920x1080 --rotate normal --output eDP-1 --mode 1920x1080 --primary --rotate normal --left-of DP-1
    bspc monitor eDP-1 -d I II III IV V
    bspc monitor DP-1 -d VI VII VIII IX X
+elif [[ $(xrandr -q | grep '^HDMI-1 connected') ]]; then
+   xrandr --output HDMI-1 --mode 1680x1050 --rotate normal --output eDP-1 --mode 1920x1080 --primary --rotate normal --left-of HDMI-1
+   bspc monitor eDP-1 -d I II III IV V
+   bspc monitor HDMI-1 -d VI VII VIII IX X
 else
   bspc monitor eDP-1 -d I II III IV V VI VII VIII IX X XI
 fi

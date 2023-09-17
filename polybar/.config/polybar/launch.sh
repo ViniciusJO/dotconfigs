@@ -10,10 +10,10 @@ while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 polybar top -c ~/.config/polybar/config.ini &
 
 
-if [[ $(xrandr -q | grep 'DP-1 connected') ]]; then
+if [[ $(xrandr -q | grep '^DP-1 connected') ]]; then
   polybar top_external -c ~/.config/polybar/config.ini &
 fi
 
-if [[ $(xrandr -q | grep 'HDMI-1 connected') ]]; then
+if [[ $(xrandr -q | grep '^HDMI-1 connected') ]]; then
   polybar top_external_hdmi -c ~/.config/polybar/config.ini &
 fi

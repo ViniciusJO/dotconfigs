@@ -41,8 +41,11 @@ cmp.setup {
     end, { 'i', 's' }),
   },
   sources = {
+    { name = 'calc' },
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
+    { name = 'async-path' },
+    { name = 'buffer' },
   },
 }
 

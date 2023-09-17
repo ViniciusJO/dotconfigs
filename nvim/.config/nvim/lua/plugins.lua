@@ -54,6 +54,9 @@ require('lazy').setup({
       'saadparwaiz1/cmp_luasnip',     -- Snippets autocompletions
       'rafamadriz/friendly-snippets', -- Snippets
       'hrsh7th/cmp-nvim-lsp',         -- Lsp autocompletions
+      'hrsh7th/cmp-calc',
+      'FelipeLema/cmp-async-path',
+      'hrsh7th/cmp-buffer',
     },
   },
   {
