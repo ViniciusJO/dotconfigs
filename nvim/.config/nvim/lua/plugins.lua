@@ -109,11 +109,11 @@ require('lazy').setup({
   },
 
 
-  { 'nvim-lualine/lualine.nvim' },                     -- Lualine e statusline
-  { 'lukas-reineke/indent-blankline.nvim' },           -- Identation lines
-  { 'numToStr/Comment.nvim',              opts = {} }, -- "gc" to comment visual regions/lines
+  { 'nvim-lualine/lualine.nvim' },                                    -- Lualine e statusline
+  { 'lukas-reineke/indent-blankline.nvim', main = "ibl", opts = {} }, -- Identation lines
+  { 'numToStr/Comment.nvim',              opts = {} },                -- "gc" to comment visual regions/lines
   {
-    'nvim-telescope/telescope.nvim',                   -- Fuzzy finder
+    'nvim-telescope/telescope.nvim',                                  -- Fuzzy finder
     branch = '0.1.x',
     dependencies = {
       'nvim-lua/plenary.nvim',
