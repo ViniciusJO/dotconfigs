@@ -1,0 +1,7 @@
+2023-12-16 17:47:38.917 | INFO  | starting nchat v3.67  (main.cpp:215)
+2023-12-16 17:47:39.742 | INFO  | whatsmeow Successfully authenticated  (gowm.go:368)
+2023-12-16 17:47:40.340 | INFO  | entering ui loop  (ui.cpp:74)
+2023-12-16 17:47:55.120 | WARN  | whatsmeow Failed to fetch prekey for 553195572278:46@s.whatsapp.net: invalid prekey in prekey response: prekey node doesn't contain ID tag  (gowm.go:372)
+2023-12-16 17:47:55.120 | WARN  | whatsmeow Failed to fetch prekey for 553195572278:47@s.whatsapp.net: invalid prekey in prekey response: prekey node doesn't contain ID tag  (gowm.go:372)
+2023-12-16 17:48:00.086 | INFO  | exiting ui loop  (ui.cpp:86)
+2023-12-16 17:48:00.190 | INFO  | exiting nchat  (main.cpp:343)
