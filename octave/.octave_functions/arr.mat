@@ -1,0 +1,22 @@
+# Created by Octave 8.4.0, Thu Dec 28 12:58:11 2023 -03 <vinicius@sol>
+# name: ans
+# type: scalar
+4306.7655807339306
+
+
+# name: i
+# type: scalar
+2
+
+
+# name: r
+# type: scalar
+10000
+
+
+# name: x
+# type: double_range
+# base, limit, increment
+0 1 0.001
+
+

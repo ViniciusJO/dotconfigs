@@ -18,3 +18,4 @@ mason_lspconfig.setup_handlers {
 }
 
 require('lspconfig.ui.windows').default_options.border = 'single'
+require('configs.lsp.twoslash_queries')
