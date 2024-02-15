@@ -107,6 +107,7 @@ require('lazy').setup({
     event = 'VimEnter',
     dependencies = { { 'nvim-tree/nvim-web-devicons' } }
   },
+  { 'AlphaTechnolog/pywal.nvim' },
 
 
   { 'nvim-lualine/lualine.nvim' },                                    -- Lualine e statusline
@@ -151,12 +152,13 @@ require('lazy').setup({
     "marilari88/twoslash-queries.nvim",
     config = function()
       require("twoslash-queries").setup({
-        multi_line = true,      -- to print types in multi line mode
-        is_enabled = true,      -- to keep disabled at startup and enable it on request with the TwoslashQueriesEnable
-        highlight = "Type",     -- to set up a highlight group for the virtual text
+        multi_line = true,  -- to print types in multi line mode
+        is_enabled = true,  -- to keep disabled at startup and enable it on request with the TwoslashQueriesEnable
+        highlight = "Type", -- to set up a highlight group for the virtual text
       })
     end,
   },
+  { "norcalli/nvim-colorizer.lua" }
 
 
 

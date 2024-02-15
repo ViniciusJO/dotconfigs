@@ -1,8 +1,8 @@
 require 'configs.lazy'
+require 'options'
 require 'plugins'
 require 'configs'
 require 'keymaps'
-require 'options'
 require 'colorscheme'
 --require('my-plugin')
 
