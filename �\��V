@@ -1,5 +1,0 @@
-require('undotree').setup()
-
-require('which-key').register({
-	['<leader>u'] = { vim.cmd.UndotreeToggle, 'Undotree Toggle' }
-})
