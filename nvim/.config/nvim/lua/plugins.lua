@@ -158,7 +158,8 @@ require('lazy').setup({
       })
     end,
   },
-  { "norcalli/nvim-colorizer.lua" }
+  { "norcalli/nvim-colorizer.lua" },
+  { "xiyaowong/transparent.nvim" },
 
 
 
