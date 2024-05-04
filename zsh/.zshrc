@@ -73,7 +73,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(aliases git docker npm pip python pyenv sudo systemd zsh-autosuggestions zsh-syntax-highlighting colored-man-pages command-not-found archlinux)
+plugins=(aliases git docker npm pip python pyenv sudo systemd zsh-autosuggestions zsh-syntax-highlighting zsh-completions colored-man-pages command-not-found archlinux)
 
 source $ZSH/oh-my-zsh.sh
 

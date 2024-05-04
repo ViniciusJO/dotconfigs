@@ -15,3 +15,8 @@ alias oldvi="/usr/bin/vi"
 
 alias gitl="git log --oneline --graph --all --decorate"
 alias gits="git status"
+
+alias t="todo.sh"
+alias ta="todo.sh add"
+alias tls="todo.sh list"
+alias td="todo.sh done"
