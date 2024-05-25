@@ -68,6 +68,7 @@ window#waybar {
     background-color: #F28FAD;
 }
 
+.custom-sṕotify,
 #clock,
 #battery,
 #cpu,
@@ -88,7 +89,7 @@ window#waybar {
     padding: 5px 10px;
     margin: 3px 3px;
     color: @color7;
-    border-radius: 3;
+    border-radius: 3px;
     /* background-color: #161320; */
     background-color: @color0;
 }
@@ -159,5 +160,4 @@ label:focus {
     -gtk-icon-effect: highlight;
     background-color: @color3;
 }
-
 

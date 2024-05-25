@@ -160,9 +160,28 @@ require('lazy').setup({
   },
   { "norcalli/nvim-colorizer.lua" },
   { "xiyaowong/transparent.nvim" },
+  { "nvim-neotest/nvim-nio" },
 
 
+  --Latex
+  {
+    "lervag/vimtex",
+    lazy = false,     -- we don't want to lazy load VimTeX
+    -- tag = "v2.15", -- uncomment to pin to a specific release
+    -- init = function()
+      -- VimTeX configuration goes here
+    -- end
+  },
 
+  --Lily Pond
+  {
+    'martineausimon/nvim-lilypond-suite',
+    config = function()
+      require('nvls').setup({
+        -- edit config here (see "Customize default settings" in wiki)
+      })
+    end
+  },
 
   -- require 'kickstart.plugins.autoformat',
   -- require 'kickstart.plugins.debug',
