@@ -26,6 +26,7 @@ source $BASE_ZSH_CONFIGS/aliases.zsh
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
 eval "$(fzf --zsh)"
+eval $(thefuck --alias)
 
 # Completiions
 autoload -U compinit && compinit
