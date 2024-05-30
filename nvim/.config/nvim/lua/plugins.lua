@@ -17,12 +17,12 @@ require('lazy').setup({
       'miversen33/netman.nvim'
     },
   },
-  -- {
-  --   'akinsho/bufferline.nvim',
-  --   version = "*",
-  --   dependencies =
-  --   'nvim-tree/nvim-web-devicons'
-  -- }, -- Shows buffers and tabs in a pretty way
+  {
+    'akinsho/bufferline.nvim',
+    version = "*",
+    dependencies =
+    'nvim-tree/nvim-web-devicons'
+  }, -- Shows buffers and tabs in a pretty way
   {
     's1n7ax/nvim-window-picker',
     name = 'window-picker',
@@ -146,6 +146,7 @@ require('lazy').setup({
       -- Addapters
       'marilari88/neotest-vitest',
       'nvim-neotest/neotest-plenary',
+      'nvim-neotest/neotest-jest',
     }
   },
   {

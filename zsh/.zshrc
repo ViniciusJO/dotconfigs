@@ -26,7 +26,7 @@ source $BASE_ZSH_CONFIGS/aliases.zsh
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
 eval "$(fzf --zsh)"
-eval $(thefuck --alias)
+if command fuck &> /dev/null; then eval $(thefuck --alias); fi
 
 # Completiions
 autoload -U compinit && compinit
@@ -35,45 +35,46 @@ autoload -U compinit && compinit
 export ZSH_PLUGINS=$HOME/.local/share/zsh/plugins
 
 export function botstrap_plugin() {
-	if [ -z $1 ] || [ -z $2 ]; then
-		printf "usage:\n\t${BLUE}botstrap_plugin${NC} [name] [repo-url]\n"	
-	else
-		ZSH_PLUGIN_DIR=$ZSH_PLUGINS/$1
-		if [ ! -d $ZSH_PLUGIN_DIR ]; then
-			git clone $2 $ZSH_PLUGIN_DIR
-		fi
+if [ -z $1 ] || [ -z $2 ]; then
+	printf "usage:\n\t${BLUE}botstrap_plugin${NC} [name] [repo-url]\n"	
+else
+	ZSH_PLUGIN_DIR=$ZSH_PLUGINS/$1
+	if [ ! -d $ZSH_PLUGIN_DIR ]; then
+		git clone $2 $ZSH_PLUGIN_DIR
 	fi
+fi
 }
 
 export function botstrap_omzsh_plugin() {
-	if [ -z $1 ]; then
-		printf "usage: \n\t${BLUE}botstrap_plugin${NC} \"[name1] [name2] ...\" <dir>\n\t${BLUE}botstrap_plugin${NC} \"[name1],[name2],...\" <dir>\n"
-	else
-	
-		if [ ! -z $2 ]; then OMZ_PLUGIN_INSTALL_DIR=$2
-		else OMZ_PLUGIN_INSTALL_DIR=$ZSH_PLUGINS; fi
-		
+if [ -z $1 ]; then
+	printf "usage: \n\t${BLUE}botstrap_plugin${NC} \"[name1] [name2] ...\" <dir>\n\t${BLUE}botstrap_plugin${NC} \"[name1],[name2],...\" <dir>\n"
+else
+
+	if [ ! -z $2 ]; then OMZ_PLUGIN_INSTALL_DIR=$2
+	else OMZ_PLUGIN_INSTALL_DIR=$ZSH_PLUGINS; fi
+
 		# echo $1 | tr " " "\n"
 		echo $1 | tr "," "\n" | tr " " "\n" | while read -r plugin; do 
-			if [ ! -d "$OMZ_PLUGIN_INSTALL_DIR/$plugin" ]; then 
-				if [ ! -d "/tmp/omzh" ]; then
-					git clone https://github.com/ohmyzsh/ohmyzsh.git /tmp/omzh
-				fi
-				cp -r /tmp/omzh/plugins/$plugin $OMZ_PLUGIN_INSTALL_DIR/
+		if [ ! -d "$OMZ_PLUGIN_INSTALL_DIR/$plugin" ]; then 
+			if [ ! -d "/tmp/omzh" ]; then
+				git clone https://github.com/ohmyzsh/ohmyzsh.git /tmp/omzh
 			fi
-		done
-	fi
+			cp -r /tmp/omzh/plugins/$plugin $OMZ_PLUGIN_INSTALL_DIR/
+		fi
+	done
+fi
 
-	if [ -d /tmp/omzh ]; then rm -rf /tmp/omzh; fi
+if [ -d /tmp/omzh ]; then rm -rf /tmp/omzh; fi
 }
 
 botstrap_plugin zsh-autosuggestions https://github.com/zsh-users/zsh-autosuggestions
 botstrap_plugin zsh-completions https://github.com/zsh-users/zsh-completions.git
 botstrap_plugin zsh-syntax-highlighting https://github.com/zsh-users/zsh-syntax-highlighting.git
 botstrap_plugin fzf_tab https://github.com/Aloxaf/fzf-tab
+botstrap_plugin you_should_use https://github.com/MichaelAquilina/zsh-you-should-use.git
 
-# botstrap_omzsh_plugin "aliases git docker npm pip python pyenv sudo systemd zsh-autosuggestions zsh-syntax-highlighting colored-man-pages command-not-found archlinux"
 botstrap_omzsh_plugin "aliases git npm pip python pyenv sudo systemd zsh-autosuggestions zsh-syntax-highlighting colored-man-pages command-not-found archlinux"
+# botstrap_omzsh_plugin "aliases git docker npm pip python pyenv sudo systemd zsh-autosuggestions zsh-syntax-highlighting colored-man-pages command-not-found archlinux"
 
 find $ZSH_PLUGINS -maxdepth 2 -name "*.zsh" | while read -r plugin; do source $plugin; done
 

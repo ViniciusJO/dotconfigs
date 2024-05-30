@@ -1,7 +1,7 @@
 export PATH=/home/vinicius/.local/bin:$PATH
 
 # QT5
-export QT_QPA_PLATFORMTHEME="qt5ct"
+export QT_QPA_PLATFORMTHEME="qt6ct"
 
 # Wayland
 # export QT_QPA_PLATFORM=wayland
