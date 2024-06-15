@@ -13,7 +13,7 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 source "$BASE_ZSH_CONFIGS/aliases.zsh"
 source "$BASE_ZSH_CONFIGS/colors.zsh"
 source "$BASE_ZSH_CONFIGS/functions.zsh"
-[ ! -f $HOME/.config/.started ] && sh "$BASE_ZSH_CONFIGS/apps.zsh" >> $HOME/.local/logs/app_bootstrap.log 2>> $HOME/.local/logs/app_bootstrap_error.log
+[ ! -f $HOME/.local/.started ] && mkdir -p $HOME/.local/logs && sh "$BASE_ZSH_CONFIGS/apps.zsh" >> $HOME/.local/logs/app_bootstrap.log 2>> $HOME/.local/logs/app_bootstrap_error.log
 
 # General configs
 # Preferred editor for local and remote sessions
@@ -58,7 +58,7 @@ zstyle ':fzf-tab:complete:nvim:*' fzf-preview 'if [ -f $realpath ]; then pygment
 zstyle ':fzf-tab:*' switch-group '<' '>'
 zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 
-# Keybindings
+# Special Keybindings
 bindkey "^[[H"  beginning-of-line				# END
 bindkey	"^[[1~"	beginning-of-line				# END
 bindkey "^[[F"  end-of-line							# HOME
@@ -87,6 +87,8 @@ setopt hist_find_no_dups
 
 unsetCustomFuncs
 unset -f unsetCustomFuncs
+
+
 
 
 

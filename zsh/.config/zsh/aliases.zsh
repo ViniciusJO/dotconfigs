@@ -25,3 +25,5 @@ alias tls="todo.sh list"
 alias td="todo.sh done"
 
 alias nr="node --run"
+
+alias ..="cd .."

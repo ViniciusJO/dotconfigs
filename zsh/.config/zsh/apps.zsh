@@ -19,5 +19,5 @@ existCommand "paruz"	|| (git clone https://github.com/joehillen/paruz.git $HOME/
 # Extra configs
 existCommand "nvim" || (existCommand "bob" && bob install latest && bob use latest)
 
-touch $HOME/.config/.started
+touch $HOME/.local/.started
 
