@@ -129,14 +129,14 @@ config.colors = {
 
 config.enable_tab_bar = false
 config.window_decorations = 'RESIZE'
-config.keys = {
-  {
-    key = 'f',
-    mods = 'CTRL',
-    action = wezterm.action.ToggleFullScreen
-  }
-}
-
+-- config.keys = {
+--   {
+--     key = 'f',
+--     mods = 'CTRL',
+--     action = wezterm.action.ToggleFullScreen
+--   }
+-- }
+--
 -- and finally, return the configuration to wezterm
 return config
 
