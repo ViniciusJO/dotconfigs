@@ -41,3 +41,8 @@ vim.keymap.set('n', '<C-right>', '1<C-w><', { noremap = true, silent = true, des
 
 -- Clear search
 vim.keymap.set('n', '<leader>h', '<cmd>set hlsearch!<CR>', { noremap = true, silent = true, desc = 'Toggle search highlight' })
+
+-- Macros
+vim.keymap.set('n', 'Q', '@q', { desc = 'Plays macro at q' })
+vim.keymap.set('x', 'Q', ':norm @q<CR>', { desc = 'Plays macro at q on each lines selected' })
+
