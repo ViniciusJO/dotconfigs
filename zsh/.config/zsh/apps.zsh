@@ -1,7 +1,7 @@
 #!/usr/bin/sh
 
 REQUIRED_NPM_PACKAGES="neovim pnpm ts-node spottydl typescript yarn" 
-REQUIRED_PACMAN_PACKAGES="bob curl eza fd fzf gcc gdb git lua luarocks make nano rg thefuck vim wget zoxide"
+REQUIRED_PACMAN_PACKAGES="bob curl eza fd fzf gcc gdb git lua luarocks maim make nano rg thefuck vim wget zoxide"
 
 # From pacman
 generalPackageBootstrap "sudo pacman -Syyu" "$REQUIRED_PACMAN_PACKAGES" "nvim=neovim rg=ripgrep" 
