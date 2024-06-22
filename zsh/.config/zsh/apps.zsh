@@ -1,5 +1,7 @@
 #!/usr/bin/sh
 
+source $HOME/.config/zsh/functions.zsh
+
 REQUIRED_NPM_PACKAGES="neovim pnpm ts-node spottydl typescript yarn" 
 REQUIRED_PACMAN_PACKAGES="bob curl eza fd fzf gcc gdb git i3 lua luarocks maim make nano rg thefuck tmux vim wezterm wget xorg zoxide"
 
@@ -22,6 +24,9 @@ existCommand "paruz"	|| (git clone https://github.com/joehillen/paruz.git $HOME/
 
 # Extra configs
 existCommand "nvim" || (existCommand "bob" && bob install latest && bob use latest)
+
+unsetCustomFuncs
+unset -f unsetCustomFuncs
 
 touch $HOME/.local/.started
 

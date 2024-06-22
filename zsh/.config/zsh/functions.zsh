@@ -1,5 +1,4 @@
 
-
 function editDir() { cd $1 && $EDITOR . && cd - > /dev/null }
 
 export function existCommand() {
