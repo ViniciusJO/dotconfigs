@@ -7,7 +7,14 @@ REQUIRED_PACMAN_PACKAGES="bob curl eza fd fzf gcc gdb git i3 lua luarocks maim m
 
 # From pacman
 printf "Installing ${YELLOW}pacman$NC packages...\n"
-generalPackageBootstrap "sudo pacman -Syyu" "$REQUIRED_PACMAN_PACKAGES" "nvim=neovim rg=ripgrep" 
+generalPackageBootstrap "sudo pacman -Syy" "$REQUIRED_PACMAN_PACKAGES" "nvim=neovim rg=ripgrep" 
+
+unset REQUIRED_PACMAN_PACKAGES
+
+# From Source
+existCommand "nvm"		|| (PROFILE=/dev/null bash -c 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash')
+existCommand "paru"		|| (sudo pacman -S --needed base-devel && git clone https://aur.archlinux.org/paru.git $HOME/.local/builds/paru && cd $HOME/.local/builds/paru && makepkg -si && cd - > /dev/null)
+existCommand "paruz"	|| (git clone https://github.com/joehillen/paruz.git $HOME/.local/builds/paruz && cd $HOME/.local/builds/paruz && make install && cd - > /dev/null)
 
 # Install node
 existCommand "nvm" && nvm install $NODE_VERSION
@@ -16,18 +23,11 @@ existCommand "nvm" && nvm install $NODE_VERSION
 existCommand "npm" && printf "Installing ${YELLOW}pacman$NC packages...\n" && generalPackageBootstrap "npm i -g" "$REQUIRED_NPM_PACKAGES" "typescript=typescript;@types\/node" "npm list -g | grep" || printf "${RED}Command 'npm' not found$NC\n"
 
 unset REQUIRED_NPM_PACKAGES
-unset REQUIRED_PACMAN_PACKAGES
-
-# From Source
-existCommand "nvm"		|| (PROFILE=/dev/null bash -c 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash')
-existCommand "paru"		|| (sudo pacman -S --needed base-devel && git clone https://aur.archlinux.org/paru.git $HOME/.local/builds/paru && cd $HOME/.local/builds/paru && makepkg -si && cd - > /dev/null)
-existCommand "paruz"	|| (git clone https://github.com/joehillen/paruz.git $HOME/.local/builds/paruz && cd $HOME/.local/builds/paruz && make install && cd - > /dev/null)
 
 # Extra configs
 existCommand "nvim" || (existCommand "bob" && bob install latest && bob use latest)
 
 unsetCustomFuncs
-unset -f unsetCustomFuncs
 
 touch $HOME/.local/.started
 
