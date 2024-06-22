@@ -9,7 +9,8 @@ REQUIRED_PACMAN_PACKAGES="bob curl eza fd fzf gcc gdb git i3 lua luarocks maim m
 printf "Installing ${YELLOW}pacman$NC packages...\n"
 # FIX: substitutions on parts of the names
 mkdir -p $HOME/.local/share/{bob}
-generalPackageBootstrap "sudo pacman -Syy" "$REQUIRED_PACMAN_PACKAGES" "nvim=neovim" #rg=ripgrep" 
+# generalPackageBootstrap "sudo pacman -Syy" "$REQUIRED_PACMAN_PACKAGES" "nvim=neovim" #rg=ripgrep" 
+sudo pacman -Syy "$REQUIRED_PACMAN_PACKAGES"
 
 unset REQUIRED_PACMAN_PACKAGES
 
