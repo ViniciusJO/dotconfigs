@@ -29,5 +29,6 @@ require('lazy').setup({
   require('plugins.fidget'),
   require('plugins.hex'),
   require('plugins.kanban'),
+  require('plugins.hover'),
 })
 -- fidget

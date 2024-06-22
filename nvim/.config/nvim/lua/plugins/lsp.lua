@@ -7,6 +7,7 @@ return {
     'folke/neoconf.nvim',
     'folke/neodev.nvim',                            -- Neovim completions and lsp
     { 'VonHeikemen/lsp-zero.nvim', branch = 'v3.x' }, -- Startpoint LSP
+    { "stevanmilic/nvim-lspimport" },
   },
   config = function(opts)
     require('neoconf').setup()
@@ -50,7 +51,7 @@ return {
           I = { buf.implementation, 'Goto Implementation' },
           r = { require('telescope.builtin').lsp_references, 'Goto References' }
         },
-        K = { vim.lsp.buf.hover, 'Hover Documentation' },
+        -- K = { vim.lsp.buf.hover, 'Hover Documentation' },
         ['<C-k>'] = { vim.lsp.buf.signature_help, 'Signature Documentation' },
       });
 
@@ -94,6 +95,7 @@ return {
     }
 
     require('lspconfig.ui.windows').default_options.border = 'single'
+    vim.keymap.set("n", "<leader>li", require("lspimport").import, { noremap = true, desc = "Auto Import on file" })
     -- require('lspconfig').setup()
   end
 }
