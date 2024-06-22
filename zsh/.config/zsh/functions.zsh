@@ -1,11 +1,11 @@
 
-function editDir() { cd $1 && $EDITOR . && cd - > /dev/null }
+function editDir { cd $1 && $EDITOR . && cd - > /dev/null }
 
-export function existCommand() {
+function existCommand { 
 	command -v "$1" > /dev/null
 }
 
-export function botstrap_plugin() {
+function botstrap_plugin {
 	if [ -z $1 ] || [ -z $2 ]; then
 		printf "usage:\n\t${BLUE}botstrap_plugin${NC} [name] [repo-url]\n"	
 	else
@@ -16,7 +16,7 @@ export function botstrap_plugin() {
 	fi
 }
 
-export function botstrap_omzsh_plugin() {
+export function botstrap_omzsh_plugin {
 	if [ -z $1 ]; then
 		printf "usage: \n\t${BLUE}botstrap_plugin${NC} \"[name1] [name2] ...\" <dir>\n\t${BLUE}botstrap_plugin${NC} \"[name1],[name2],...\" <dir>\n"
 	else
@@ -38,11 +38,11 @@ export function botstrap_omzsh_plugin() {
 	if [ -d /tmp/omzh ]; then rm -rf /tmp/omzh; fi
 }
 
-function packageAdd() {
+function packageAdd {
   ([ -z $2 ] && existCommand $1 || eval "$2 $1" > /dev/null) || PACKAGES="$PACKAGES $1"
 }
 
-function bootstrapSubstitution() {
+function bootstrapSubstitution {
 	APPS=$1
 	echo $2 | tr " " "\n" | while read -r SUBST; do
 		APPS=$(echo $APPS | sed -e "s/$(echo $SUBST | cut -d '=' -f1)/$(echo $SUBST | cut -d '=' -f2 | tr ';' ' ')/g")
@@ -56,7 +56,7 @@ function bootstrapSubstitution() {
 #	$2 = SUBSTITUTIONS
 #	$3 = DOWNLOAD COMMAND
 ##
-function generalPackageBootstrap() {
+function generalPackageBootstrap {
 	PACKAGES=""
 	echo $2 | tr " " "\n" | while read -r PACKET; do
 		packageAdd "$PACKET" $4
@@ -65,7 +65,7 @@ function generalPackageBootstrap() {
 	unset PACKAGES
 }
 
-function unsetCustomFuncs() {
+function unsetCustomFuncs {
 	unset -f packageAdd
 	unset -f bootstrapSubstitution
 	unset -f generalPackageBootstrap
