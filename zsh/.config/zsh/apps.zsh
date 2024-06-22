@@ -1,12 +1,16 @@
 #!/usr/bin/sh
 
 REQUIRED_NPM_PACKAGES="neovim pnpm ts-node spottydl typescript yarn" 
-REQUIRED_PACMAN_PACKAGES="bob curl eza fd fzf gcc gdb git lua luarocks maim make nano rg thefuck vim wget zoxide"
+REQUIRED_PACMAN_PACKAGES="bob curl eza fd fzf gcc gdb git i3 lua luarocks maim make nano rg thefuck vim wezterm wget xorg zoxide"
 
 # From pacman
 generalPackageBootstrap "sudo pacman -Syyu" "$REQUIRED_PACMAN_PACKAGES" "nvim=neovim rg=ripgrep" 
+
+# Install node
+existCommand "bob" && bob install latest
+
 # From npm
-generalPackageBootstrap "npm i -g" "$REQUIRED_NPM_PACKAGES" "typescript=typescript;@types\/node" "npm list -g | grep"
+existCommand "npm" && generalPackageBootstrap "npm i -g" "$REQUIRED_NPM_PACKAGES" "typescript=typescript;@types\/node" "npm list -g | grep" || printf "${RED}Command 'npm' not found$NC\n"
 
 unset REQUIRED_NPM_PACKAGES
 unset REQUIRED_PACMAN_PACKAGES
