@@ -10,7 +10,7 @@ printf "Installing ${YELLOW}pacman$NC packages...\n"
 generalPackageBootstrap "sudo pacman -Syyu" "$REQUIRED_PACMAN_PACKAGES" "nvim=neovim rg=ripgrep" 
 
 # Install node
-existCommand "bob" && bob install latest
+existCommand "nvm" && nvm install $NODE_VERSION
 
 # From npm
 existCommand "npm" && printf "Installing ${YELLOW}pacman$NC packages...\n" && generalPackageBootstrap "npm i -g" "$REQUIRED_NPM_PACKAGES" "typescript=typescript;@types\/node" "npm list -g | grep" || printf "${RED}Command 'npm' not found$NC\n"

@@ -5,6 +5,8 @@ export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/share/bob/nvim-bin:$PATH
 export FPATH=$BASE_ZSH_SHARE/completions:$FPATH
 export MANPATH="/usr/local/man:$MANPATH"
 
+export NODE_VERSION="22.2"
+
 # Tools
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
