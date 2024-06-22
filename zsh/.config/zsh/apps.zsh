@@ -3,7 +3,7 @@
 source $HOME/.config/zsh/functions.zsh
 
 REQUIRED_NPM_PACKAGES="neovim pnpm ts-node spottydl typescript yarn" 
-REQUIRED_PACMAN_PACKAGES="bob curl eza fd fzf gcc gdb git i3 lua luarocks maim make nano ripgrep thefuck tmux vim wezterm wget xorg zoxide"
+REQUIRED_PACMAN_PACKAGES="bob curl eza fd fzf gcc gdb git i3 lua luarocks maim make nano thefuck tmux vim wezterm wget xorg zoxide" #ripgrep 
 
 # From pacman
 printf "Installing ${YELLOW}pacman$NC packages...\n"
