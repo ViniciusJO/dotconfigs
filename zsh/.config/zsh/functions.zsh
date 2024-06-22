@@ -39,7 +39,7 @@ function botstrap_omzsh_plugin {
 }
 
 function packageAdd {
-  ([ -z "$2" ] && existCommand "$1" || eval "$2 $1" > /dev/null) || PACKAGES="$PACKAGES $1"
+  (([ -z "$2" ] && existCommand "$1") || ([ -n "$2" ] eval "$2 $1") > /dev/null) || PACKAGES="$PACKAGES $1"
 }
 
 function bootstrapSubstitution {
