@@ -16,7 +16,7 @@ function botstrap_plugin {
 	fi
 }
 
-export function botstrap_omzsh_plugin {
+function botstrap_omzsh_plugin {
 	if [ -z $1 ]; then
 		printf "usage: \n\t${BLUE}botstrap_plugin${NC} \"[name1] [name2] ...\" <dir>\n\t${BLUE}botstrap_plugin${NC} \"[name1],[name2],...\" <dir>\n"
 	else
