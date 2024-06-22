@@ -21,7 +21,7 @@ function botstrap_omzsh_plugin {
     printf "usage: \n\t${BLUE}botstrap_plugin${NC} \"[name1] [name2] ...\" <dir>\n\t${BLUE}botstrap_plugin${NC} \"[name1],[name2],...\" <dir>\n"
   else
 
-    if [ -n "$2" ]; then OMZ_PLUGIN_INSTALL_DIR=$2
+    if [ ! -z "$2" ]; then OMZ_PLUGIN_INSTALL_DIR=$2
     else OMZ_PLUGIN_INSTALL_DIR=$ZSH_PLUGINS; fi
 
       # echo $1 | tr " " "\n"
@@ -39,7 +39,7 @@ function botstrap_omzsh_plugin {
 }
 
 function packageAdd {
-  (([ -z "$2" ] && existCommand "$1") || ([ -n "$2" ] && eval "$2 $1" > /dev/null)) || PACKAGES="$PACKAGES $1"
+  (([ -z "$2" ] && existCommand "$1") || ([ ! -z "$2" ] && eval "$2 $1" > /dev/null)) || PACKAGES="$PACKAGES $1"
 }
 
 function bootstrapSubstitution {
@@ -55,13 +55,15 @@ function bootstrapSubstitution {
 #	$1 = PACKAGES
 #	$2 = SUBSTITUTIONS
 #	$3 = DOWNLOAD COMMAND
+#	$4 = METHOD TO FIND EXISTANCE
 ##
 function generalPackageBootstrap {
 	PACKAGES=""
 	echo "$2" | tr " " "\n" | while read -r PACKET; do
 		packageAdd "$PACKET" "$4"
 	done
-	[ -n "$PACKAGES" ] && print "Installing apps:$PACKAGES" && eval "$1$(bootstrapSubstitution "$PACKAGES" "$3")";
+  # FIX: broke when substitution is empty
+	[ ! -z "$PACKAGES" ] && print "Installing apps:$PACKAGES" && eval "$1$(bootstrapSubstitution "$PACKAGES" "$3")";
 	unset PACKAGES
 }
 
