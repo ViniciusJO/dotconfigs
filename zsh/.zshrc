@@ -26,8 +26,8 @@ export EDITOR=$(
 )
 
 # Evals
-existCommand "starship" && eval "$(starship init zsh)"
-existCommand "zsh"			&& eval "$(zoxide init zsh)"
+existCommand "starship" || (curl -sS https://starship.rs/install.sh | sh) && eval "$(starship init zsh)"
+existCommand "zsh" && existCommand "z" && eval "$(zoxide init zsh)"
 existCommand "fzf"			&& eval "$(fzf --zsh)"
 existCommand "fuck"			&& eval "$(thefuck --alias)"
 
