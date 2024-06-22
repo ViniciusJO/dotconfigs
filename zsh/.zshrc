@@ -7,6 +7,8 @@ export MANPATH="/usr/local/man:$MANPATH"
 
 export NODE_VERSION="22.2"
 
+mkdir -p $HOME/.local/{logs,share/{bob}}
+
 # Tools
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
@@ -15,7 +17,7 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 source "$BASE_ZSH_CONFIGS/aliases.zsh"
 source "$BASE_ZSH_CONFIGS/colors.zsh"
 source "$BASE_ZSH_CONFIGS/functions.zsh"
-[ ! -f $HOME/.local/.started ] && mkdir -p $HOME/.local/logs && sh "$BASE_ZSH_CONFIGS/apps.zsh" | tee $HOME/.local/logs/app_bootstrap.log
+[ ! -f $HOME/.local/.started ] && sh "$BASE_ZSH_CONFIGS/apps.zsh" | tee $HOME/.local/logs/app_bootstrap.log
 
 # General configs
 # Preferred editor for local and remote sessions
