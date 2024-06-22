@@ -13,7 +13,7 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 source "$BASE_ZSH_CONFIGS/aliases.zsh"
 source "$BASE_ZSH_CONFIGS/colors.zsh"
 source "$BASE_ZSH_CONFIGS/functions.zsh"
-[ ! -f $HOME/.local/.started ] && mkdir -p $HOME/.local/logs && sh "$BASE_ZSH_CONFIGS/apps.zsh" >> $HOME/.local/logs/app_bootstrap.log 2>> $HOME/.local/logs/app_bootstrap_error.log
+[ ! -f $HOME/.local/.started ] && mkdir -p $HOME/.local/logs && sh "$BASE_ZSH_CONFIGS/apps.zsh" | tee $HOME/.local/logs/app_bootstrap.log
 
 # General configs
 # Preferred editor for local and remote sessions
