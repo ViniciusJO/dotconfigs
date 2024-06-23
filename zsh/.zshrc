@@ -1,7 +1,7 @@
 export BASE_ZSH_CONFIGS=$HOME/.config/zsh
 export BASE_ZSH_SHARE=$HOME/.local/share/zsh
 
-export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/share/bob/nvim-bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:$HOME/local/bin:$HOME/.local/share/bob/nvim-bin:$PATH
 export FPATH=$BASE_ZSH_SHARE/completions:$FPATH
 export MANPATH="/usr/local/man:$MANPATH"
 
@@ -16,8 +16,7 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 
 source "$BASE_ZSH_CONFIGS/aliases.zsh"
 source "$BASE_ZSH_CONFIGS/colors.zsh"
-source "$BASE_ZSH_CONFIGS/functions.zsh"
-[ ! -f $HOME/.local/.started ] && sh "$BASE_ZSH_CONFIGS/apps.zsh" | tee $HOME/.local/logs/app_bootstrap.log
+source "$BASE_ZSH_CONFIGS/functions.sh"
 
 # General configs
 # Preferred editor for local and remote sessions
@@ -29,7 +28,7 @@ export EDITOR=$(
 
 # Evals
 existCommand "starship" || (curl -sS https://starship.rs/install.sh | sh) && eval "$(starship init zsh)"
-existCommand "zsh" && existCommand "z" && eval "$(zoxide init zsh)"
+existCommand "zoxide"   && eval "$(zoxide init zsh)"
 existCommand "fzf"			&& eval "$(fzf --zsh)"
 existCommand "fuck"			&& eval "$(thefuck --alias)"
 

@@ -3,7 +3,9 @@ alias zshconfig="editDir $HOME/dotconfigs/zsh"
 alias nvimconfig="editDir $HOME/.config/nvim"
 alias dotconfig="editDir $HOME/dotconfigs"
 alias reload="source $HOME/.zshrc"
-# alias updateCoreApps="$BASE_ZSH_CONFIGS/apps.zsh"
+
+alias xcopy="xclip -selection clipboard"
+alias xpaste="xclip -selection clipboard -o"
 
 alias ls="exa --icons"
 alias lt="ls --tree"
