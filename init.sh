@@ -29,8 +29,7 @@ sudo systemctl enable ly
 
 zsh -ic "
 	existCommand \"nvm\" && nvm install $NODE_VERSION
-	existCommand \"npm\" && npm i -g neovim nodemon pnpm spottydl ts-node typescript yarn || printf \"${RED}Command npm not found...\"
 	existCommand \"bob\" && bob install latest && bob use latest || printf \"${RED}Command bob not found...\"
+	existCommand \"npm\" && npm i -g neovim nodemon pnpm spottydl ts-node typescript yarn || printf \"${RED}Command npm not found...\"
+  reboot
 "
-
-unset REPO
