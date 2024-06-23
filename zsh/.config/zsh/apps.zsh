@@ -10,7 +10,7 @@ printf "Installing ${YELLOW}pacman$NC packages...\n"
 # FIX: substitutions on parts of the names
 mkdir -p $HOME/.local/share/{bob}
 # generalPackageBootstrap "sudo pacman -Syy" "$REQUIRED_PACMAN_PACKAGES" "nvim=neovim" #rg=ripgrep" 
-sudo pacman -Syy "$REQUIRED_PACMAN_PACKAGES"
+sudo pacman -Syy $REQUIRED_PACMAN_PACKAGES
 
 unset REQUIRED_PACMAN_PACKAGES
 
