@@ -71,6 +71,11 @@ function setCustomFuncs {
   source $HOME/.config/zsh/functions.sh
 }
 
+function copySSHKey {
+  cat "$HOME/.ssh/id_ed25519.pub" | tr '\n' ' ' | sed -r "s/ *$//" | xcopy
+  print "\nPublic ${ORANGE}SSH Key$NC copied to the clipboard."
+}
+
 function unsetCustomFuncs {
 	unset -f packageAdd;
 	unset -f bootstrapSubstitution;

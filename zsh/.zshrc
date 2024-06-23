@@ -7,15 +7,13 @@ export MANPATH="/usr/local/man:$MANPATH"
 
 export NODE_VERSION="22.2"
 
-mkdir -p $HOME/.local/{logs,share/{bob}}
-
 # Tools
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-source "$BASE_ZSH_CONFIGS/aliases.zsh"
-source "$BASE_ZSH_CONFIGS/colors.zsh"
+source "$BASE_ZSH_CONFIGS/aliases.sh"
+source "$BASE_ZSH_CONFIGS/colors.sh"
 source "$BASE_ZSH_CONFIGS/functions.sh"
 
 # General configs
