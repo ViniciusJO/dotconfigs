@@ -1,5 +1,5 @@
 
-function editDir { (cd "$1" || exit) && $EDITOR . && (cd - > /dev/null || exit); }
+function editDir { cd "$1" && $EDITOR . && cd - > /dev/null; }
 
 function existCommand { 
 	command -v "$1" > /dev/null
