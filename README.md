@@ -1,4 +1,7 @@
 # TODO:
+- init:
+    - [ ] speedup paru install (bootstrap yay then download paru-bin)
+    - [ ] speedup aur installations
 
 - general:
 	- [ ] starting with example.lua
