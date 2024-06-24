@@ -26,6 +26,7 @@ existCommand "nvm"		|| (PROFILE=/dev/null bash -c 'curl -o- https://raw.githubus
 # Config pacman & paru
 sudo sed -i.bak "s/#BottomUp/BottomUp/" /etc/paru.conf
 sudo sed -i.bak "s/#Color/Color/" /etc/pacman.conf
+sudo sed -i.bak "s/#ParallelDownloads/ParallelDownloads/" /etc/pacman.conf
 sudo sed -i.bak -z "s/#\[multilib\]\n*\r*#Include/[multilib]\nInclude/" /etc/pacman.conf
 
 # Create dirs
