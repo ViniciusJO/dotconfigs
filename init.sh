@@ -5,6 +5,18 @@ REPO="git@github.com:ViniciusJO/dotconfigs.git"
 git remote remove origin
 git remote add origin "$REPO"
 
+# Create dirs
+# xdg
+mkdir -p $HOME/{Desktop,Documents,Downloads,Music,Pictures,Public,Templates,Videos}
+
+mkdir -p $HOME/.local/{logs,share/bob}
+
+# User permisions and groups
+sudo usermod -aG audio,docker,tty,uucp $USER
+
+# Config limits
+sudo sed -i.bak "s/\n\n# End of file/\r@audio\t\t hard\t rtpio\t\t 94\r@audio\t\t hard\t memlock\t unlimited\r\r# End of file/" /etc/security/limits.conf
+
 sudo pacman -S --noconfirm --needed --quiet git zsh stow
 
 stow bob/ fonts/ i3/ nchat/ ncspot/ nvim/ octave/ pip/ rofi/ scripts/ sound_effects/ tmux/ wallpapers/ wezterm/ zsh/
@@ -28,9 +40,6 @@ sudo sed -i.bak "s/#BottomUp/BottomUp/" /etc/paru.conf
 sudo sed -i.bak "s/#Color/Color/" /etc/pacman.conf
 sudo sed -i.bak "s/#ParallelDownloads/ParallelDownloads/" /etc/pacman.conf
 sudo sed -i.bak -z "s/#\[multilib\]\n*\r*#Include/[multilib]\nInclude/" /etc/pacman.conf
-
-# Create dirs
-mkdir -p $HOME/.local/{logs,share/bob}
 
 zsh -ic "
   eval \"paru -Syy --noconfirm --needed --quiet $REQUIRED_PACMAN_PACKAGES\"
