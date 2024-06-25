@@ -14,8 +14,8 @@ echo "$HOME/dotconfigs/wallpapers/.local/share/wallpapers/3DAbstract/nku2ak42wzg
 
 (cat /etc/passwd | grep "$USER" | awk -F':' '{print $7}' | grep "zsh" > /dev/null) || chsh -s "/usr/bin/zsh" "$USER"
 
-REQUIRED_PACMAN_PACKAGES="ardour bat bob calf curl dolphin dragonfly-reverb eza fd feh firefox fzf gcc gdb guitarix i3 lazygit lolcat lua luarocks ly maim make mesa mesa-demos mesa-utils nano numlockx onlyoffice openssh pavucontrol pipewire pipewire-alsa pipewire-autostart pipewire-pulse pipewire-zeroconf qpwgraph ripgrep rofi screenfetch steam thefuck tmux vim wezterm wget wine xclip xorg zoxide"
-REQUIRED_AUR_PACKAGES="brave systemd-numlockontty opera sublime-text-4"
+REQUIRED_PACMAN_PACKAGES="ardour bat bob btop calf curl dolphin dragonfly-reverb eza fd feh firefox fzf gcc gdb guitarix gxplugins.lv2 htop i3 lazygit lolcat lua luarocks ly maim make mesa mesa-demos mesa-utils nano ncspot numlockx onlyoffice openssh pavucontrol pipewire pipewire-alsa pipewire-autostart pipewire-jack pipewire-pulse pipewire-zeroconf qpwgraph ripgrep rofi screenfetch steam thefuck tmux vim wezterm wget wine xclip xorg zoxide"
+REQUIRED_AUR_PACKAGES="brave systemd-numlockontty opera sublime-text-4"gxplugins.lv2
 
 function existCommand { command -v "$1" > /dev/null; }
 

@@ -46,3 +46,6 @@ vim.keymap.set('n', '<leader>h', '<cmd>set hlsearch!<CR>', { noremap = true, sil
 vim.keymap.set('n', 'Q', '@q', { desc = 'Plays macro at q' })
 vim.keymap.set('x', 'Q', ':norm @q<CR>', { desc = 'Plays macro at q on each lines selected' })
 
+-- Open term
+vim.keymap.set('n', '<leader>x', '<cmd>split | term<CR>', { noremap = true, silent = true, desc = 'Toggle split terminal' })
+vim.keymap.set('n', '<leader>X', '<cmd>vsplit | term<CR>', { noremap = true, silent = true, desc = 'Toggle split terminal [vertcal]' })
