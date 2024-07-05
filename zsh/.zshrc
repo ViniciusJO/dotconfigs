@@ -88,6 +88,8 @@ setopt hist_find_no_dups
 
 unsetCustomFuncs
 
+weather
+
 
 
 

@@ -7,6 +7,9 @@ alias reload="source $HOME/.zshrc"
 alias xcopy="xclip -selection clipboard"
 alias xpaste="xclip -selection clipboard -o"
 
+alias weather="curl \"wttr.in/Ouro+Branco+MG?0\""
+alias weather_full="curl wttr.in/Ouro+Branco+MG"
+
 alias ls="exa --icons"
 alias lt="ls --tree"
 alias ll="ls -l -g"

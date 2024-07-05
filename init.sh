@@ -7,12 +7,12 @@ git remote add origin "$REPO"
 
 # Create dirs
 # xdg
-mkdir -p $HOME/{Desktop,Documents,Downloads,Music,Pictures,Public,Templates,Videos}
+mkdir -p $HOME/{Desktop,Documents,Downloads,Music,Pictures,Public,Templates,Videos,.local,.config}
 
 mkdir -p $HOME/.local/{logs,share/bob}
 
 # User permisions and groups
-sudo usermod -aG audio,docker,tty,uucp $USER
+sudo usermod -aG audio,disk,docker,kvm,root,tty,uucp $USER
 
 # Config limits
 sudo sed -i.bak "s/\n\n# End of file/\r@audio\t\t hard\t rtpio\t\t 94\r@audio\t\t hard\t memlock\t unlimited\r\r# End of file/" /etc/security/limits.conf
@@ -26,8 +26,8 @@ echo "$HOME/dotconfigs/wallpapers/.local/share/wallpapers/3DAbstract/nku2ak42wzg
 
 (cat /etc/passwd | grep "$USER" | awk -F':' '{print $7}' | grep "zsh" > /dev/null) || chsh -s "/usr/bin/zsh" "$USER"
 
-REQUIRED_PACMAN_PACKAGES="ardour bat bob btop calf curl dolphin dragonfly-reverb eza fd feh firefox fzf gcc gdb guitarix gxplugins.lv2 htop i3 lazygit lolcat lua luarocks ly maim make mesa mesa-demos mesa-utils nano ncspot numlockx onlyoffice openssh pavucontrol pipewire pipewire-alsa pipewire-autostart pipewire-jack pipewire-pulse pipewire-zeroconf qpwgraph ripgrep rofi screenfetch steam thefuck tmux vim wezterm wget wine xclip xorg zoxide"
-REQUIRED_AUR_PACKAGES="brave systemd-numlockontty opera sublime-text-4"gxplugins.lv2
+REQUIRED_PACMAN_PACKAGES="ardour bat bob btop calf curl dolphin dragonfly-reverb eza fd feh firefox fzf gcc gdb guitarix gxplugins.lv2 htop i3 lazygit lolcat lua luarocks ly maim make mesa mesa-demos mesa-utils nano ncspot numlockx octave onlyoffice openssh picom pipewire pipewire-alsa pipewire-autostart pipewire-jack pipewire-pulse pipewire-zeroconf pavucontrol qpwgraph ripgrep rofi screenfetch steam thefuck tmux vim wezterm wget wine xclip xorg zoxide"
+REQUIRED_AUR_PACKAGES="brave systemd-numlockontty opera sublime-text-4 visual-studio-code-bin"gxplugins.lv2
 
 function existCommand { command -v "$1" > /dev/null; }
 
@@ -57,3 +57,15 @@ zsh -ic "
 	existCommand \"npm\" && npm i -g neovim nodemon pnpm spottydl ts-node typescript yarn || printf \"${RED}Command npm not found...\"
   [ -z $1 ] && reboot
 "
+
+# Setup platformio
+curl -fsSL https://raw.githubusercontent.com/platformio/platformio-core/develop/platformio/assets/system/99-platformio-udev.rules | sudo tee /etc/udev/rules.d/99-platformio-udev.rules
+
+# Confif git
+
+
+
+
+
+
+#opera-ffmpeg-codecs
