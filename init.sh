@@ -7,7 +7,7 @@ git remote add origin "$REPO"
 
 # Create dirs
 # xdg
-mkdir -p $HOME/{Desktop,Documents,Downloads,Music,Pictures,Public,Templates,Videos,.local,.config}
+mkdir -p $HOME/{Desktop,Documents,Downloads,Music,Pictures/Screenshots,Public,Templates,Videos,.local,.config}
 
 mkdir -p $HOME/.local/{logs,share/bob}
 
@@ -15,7 +15,10 @@ mkdir -p $HOME/.local/{logs,share/bob}
 sudo usermod -aG audio,disk,docker,kvm,root,tty,uucp $USER
 
 # Config limits
-sudo sed -i.bak "s/\n\n# End of file/\r@audio\t\t hard\t rtpio\t\t 94\r@audio\t\t hard\t memlock\t unlimited\r\r# End of file/" /etc/security/limits.conf
+sudo sed -i.bak "s/[\n\r]*# End of file/\n@audio\t\t hard\t rtpio\t\t 94\n@audio\t\t hard\t memlock\t unlimited\n$USER\t\t hard\t rtpio\t\t 94\n$USER\t\t hard\t memlock\t unlimited\n\n# End of file/" /etc/security/limits.conf
+# sudo sed -i.bak "s/[\n\r]*# End of file/\n@audio;hard;rtpio;94\n@audio;hard;memlock;unlimited\n$USER;hard;rtpio;94\n$USER;hard;memlock;unlimited\n\n# End of file/" /etc/security/limits.conf
+# sudo sed -i.bak "s/[\n\r]*# End of file/\n$(echo "@audio;hard;rtpio;94\n@audio;hard;memlock;unlimited\n$USER;hard;rtpio;94\n$USER;hard;memlock;unlimited" | column -s';' -t)\n\n# End of file/" /etc/security/limits.conf
+# sudo sed -i.bak "s/\n\n# End of file/\r@audio\t\t hard\t rtpio\t\t 94\r@audio\t\t hard\t memlock\t unlimited\r\r# End of file/" /etc/security/limits.conf
 
 sudo pacman -S --noconfirm --needed --quiet git zsh stow
 
@@ -26,8 +29,8 @@ echo "$HOME/dotconfigs/wallpapers/.local/share/wallpapers/3DAbstract/nku2ak42wzg
 
 (cat /etc/passwd | grep "$USER" | awk -F':' '{print $7}' | grep "zsh" > /dev/null) || chsh -s "/usr/bin/zsh" "$USER"
 
-REQUIRED_PACMAN_PACKAGES="ardour bat bob btop calf curl dolphin dragonfly-reverb eza fd feh firefox fzf gcc gdb guitarix gxplugins.lv2 htop i3 lazygit lolcat lua luarocks ly maim make mesa mesa-demos mesa-utils nano ncspot numlockx octave onlyoffice openssh picom pipewire pipewire-alsa pipewire-autostart pipewire-jack pipewire-pulse pipewire-zeroconf pavucontrol qpwgraph ripgrep rofi screenfetch steam thefuck tmux vim wezterm wget wine xclip xorg zoxide"
-REQUIRED_AUR_PACKAGES="brave systemd-numlockontty opera sublime-text-4 visual-studio-code-bin"gxplugins.lv2
+REQUIRED_PACMAN_PACKAGES="ark ardour bat bob btop calf curl dolphin dragonfly-reverb eza fd feh firefox fzf gcc gdb guitarix gxplugins.lv2 htop i3 lazygit lolcat lua luarocks ly maim make mesa mesa-demos mesa-utils nano ncspot numlockx octave onlyoffice openssh picom pipewire pipewire-alsa pipewire-autostart pipewire-jack pipewire-pulse pipewire-zeroconf pavucontrol qpwgraph ripgrep rofi screenfetch sox steam thefuck tldr tmux twolame vim wezterm wget wine xclip xorg zoxide"
+REQUIRED_AUR_PACKAGES="brave gxplugins.lv2 lv2-plugins-aur-meta opera opera-ffmpeg-codecs sublime-text-4 systemd-numlockontty visual-studio-code-bin"
 
 function existCommand { command -v "$1" > /dev/null; }
 
@@ -61,11 +64,8 @@ zsh -ic "
 # Setup platformio
 curl -fsSL https://raw.githubusercontent.com/platformio/platformio-core/develop/platformio/assets/system/99-platformio-udev.rules | sudo tee /etc/udev/rules.d/99-platformio-udev.rules
 
-# Confif git
+# Config git
 
 
 
-
-
-
-#opera-ffmpeg-codecs
+#libreoffice-extension-writer2latex
