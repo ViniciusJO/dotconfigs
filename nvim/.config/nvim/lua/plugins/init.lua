@@ -19,7 +19,7 @@ require('lazy').setup({
   require('plugins.telescope'),
   require('plugins.twoslash-queries'),
   require('plugins.dressing'),
-  require('plugins.lualine'),
+  -- require('plugins.lualine'),
   require('plugins.bufferline'),
   require('plugins.barbecue'),
   require('plugins.transparent'),

@@ -1,6 +1,14 @@
 
 function editDir { cd "$1" && $EDITOR . && cd - > /dev/null; }
 
+function gitconfig {
+  printf "\n${YELLOW}Git Credentials${NC}:\n\n=> Name: "
+  read -r NAME
+  printf "=> Email: "
+  read -r EMAIL
+  printf "[user]\n    name = %s\n    email = %s\n" "$NAME" "$EMAIL" > $HOME/.gitconfig 
+}
+
 function existCommand { 
 	command -v "$1" > /dev/null
 }
