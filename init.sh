@@ -1,18 +1,21 @@
-#!/usr/bin/sh
+#!/usr/bin/bash
 
 REPO="git@github.com:ViniciusJO/dotconfigs.git"
+
+# Git config
+gitconfig
 
 git remote remove origin
 git remote add origin "$REPO"
 
 # Create dirs
 # xdg
-mkdir -p $HOME/{Desktop,Documents,Downloads,Music,Pictures,Public,Templates,Videos}
+mkdir -p "$HOME"/{Desktop,Documents,Downloads,Music,Pictures,Public,Templates,Videos}
 
-mkdir -p $HOME/.local/{logs,share/bob}
+mkdir -p "$HOME"/.local/{logs,share/bob}
 
 # User permisions and groups
-sudo usermod -aG audio,docker,tty,uucp $USER
+sudo usermod -aG audio,docker,tty,uucp "$USER"
 
 # Config limits
 sudo sed -i.bak "s/\n\n# End of file/\r@audio\t\t hard\t rtpio\t\t 94\r@audio\t\t hard\t memlock\t unlimited\r\r# End of file/" /etc/security/limits.conf
@@ -22,17 +25,17 @@ sudo pacman -S --noconfirm --needed --quiet git zsh stow
 stow bob/ fonts/ i3/ nchat/ ncspot/ nvim/ octave/ pip/ rofi/ scripts/ sound_effects/ tmux/ wallpapers/ wezterm/ zsh/
 
 # Default wallpaper
-echo "$HOME/dotconfigs/wallpapers/.local/share/wallpapers/3DAbstract/nku2ak42wzg31.png" > $HOME/.background
+echo "$HOME/dotconfigs/wallpapers/.local/share/wallpapers/3DAbstract/nku2ak42wzg31.png" > "$HOME"/.background
 
 (cat /etc/passwd | grep "$USER" | awk -F':' '{print $7}' | grep "zsh" > /dev/null) || chsh -s "/usr/bin/zsh" "$USER"
 
 REQUIRED_PACMAN_PACKAGES="ardour bat bob btop calf curl dolphin dragonfly-reverb eza fd feh firefox fzf gcc gdb guitarix gxplugins.lv2 htop i3 lazygit lolcat lua luarocks ly maim make mesa mesa-demos mesa-utils nano ncspot numlockx onlyoffice openssh pavucontrol pipewire pipewire-alsa pipewire-autostart pipewire-jack pipewire-pulse pipewire-zeroconf qpwgraph ripgrep rofi screenfetch steam thefuck tmux vim wezterm wget wine xclip xorg zoxide"
 REQUIRED_AUR_PACKAGES="brave systemd-numlockontty opera sublime-text-4"gxplugins.lv2
 
-function existCommand { command -v "$1" > /dev/null; }
+existCommand() { command -v "$1" > /dev/null; }
 
-existCommand "paru"		|| (sudo pacman -S --needed base-devel && git clone https://aur.archlinux.org/paru.git $HOME/.local/builds/paru && cd $HOME/.local/builds/paru && makepkg -si && cd - > /dev/null)
-existCommand "paruz"	|| (git clone https://github.com/joehillen/paruz.git $HOME/.local/builds/paruz && cd $HOME/.local/builds/paruz && sudo make install && cd - > /dev/null)
+existCommand "paru"		|| (sudo pacman -S --needed base-devel && git clone https://aur.archlinux.org/paru.git "$HOME"/.local/builds/paru && cd "$HOME"/.local/builds/paru && makepkg -si && cd - > /dev/null)
+existCommand "paruz"	|| (git clone https://github.com/joehillen/paruz.git "$HOME"/.local/builds/paruz && cd "$HOME"/.local/builds/paruz && sudo make install && cd - > /dev/null)
 existCommand "nvm"		|| (PROFILE=/dev/null bash -c 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash')
 
 # Config pacman & paru
@@ -57,3 +60,4 @@ zsh -ic "
 	existCommand \"npm\" && npm i -g neovim nodemon pnpm spottydl ts-node typescript yarn || printf \"${RED}Command npm not found...\"
   [ -z $1 ] && reboot
 "
+

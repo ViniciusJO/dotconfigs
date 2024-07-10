@@ -22,3 +22,13 @@
 	- [ ] FIX
 - leap:
 	- [ ] keymaps
+
+
+# Packages
+    - archlinux-xdg-menu
+    - docker
+    - inotify-tools
+    - mupdf
+    - texlive-binextra
+    - tree-sitter
+    - tree-sitter-cli

@@ -1,10 +1,12 @@
 --require 'configs.lazy'
+-- require 'commands'
 require 'options'
 -- require 'plugins'
 require 'plugins'
 --require 'configs'
 require 'keymaps'
 require 'colorscheme'
+require 'tui'
 --require('my-plugin')
 
 --[[
