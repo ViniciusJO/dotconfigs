@@ -1,12 +1,14 @@
 --require 'configs.lazy'
 -- require 'commands'
 require 'options'
+require 'aucmd'
 -- require 'plugins'
 require 'plugins'
 --require 'configs'
 require 'keymaps'
 require 'colorscheme'
 require 'tui'
+require 'nvim-llama'.setup()
 --require('my-plugin')
 
 --[[
@@ -22,3 +24,4 @@ for match in vim.treesitter.query(bufnr, pattern):iter_matches(root, bufnr, 0, -
 	vim.fn.setpos(".", { bufnr, end_row + 1, end_col + 1, 0 })
 end
 --]]
+--

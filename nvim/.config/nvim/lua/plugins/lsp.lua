@@ -1,11 +1,11 @@
 return {
   'neovim/nvim-lspconfig',
   dependencies = {
-    { 'williamboman/mason.nvim', config = true },   -- Adapters package manager
-    'williamboman/mason-lspconfig.nvim',            -- LSP Mason integration
-    { 'j-hui/fidget.nvim',       tag = 'legacy' },  -- Shows tasks progress
+    { 'williamboman/mason.nvim', config = true },     -- Adapters package manager
+    'williamboman/mason-lspconfig.nvim',              -- LSP Mason integration
+    { 'j-hui/fidget.nvim',       tag = 'legacy' },    -- Shows tasks progress
     'folke/neoconf.nvim',
-    'folke/neodev.nvim',                            -- Neovim completions and lsp
+    'folke/neodev.nvim',                              -- Neovim completions and lsp
     { 'VonHeikemen/lsp-zero.nvim', branch = 'v3.x' }, -- Startpoint LSP
     { "stevanmilic/nvim-lspimport" },
   },
@@ -19,8 +19,8 @@ return {
       -- to learn the available actions
       lsp_zero.default_keymaps({ buffer = bufnr })
     end)
-    
-    local on_attach = function(_, bufnr)
+
+    local on_attach = function(client, bufnr)
       local buf = vim.lsp.buf
 
       require('which-key').register({
@@ -55,6 +55,9 @@ return {
         ['<C-k>'] = { vim.lsp.buf.signature_help, 'Signature Documentation' },
       });
 
+      if client.server_capabilities["documentSymbolProvider"] then
+        require("nvim-navic").attach(client, bufnr)
+      end
       -- Create a command `:Format` local to the LSP buffer
       vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
         vim.lsp.buf.format()

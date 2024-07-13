@@ -1,6 +1,9 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+-- Source configs
+vim.keymap.set("n", "<leader>r", "<cmd>source ~/.config/nvim/init.lua<CR>", { desc = 'Source configs' })
+
 -- Keymaps for save and quit
 vim.keymap.set('n', '<C-s>', '<cmd>w<cr>', { desc = 'Save buffer to file', silent = true })
 vim.keymap.set('n', '<C-q>', '<cmd>q<cr>', { desc = 'Quit window', silent = true })
@@ -12,6 +15,9 @@ vim.keymap.set('n', '<leader><F11>', '<cmd>source $HOME/.config/nvim/init.lua<cr
 -- Copy to systems clipboard
 vim.keymap.set('n', 'Y', '"+y', { desc = 'Yank to systems clipboard' });
 vim.keymap.set('v', '<C-c>', '"+y', { desc = 'Yank to systems clipboard' });
+
+-- Go to help
+vim.keymap.set('n', 'gh', function() vim.cmd("h " .. vim.fn.expand("<cword>")) end, { desc = "Goto help", noremap = true, silent = true })
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
@@ -46,6 +52,26 @@ vim.keymap.set('n', '<leader>h', '<cmd>set hlsearch!<CR>', { noremap = true, sil
 vim.keymap.set('n', 'Q', '@q', { desc = 'Plays macro at q' })
 vim.keymap.set('x', 'Q', ':norm @q<CR>', { desc = 'Plays macro at q on each lines selected' })
 
+-- Netrw
+vim.keymap.set("n", "<leader>e", ":25Lex<CR>", { desc = 'Toggles netrw tree view' })
+
 -- Open term
 vim.keymap.set('n', '<leader>x', '<cmd>split | term<CR>', { noremap = true, silent = true, desc = 'Toggle split terminal' })
 vim.keymap.set('n', '<leader>X', '<cmd>vsplit | term<CR>', { noremap = true, silent = true, desc = 'Toggle split terminal [vertcal]' })
+
+-- Visual Maps
+vim.keymap.set("v", "<leader>r", "\"hy:%s/<C-r>h//g<left><left>", { desc = 'Replace all instances of highlighted words' })
+vim.keymap.set("v", "<C-s>", "<cmd>sort<CR>", { desc = 'Sort highlighted text' })
+vim.keymap.set("v", "J", "<cmd>m '>+1<CR>gv=gv", { desc = 'Move current line down' })
+-- FIX: Multi line select not moving (need to know how many lines are selected to make the move: m '>[+-]{number_of_lines+1})
+vim.keymap.set("v", "K", "<cmd>m '>-2<CR>gv=gv", { desc = 'Move current line up' })
+
+-- Autometic close match
+-- vim.keymap.set("i", "'", "''<left>")
+-- vim.keymap.set("i", "\"", "\"\"<left>")
+-- vim.keymap.set("i", "(", "()<left>")
+-- vim.keymap.set("i", "[", "[]<left>")
+-- vim.keymap.set("i", "{", "{}<left>")
+-- vim.keymap.set("i", "{;", "{};<left><left>")
+-- vim.keymap.set("i", "/*", "/**/<left><left>")
+

@@ -21,7 +21,7 @@ require('lazy').setup({
   require('plugins.dressing'),
   -- require('plugins.lualine'),
   require('plugins.bufferline'),
-  require('plugins.barbecue'),
+  -- require('plugins.barbecue'),
   require('plugins.transparent'),
   require('plugins.todo-comments'),
   require('plugins.theme'),
@@ -30,5 +30,9 @@ require('lazy').setup({
   require('plugins.hex'),
   require('plugins.kanban'),
   require('plugins.hover'),
+  require('plugins.indent-blankline'),
+  -- require('plugins.barbecue'),
+  require('plugins.navic'),
+  -- require('plugins.llama'),
 })
 -- fidget

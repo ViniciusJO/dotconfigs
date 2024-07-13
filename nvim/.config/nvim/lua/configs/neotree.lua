@@ -128,7 +128,9 @@ require('neo-tree').setup({
             icon = config.folder_closed or "+"
           end
         elseif node.type == "file" then
-          local success, web_devicons = pcall(require, "nvim-web-devicons")
+          -- local success, web_devicons = pcall(require, "nvim-web-devicons")
+          local success, web_devicons = pcall(require, "mini.icons")
+
           if success then
             local devicon, hl = web_devicons.get_icon(node.name, node.ext)
             icon = devicon or icon
@@ -193,7 +195,7 @@ require('neo-tree').setup({
       leave_dirs_open = false,              -- `false` closes auto expanded dirs, such as with `:Neotree reveal`
     },
     group_empty_dirs = false,               -- when true, empty folders will be grouped together
-    hijack_netrw_behavior = "open_default", -- netrw disabled, opening a directory opens neo-tree
+    hijack_netrw_behavior = "disabled", -- netrw disabled, opening a directory opens neo-tree
     -- in whatever position is specified in window.position
     -- "open_current",  -- netrw disabled, opening a directory opens within the
     -- window like netrw would, regardless of window.position

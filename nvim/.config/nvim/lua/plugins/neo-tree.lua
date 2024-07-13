@@ -10,7 +10,7 @@ return {
     'miversen33/netman.nvim'
   },
   opts = {
-    hijack_netrw_behavior = "open_current",
+    hijack_netrw_behavior = "disabled",
     close_if_last_window = true, -- Close Neo-tree if it is the last window left in the tab
     popup_border_style = "rounded",
     enable_git_status = true,
@@ -226,7 +226,7 @@ return {
     },
     window = {
       position = "left",
-      width = 40,
+      width = 30,
       mapping_options = {
         noremap = true,
         nowait = true,
@@ -329,7 +329,9 @@ return {
       }
     }
   },
-  init = function()
+  config = function(opts)
+    -- require('neo-tree').setup(opts)
+
     require('which-key').register({
       ['<leader>e'] = { '<cmd>Neotree toggle<CR>', 'Toggle Neotree' }
     })

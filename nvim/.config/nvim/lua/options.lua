@@ -1,3 +1,9 @@
+-- Disable netrw by removing its plugin and autoload directories from runtimepath
+vim.opt.runtimepath:remove(vim.fn.stdpath('config') .. '/autoload/netrw.vim')
+vim.opt.runtimepath:remove(vim.fn.stdpath('config') .. '/plugin/netrwPlugin.vim')
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 -- Set highlight on search
 vim.o.hlsearch = true
 
@@ -27,6 +33,10 @@ vim.o.shiftwidth = 2
 vim.o.smarttab = true
 vim.o.expandtab = true
 
+-- Splits
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+
 -- Keep signcolumn on by default
 vim.wo.signcolumn = 'yes'
 
@@ -39,6 +49,16 @@ vim.o.completeopt = 'menuone,noselect,preview'
 
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
+
+-- Netrw
+vim.g.netrw_banner = 0
+vim.g.netrw_browse_split = 4
+vim.g.netrw_altv = 1
+vim.g.netrw_liststyle = 3
+--vim.cmd("let g:netrw_list_hide=netrw_gitignore#Hide()")
+
+-- Clipboard
+-- vim.o.clipboard = 'unnamedplus'
 
 
 -- [[ Highlight on yank ]]
@@ -58,7 +78,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 -- Using UFU
 --
 vim.o.foldcolumn = '1' -- '0' is not bad
-vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+vim.o.foldlevel = 99   -- Using ufo provider need a large value, feel free to decrease the value
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
 
