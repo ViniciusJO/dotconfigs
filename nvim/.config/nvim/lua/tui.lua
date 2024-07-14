@@ -99,8 +99,12 @@ end
 
 -- Function to get the current Git branch
 local function git_branch()
-  local branch = execute("git rev-parse --abbrev-ref HEAD")
-  return branch:gsub("^%s*(.-)%s*$", " %1") -- Trim whitespace
+  local branch = execute(string.format("git -C %s rev-parse --abbrev-ref HEAD 2> /dev/null || echo ''", vim.fn.expand("%:h")))
+  return branch:gsub("^%s*(.-)%s*$", "%1")=="" and "" or branch:gsub("^%s*(.-)%s*$", "<< %1>>") -- Trim whitespace
+end
+
+function Testee()
+  vim.print(git_branch())
 end
 
 local function lsp()
@@ -163,9 +167,8 @@ Statusline.active = function()
     filename(),
     -- vim.api.nvim_get_mode().mode,
     -- "%#Directory# ",
-    "%=%#WarningMsg#<",
+    "%=%#WarningMsg#",
     git_branch(),
-    '>',
     "%=%#Normal#",
     lsp(),
     " ",
