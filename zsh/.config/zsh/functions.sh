@@ -93,3 +93,4 @@ function unsetCustomFuncs {
   unset -f unsetCustomFuncs;
 }
 
+source "$HOME/.config/zsh/quote.sh"
