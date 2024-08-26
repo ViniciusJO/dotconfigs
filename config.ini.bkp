@@ -23,7 +23,10 @@ modules-left = i3 sps keyhint
 modules-center = title
 modules-right = caps sps num sps pulseaudio sps date sps tray
 
+module-margin = 0
+
 wm-name = i3
+; wm-restack = i3
 
 separator = " "
 spacing = 1
@@ -31,14 +34,16 @@ dim-value = 1.0
 
 enable-ipc = true
 bottom = true
+fixed-center = true
+
 width = 100%
 height = 29
-module-margin = 0
+
 padding-right = 1 
 padding-left = 1
+
 line-size = 0
 line-color = #fff
-fixed-center = true
 
 background = ${colors.bg}
 foreground = ${colors.fg}
@@ -612,28 +617,6 @@ label-discharging-foreground = ${colors.blue}
 label-full = %{T1}%{T-} %{T2}Full!%{T-}
 label-full-foreground = ${colors.blue}
 
-[module/network]
-type = internal/network
-interface = enp0s3
-interval = 3
-
-label-connected = "  %ip%"
-label-disconnected = "  Disconnected"
-label-ethernet = "  %ip%"
-label-error = "  Error"
-label-font = 3
-
-format-connected-prefix = "  "
-format-connected-suffix = " "
-format-disconnected-prefix = "  "
-format-disconnected-suffix = " "
-
-; Optional settings
-; format-connected-foreground = #ffffff
-; format-disconnected-foreground = #ff5555
-; format-ethernet-foreground = #ffffff
-; format-error-foreground = #ff5555
-
 [settings]
 pseudo-transparency = true
 
@@ -649,11 +632,11 @@ interval = 0.5s
 exec = ~/.config/polybar/scripts/cns.sh -n
 format-foreground = ${colors.blue}
 
-; [module/scroll]
-; type = custom/script
-; interval = 0.5s
-; exec = ~/.config/polybar/scripts/cns.sh -s
-; format-foreground = ${colors.blue}
+[module/scroll]
+type = custom/script
+interval = 0.5s
+exec = ~/.config/polybar/scripts/cns.sh -s
+format-foreground = ${colors.blue}
 
 [module/powermenu]
 type = custom/text

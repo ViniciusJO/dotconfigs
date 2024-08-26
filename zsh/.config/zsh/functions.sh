@@ -84,6 +84,30 @@ function copySSHKey {
   print "\nPublic ${ORANGE}SSH Key$NC copied to the clipboard."
 }
 
+function watch1 {
+  echo "'$@'"
+  # while true; do
+  #   eval "$@" &
+  #   PID=$!
+  #   inotifywait $1
+  #   kill $PID
+  # done
+  # sigint_handler()
+  # {
+  #   kill $PID
+  #   exit
+  # }
+  #
+  # trap sigint_handler SIGINT
+  #
+  # while true; do
+  #   eval "$@" &
+  #   PID=$!
+  #   inotifywait -e modify -e move -e create -e delete -e attrib -r `pwd`
+  #   kill $PID
+  # done
+}
+
 function unsetCustomFuncs {
 	unset -f packageAdd;
 	unset -f bootstrapSubstitution;

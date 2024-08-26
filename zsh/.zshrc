@@ -90,7 +90,7 @@ unsetCustomFuncs
 
 ulimit -l unlimited
 
-weather
+# weather
 
 
 

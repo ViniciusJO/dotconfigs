@@ -1,0 +1,11 @@
+[Unit]
+Description=Script configure enviroment before Desktop Manager
+Before=ly.service
+
+[Service]
+Type=oneshot
+ExecStart=/opt/scripts/screenset.sh
+
+[Install]
+WantedBy=multi-user.target
+
