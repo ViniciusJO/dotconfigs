@@ -39,7 +39,7 @@ exec --no-startup-id source $HOME/.scripts/screen/screenset.sh
 
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
-exec --no-startup-id dex --autostart --environment i3
+#exec --no-startup-id dex --autostart --environment i3
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
@@ -50,7 +50,7 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
-exec --no-startup-id nm-applet
+# exec --no-startup-id nm-applet
 
 exec --no-startup-id $HOME/.scripts/wallpaper/change_wallpaper_feh.sh "$HOME/.background"
 #exec --no-startup-id feh --no-xinerama --bg-fill "$(cat $HOME/.background)"

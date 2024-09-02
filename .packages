@@ -11,6 +11,7 @@ ccache
 cmake
 cowsay
 curl
+dex
 dfu-util
 discord
 docker
@@ -58,6 +59,8 @@ nano
 ncspot
 netcat
 net-tools
+networkmanager
+network-manager-applet
 ninja
 ntfs-3g
 numlockx
