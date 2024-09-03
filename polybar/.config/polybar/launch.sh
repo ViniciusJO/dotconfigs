@@ -15,7 +15,7 @@ while true; do
     while read -r MON; do
       polybar_mon pc_sec "$MON"
     done
-  inotifywait -e modify -e move -e create -e delete "$HOME"/.config/polybar/config.ini -q &> /dev/null
+  inotifywait -e modify -e move -e create -e delete "$HOME"/.config/polybar/**/*.ini -q &> /dev/null
   killall polybar;
 done
 
