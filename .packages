@@ -1,6 +1,7 @@
 ardour
 ark
 bat
+bc
 bear
 bison
 bob
@@ -50,6 +51,8 @@ luarocks
 ly
 maim
 make
+man-doc
+man-pages
 mdcat
 mesa
 mesa-demos
@@ -57,10 +60,10 @@ mesa-utils
 mupdf
 nano
 ncspot
-netcat
 net-tools
-networkmanager
+netcat
 network-manager-applet
+networkmanager
 ninja
 ntfs-3g
 numlockx
@@ -87,6 +90,7 @@ rofi
 screenfetch
 sox
 steam
+strace
 sublime-text-4
 termshark
 thefuck

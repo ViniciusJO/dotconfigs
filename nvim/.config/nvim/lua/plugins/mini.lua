@@ -58,7 +58,6 @@ return {
       end,
     })
 
-
     require('which-key').register({
       --['>'] = { "<cmd>bnext<cr>" },
       --['<'] = { "<cmd>bprevious<cr>" },

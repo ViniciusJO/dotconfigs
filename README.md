@@ -22,6 +22,8 @@
 	- [ ] FIX
 - leap:
 	- [ ] keymaps
+- keymaps:
+    - resolve overlapping keymaps (find in `:checkhealth which-key`)
 
 
 # Packages
