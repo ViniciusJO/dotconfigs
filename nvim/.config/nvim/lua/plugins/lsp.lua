@@ -49,7 +49,7 @@ return {
           d = { buf.definition, 'Goto Definition' },
           D = { vim.lsp.buf.declaration, 'Goto Declaration' },
           I = { buf.implementation, 'Goto Implementation' },
-          r = { require('telescope.builtin').lsp_references, 'Goto References' }
+          R = { require('telescope.builtin').lsp_references, 'Goto References' }
         },
         -- K = { vim.lsp.buf.hover, 'Hover Documentation' },
         ['<C-k>'] = { vim.lsp.buf.signature_help, 'Signature Documentation' },

@@ -35,5 +35,6 @@ require('lazy').setup({
   require('plugins.navic'),
   require('plugins.log_highlight'),
   -- require('plugins.llama'),
+  require('plugins.lazygit'),
 })
 -- fidget
