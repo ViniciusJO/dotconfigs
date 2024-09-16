@@ -54,7 +54,7 @@ echo "$HOME/dotconfigs/wallpapers/.local/share/wallpapers/3DAbstract/nku2ak42wzg
 
 existCommand() { command -v "$1" > /dev/null; }
 
-existCommand "paru"		|| (sudo pacman -S --needed base-devel && git clone https://aur.archlinux.org/paru-git.git "$HOME"/.local/builds/paru && cd "$HOME"/.local/builds/paru && makepkg -si && cd - > /dev/null || return)
+existCommand "paru"		|| (sudo pacman -S --needed base-devel && git clone https://aur.archlinux.org/paru-git.git "$HOME"/.local/builds/paru && cd "$HOME"/.local/builds/paru && makepkg --noconfirm --needed -si && cd - > /dev/null || return)
 existCommand "paruz"	|| (git clone https://github.com/joehillen/paruz.git "$HOME"/.local/builds/paruz && cd "$HOME"/.local/builds/paruz && sudo make install && cd - > /dev/null || return)
 existCommand "nvm"		|| (PROFILE=/dev/null bash -c 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash')
 
@@ -85,8 +85,8 @@ zsh -ic '
 	existCommand "nvm" && nvm install $NODE_VERSION
 	existCommand "bob" && bob install latest && bob use latest || printf "${RED}Command bob not found..."
 	existCommand "npm" && npm i -g "$REQUIRED_NPM_PACKAGES" || printf "${RED}Command npm not found..."
-  [ -z "$1" ] && reboot
 '
+  # [ -z "$1" ] && reboot
 
 # Setup platformio
 curl -fsSL https://raw.githubusercontent.com/platformio/platformio-core/develop/platformio/assets/system/99-platformio-udev.rules | sudo tee /etc/udev/rules.d/99-platformio-udev.rules
