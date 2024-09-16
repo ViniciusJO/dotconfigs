@@ -1,8 +1,23 @@
 #!/usr/bin/env bash
 
-function polybar_mon {
+function takeMonitorName { echo "$1" | sed -e 's/: *[^ ]*.*//g'; }
+
+function takeMonitorWidth { echo "$1" | cut -d' ' -f2 | cut -d'+' -f1 | cut -d'x' -f1; }
+
+function takeMonitorHeight { echo "$1" | cut -d' ' -f2 | cut -d'+' -f1 | cut -d'x' -f2; }
+
+function min { octave --eval "$([ "$1" -gt "$2" ] && echo "$2" || echo "$1")" | cut -d' ' -f3; }
+
+function minMonitorSide { min "$(takeMonitorWidth "$1")" "$(takeMonitorHeight "$1")"; }
+
+function fontSize { octave --eval "(4/1080)*$1 + 6" | cut -d' ' -f3; }
+
   # printf "\n######## %s ########\n\n" "$(date)" >> "$HOME/.local/logs/polybar/polybar_$2.log"
-  MONITOR="$2" polybar "$1" & # &>> "$HOME/.local/logs/polybar/polybar_$2.log" &
+function polybar_mon {
+  export MONITOR="$2"
+  export FONT="$3"
+  polybar "$1" &>> "$HOME/.local/logs/polybar/polybar_$2.log" &
+  unset MONITOR FONT
 }
 
 mkdir -p "$HOME"/.local/logs/polybar &>> /dev/null || true
@@ -10,10 +25,11 @@ mkdir -p "$HOME"/.local/logs/polybar &>> /dev/null || true
 killall polybar &> /dev/null
 
 while true; do
-  polybar_mon main "$(polybar -m | grep primary | sed -e 's/: *[^ ]*.*//g')"
-  polybar -m | grep -v primary | sed -e 's/: *[^ ]*.*//g' | \
+  MAINMON=$(polybar -m | grep primary)
+  polybar_mon main "$(takeMonitorName "$MAINMON")" "$(fontSize "$(minMonitorSide "$MAINMON")")"
+  polybar -m | grep -v primary | \
     while read -r MON; do
-      polybar_mon pc_sec "$MON"
+      polybar_mon pc_sec "$(takeMonitorName "$MON")" "$(minMonitorSide "$MON")"
     done
   inotifywait -e modify -e move -e create -e delete "$HOME"/.config/polybar/**/*.ini -q &> /dev/null
   killall polybar;

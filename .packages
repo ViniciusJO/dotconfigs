@@ -18,6 +18,7 @@ discord
 docker
 docker-compose
 dolphin
+dosfstools
 dragonfly-bin
 dragonfly-reverb
 eza
@@ -42,6 +43,7 @@ kicad
 kicad-library
 kicad-library-3d
 lazygit
+less
 libusb
 libvirt
 lolcat
