@@ -1,10 +1,30 @@
 #!/usr/bin/bash
+BLACK='\033[0;30m'     
+RED='\033[0;31m'     
+GREEN='\033[0;32m'     
+ORANGE='\033[0;33m'     
+BLUE='\033[0;34m'     
+PURPLE='\033[0;35m'     
+CYAN='\033[0;36m'     
+LIGHT_GRAY='\033[0;37m'     
+DARK_GRAY='\033[1;30m'
+LIGHT_RED='\033[1;31m'
+LIGHT_GREEN='\033[1;32m'
+YELLOW='\033[1;33m'
+LIGHT_BLUE='\033[1;34m'
+LIGHT_PURPLE='\033[1;35m'
+LIGHT_CYAN='\033[1;36m'
+WHITE='\033[1;37m'
+NC='\033[0m' # No Color
 
 REPO="git@github.com:ViniciusJO/dotconfigs.git"
 
 # Git config
-gitconfig
-
+printf "\n${YELLOW}Git Credentials${NC}:\n\n=> Name: "
+read -r NAME
+printf "=> Email: "
+read -r EMAIL
+printf "[user]\n    name = %s\n    email = %s\n" "$NAME" "$EMAIL" > $HOME/.gitconfig 
 git remote remove origin
 git remote add origin "$REPO"
 
@@ -34,7 +54,7 @@ echo "$HOME/dotconfigs/wallpapers/.local/share/wallpapers/3DAbstract/nku2ak42wzg
 
 existCommand() { command -v "$1" > /dev/null; }
 
-existCommand "paru"		|| (sudo pacman -S --needed base-devel && git clone https://aur.archlinux.org/paru.git "$HOME"/.local/builds/paru && cd "$HOME"/.local/builds/paru && makepkg -si && cd - > /dev/null || return)
+existCommand "paru"		|| (sudo pacman -S --needed base-devel && git clone https://aur.archlinux.org/paru-git.git "$HOME"/.local/builds/paru && cd "$HOME"/.local/builds/paru && makepkg -si && cd - > /dev/null || return)
 existCommand "paruz"	|| (git clone https://github.com/joehillen/paruz.git "$HOME"/.local/builds/paruz && cd "$HOME"/.local/builds/paruz && sudo make install && cd - > /dev/null || return)
 existCommand "nvm"		|| (PROFILE=/dev/null bash -c 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash')
 
@@ -46,6 +66,7 @@ sudo sed -i.bak -z "s/#\[multilib\]\n*\r*#Include/[multilib]\nInclude/" /etc/pac
 
   #"ark ardour bat bob btop calf curl discord dolphin docker docker-compose dragonfly-reverb eza fd feh firefox fzf gcc gdb guitarix gxplugins.lv2 htop i3 kicad kicad-library kicad-library-3d lazygit lolcat lua lua-jsregexp luarocks ly maim make mdcat mesa mesa-demos mesa-utils mupdf nano ncspot numlockx octave okular onlyoffice openssh picom pipewire pipewire-alsa pipewire-autostart pipewire-jack pipewire-pulse pipewire-zeroconf pavucontrol qpwgraph ripgrep rofi screenfetch sox steam thefuck tldr tmux twolame vim wezterm wget wine xclip xorg yabridge yabridgectl yazi zathura zoxide"
   #"brave gxplugins.lv2 lv2-plugins-aur-meta opera opera-ffmpeg-codecs sublime-text-4 systemd-numlockontty visual-studio-code-bin"
+echo "${BLUE}installing packages...$NC"
 zsh -ic '
   REQUIRED_PACMAN_PACKAGES="$(cat "$HOME/dotconfigs/.packages" | tr "\n" " " | sed "s/ *$//")"
   REQUIRED_AUR_PACKAGES="$(cat "$HOME/dotconfigs/.packages.aur" | tr "\n" " " | sed "s/ *$//")"
@@ -69,9 +90,5 @@ zsh -ic '
 
 # Setup platformio
 curl -fsSL https://raw.githubusercontent.com/platformio/platformio-core/develop/platformio/assets/system/99-platformio-udev.rules | sudo tee /etc/udev/rules.d/99-platformio-udev.rules
-
-# Config git
-gitconfig
-
 
 #libreoffice-extension-writer2latex

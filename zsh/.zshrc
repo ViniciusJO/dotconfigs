@@ -1,7 +1,7 @@
 export BASE_ZSH_CONFIGS=$HOME/.config/zsh
 export BASE_ZSH_SHARE=$HOME/.local/share/zsh
 
-export PATH=$HOME/bin:/usr/local/bin:$HOME/local/bin:$HOME/.local/share/bob/nvim-bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$HOME/.local/share/bob/nvim-bin:$PATH
 export FPATH=$BASE_ZSH_SHARE/completions:$FPATH
 export MANPATH="/usr/local/man:$MANPATH"
 export MANPAGER="nvim +Man!"
