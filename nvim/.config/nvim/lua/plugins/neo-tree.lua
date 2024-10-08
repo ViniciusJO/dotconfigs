@@ -332,9 +332,10 @@ return {
   config = function(opts)
     -- require('neo-tree').setup(opts)
 
-    require('which-key').register({
-      ['<leader>e'] = { '<cmd>Neotree toggle<CR>', 'Toggle Neotree' }
-    })
+    vim.keymap.set('n', '<leader>e', '<cmd>Neotree toggle<CR>', { desc = 'Toggle Neotree' })
+    -- require('which-key').register({
+    --   ['<leader>e'] = { '<cmd>Neotree toggle<CR>', 'Toggle Neotree' }
+    -- })
 
     vim.fn.sign_define("DiagnosticSignError",
       { text = " ", texthl = "DiagnosticSignError" })

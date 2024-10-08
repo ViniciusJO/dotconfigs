@@ -3,6 +3,8 @@ vim.o.showcmd = true
 vim.o.showcmdloc = "statusline"
 vim.o.laststatus = 3
 
+local cmdline_content = ""
+
 local modes = {
   ["n"] = "NORMAL",
   ["no"] = "NORMAL",
@@ -73,20 +75,28 @@ end
 -- end
 
 local function filepath()
-  local fpath = vim.fn.fnamemodify(vim.fn.expand "%", ":~:.:h")
-  if fpath == "" or fpath == "." then
-    return " "
-  end
+  if cmdline_content == "" then
+    local fpath = vim.fn.fnamemodify(vim.fn.expand "%", ":~:.:h")
+    if fpath == "" or fpath == "." then
+      return " "
+    end
 
-  return string.format(" %%<%s/", fpath)
+    return string.format(" %%<%s/", fpath)
+  else
+    return ""
+  end
 end
 
 local function filename()
-  local fname = vim.fn.expand "%:t"
-  if fname == "" then
+  if cmdline_content == "" then
+    local fname = vim.fn.expand "%:t"
+    if fname == "" then
+      return ""
+    end
+    return fname .. " %m "
+  else
     return ""
   end
-  return fname .. " %m "
 end
 
 -- Function to execute shell commands
@@ -99,8 +109,13 @@ end
 
 -- Function to get the current Git branch
 local function git_branch()
-  local branch = execute(string.format("git -C %s rev-parse --abbrev-ref HEAD 2> /dev/null || echo ''", vim.fn.expand("%:h")))
-  return branch:gsub("^%s*(.-)%s*$", "%1")=="" and "" or branch:gsub("^%s*(.-)%s*$", "<< %1>>") -- Trim whitespace
+  if cmdline_content == "" then
+    local branch = execute(string.format("git -C %s rev-parse --abbrev-ref HEAD 2> /dev/null || echo ''",
+      vim.fn.expand("%:h")))
+    return branch:gsub("^%s*(.-)%s*$", "%1") == "" and "" or branch:gsub("^%s*(.-)%s*$", "<< %1>>") -- Trim whitespace
+  else
+    return ""
+  end
 end
 
 function Testee()
@@ -155,6 +170,14 @@ local function lineinfo()
   return " %P %4.l:%3.c "
 end
 
+local function commandstr()
+  if cmdline_content ~= "" then
+    return " " .. cmdline_content
+  else
+    return ""
+  end
+end
+
 Statusline = {}
 
 Statusline.active = function()
@@ -165,6 +188,7 @@ Statusline.active = function()
     "%#Normal#",
     filepath(),
     filename(),
+    commandstr(),
     -- vim.api.nvim_get_mode().mode,
     -- "%#Directory# ",
     "%=%#WarningMsg#",
@@ -241,6 +265,114 @@ vim.api.nvim_set_hl(0, 'LspDiagnosticsSignError', { foreground = '#FF4321', back
 vim.api.nvim_set_hl(0, 'LspDiagnosticsSignWarning', { foreground = '#AA8710', background = 'none', bold = false })
 vim.api.nvim_set_hl(0, 'LspDiagnosticsSignHint', { foreground = '#1274AF', background = 'none', bold = false })
 vim.api.nvim_set_hl(0, 'LspDiagnosticsSignInformation', { foreground = '#00AF21', background = 'none', bold = false })
+
+
+
+
+
+
+local cmdline_win = nil
+local cmdline_buf = nil
+
+-- Function to create the floating window
+local function open_cmdline_window()
+  if cmdline_win ~= nil then
+    return -- Window already exists
+  end
+
+  -- Create a new buffer for the floating window
+  cmdline_buf = vim.api.nvim_create_buf(false, true) -- no file, scratch buffer
+
+  local horizontal_pad = 4;
+  -- Set window options
+  local width = vim.api.nvim_get_option("columns")-2*horizontal_pad
+  local height = 1 -- Single line for command input
+  local opts = {
+    relative = "editor",
+    width = width,
+    height = height,
+    row = vim.api.nvim_get_option("lines") - 8, -- Position it above the command line area
+    col = horizontal_pad,
+    style = "minimal",
+    border = "rounded"
+  }
+
+  -- Create the floating window
+  cmdline_win = vim.api.nvim_open_win(cmdline_buf, false, opts)
+end
+
+-- Function to update the floating window with the command line content
+local function update_cmdline_window(content)
+  if cmdline_win ~= nil then
+    -- Update buffer content with current command
+    vim.api.nvim_buf_set_lines(cmdline_buf, 0, -1, false, { content })
+  end
+end
+
+-- Function to close the floating window
+local function close_cmdline_window()
+  if cmdline_win ~= nil then
+    vim.api.nvim_win_close(cmdline_win, true) -- Close the floating window
+    cmdline_win = nil
+    cmdline_buf = nil
+  end
+end
+
+local function feed_command_keys(keys)
+  -- Feed the keys programmatically to Neovim
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(keys, true, true, true), "n", false)
+end
+
+
+
+-- Autocommand for when command line is entered
+vim.api.nvim_create_autocmd({ "CmdlineEnter" }, {
+  callback = function()
+    local cmdtype = vim.fn.getcmdtype()
+    --
+    -- vim.on_key(function(char)
+    --   if char == vim.api.nvim_replace_termcodes("<CR>", true, true, true) then
+    --     -- If the user presses Enter, execute the command
+    --     close_cmdline_window()
+    --     feed_command_keys(cmdline_content .. "<CR>")
+    --   elseif char == vim.api.nvim_replace_termcodes("<BS>", true, true, true) then
+    --     -- Handle backspace
+    --     cmdline_content = cmdline_content:sub(1, -2)
+    --   else
+    --     -- Append typed character to the command input
+    --     cmdline_content = cmdline_content .. vim.fn.nr2char(char)
+    --   end
+    --
+    --   -- Update the floating window with the current command input
+    --   -- update_cmdline_window(":" .. cmdline_content)
+    -- end)
+
+    -- print(cmdtype)
+    -- open_cmdline_window()
+    cmdline_content = vim.fn.getcmdline()
+    -- update_cmdline_window(cmdline_content)
+    vim.cmd('redrawstatus')
+  end,
+})
+
+-- Autocommand for when command line is changed
+vim.api.nvim_create_autocmd({ "CmdlineChanged" }, {
+  callback = function()
+    cmdline_content = vim.fn.getcmdline()
+    -- update_cmdline_window(cmdline_content)
+    vim.cmd('redrawstatus')
+    -- vim.on_key(nil)
+  end,
+})
+
+-- Autocommand for when command line is exited
+vim.api.nvim_create_autocmd({ "CmdlineLeave" }, {
+  callback = function()
+    cmdline_content = ""
+    -- close_cmdline_window()
+    vim.cmd('redrawstatus')
+  end,
+})
 
 -- vim.o.statusline = " "
 -- 				.. ""

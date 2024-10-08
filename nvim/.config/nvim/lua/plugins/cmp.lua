@@ -1,12 +1,15 @@
 return {
   'hrsh7th/nvim-cmp',                   -- Autocompletions
+  event = 'InsertEnter',
   dependencies = {
     'L3MON4D3/LuaSnip',                 -- Snippets engine
     'saadparwaiz1/cmp_luasnip',         -- Snippets autocompletions
-    'rafamadriz/friendly-snippets',     -- Snippets
+    -- 'rafamadriz/friendly-snippets',     -- Snippets
     'hrsh7th/cmp-nvim-lsp',             -- Lsp autocompletions
     'hrsh7th/cmp-calc',
-    'FelipeLema/cmp-async-path',
+    -- 'FelipeLema/cmp-async-path',
+    'hrsh7th/cmp-path',
+    'hrsh7th/cmp-cmdline',
     'hrsh7th/cmp-buffer',
   },
   init = function()
@@ -14,7 +17,7 @@ return {
     -- See `:help cmp`
     local cmp = require('cmp')
     local luasnip = require('luasnip')
-    require('luasnip.loaders.from_vscode').lazy_load()
+    -- require('luasnip.loaders.from_vscode').lazy_load()
     luasnip.config.setup {}
 
     cmp.setup {
@@ -53,16 +56,17 @@ return {
         end, { 'i', 's' }),
       },
       sources = {
+        { name = 'path' },
         { name = 'calc' },
         { name = 'nvim_lsp' },
+        { name = 'command' },
         { name = 'luasnip' },
-        { name = 'async-path' },
         { name = 'buffer' },
       },
       border = {
         completion = true,
         documentation = true
-      }
+      },
       -- window = {
       --
       --   completion = {

@@ -38,9 +38,9 @@ exec --no-startup-id XDG_MENU_PREFIX=arch- kbuildsycoca6 &> /dev/null
 exec --no-startup-id source $HOME/.scripts/screen/screenset.sh
 
 # Start XDG autostart .desktop files using dex. See also
-# https://wiki.archlinux.org/index.php/XDG_Autostart
+# https://wiki.archlinux.org/index.php/XDG_AutostartDeno.addSignalListener("SIGINT", sigIntHandler);
 #exec --no-startup-id dex --autostart --environment i3
-
+exec --no-startup-id picom --backend glx
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
 
@@ -145,7 +145,10 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 
 
-bindsym $mod+z exec --no-startup-id $HOME/.scripts/wallpaper/change_wallpaper_feh.sh
+# bindsym $mod+z exec --no-startup-id $HOME/.scripts/wallpaper/change_wallpaper_feh.sh
+bindsym $mod+z exec --no-startup-id wezterm --config window_background_opacity=0.5 start --class "Change Background" ~/.scripts/wallpaper/change_wallpaper_feh.sh
+
+for_window [class="Change Background"] floating enable, move position 50 50, resize set 600 300
 
 workspace 1 output $sideMon
 workspace 2 output $sideMon

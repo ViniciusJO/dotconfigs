@@ -1,8 +1,9 @@
 return {
   "xiyaowong/transparent.nvim",
   init = function()
-    require('which-key').register({
-      ['<leader>.'] = { "<cmd>TransparentToggle<cr>", "Toogle transparency" }
-    })
+    vim.keymap.set('n', '<leader>.', '<cmd>TransparentToggle<cr>', { desc = 'Toogle transparency' })
+    -- require('which-key').register({
+    --   ['<leader>.'] = { "<cmd>TransparentToggle<cr>", "Toogle transparency" }
+    -- })
   end
 }

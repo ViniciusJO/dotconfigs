@@ -19,7 +19,7 @@ if wezterm.config_builder then
   config = wezterm.config_builder()
 end
 
-config.window_background_opacity = 0.4
+config.window_background_opacity = 0.85
 config.enable_scroll_bar = true
 
 config.window_frame = {

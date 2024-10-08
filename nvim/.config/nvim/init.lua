@@ -1,14 +1,17 @@
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+
 --require 'configs.lazy'
--- require 'commands'
 require 'options'
 require 'aucmd'
 -- require 'plugins'
 require 'plugins'
 --require 'configs'
 require 'keymaps'
+require 'commands'
 require 'colorscheme'
 require 'tui'
-require 'nvim-llama'.setup()
+-- require 'nvim-llama'.setup()
 --require('my-plugin')
 
 --[[

@@ -2,7 +2,7 @@ return {
   'echasnovski/mini.nvim',
   version = '*',
   init = function()
-    require('mini.animate').setup()
+    -- require('mini.animate').setup()
     require('mini.bracketed').setup()
     require('mini.bufremove').setup()
     --require('mini.completion').setup()
@@ -58,27 +58,29 @@ return {
       end,
     })
 
-    require('which-key').register({
-      --['>'] = { "<cmd>bnext<cr>" },
-      --['<'] = { "<cmd>bprevious<cr>" },
-      ['<C-c>'] = { require('mini.bufremove').delete, 'Quit window', { silent = true } },
-      ['<leader>'] = {
-        c = { require('mini.bufremove').delete, "Close Current Buffer" },
-        --	b = {
-        --		name = "Buffer",
-        --		['1'] = { bufferline.go_to(1, true), 'Go to buffer 1' },
-        --		['2'] = { bufferline.go_to(2, true), 'Go to buffer 2' },
-        --		['3'] = { bufferline.go_to(3, true), 'Go to buffer 3' },
-        --		['4'] = { bufferline.go_to(4, true), 'Go to buffer 4' },
-        --		['5'] = { bufferline.go_to(5, true), 'Go to buffer 5' },
-        --		['6'] = { bufferline.go_to(6, true), 'Go to buffer 6' },
-        --		['7'] = { bufferline.go_to(7, true), 'Go to buffer 7' },
-        --		['8'] = { bufferline.go_to(8, true), 'Go to buffer 8' },
-        --		['9'] = { bufferline.go_to(9, true), 'Go to buffer 9' },
-        --		['$'] = { bufferline.go_to(-1, true), 'Go to buffer $' },
-        --	}
-      }
-    })
+    vim.keymap.set('n', '<C-c>', require('mini.bufremove').delete, { desc = 'Quit window', silent = true })
+    vim.keymap.set('n', '<leader>c', require('mini.bufremove').delete, { desc = 'Close Current Buffer', silent = true })
+    -- require('which-key').register({
+    --   --['>'] = { "<cmd>bnext<cr>" },
+    --   --['<'] = { "<cmd>bprevious<cr>" },
+    --   ['<C-c>'] = { require('mini.bufremove').delete, 'Quit window', { silent = true } },
+    --   ['<leader>'] = {
+    --     c = { require('mini.bufremove').delete, "Close Current Buffer" },
+    --     --	b = {
+    --     --		name = "Buffer",
+    --     --		['1'] = { bufferline.go_to(1, true), 'Go to buffer 1' },
+    --     --		['2'] = { bufferline.go_to(2, true), 'Go to buffer 2' },
+    --     --		['3'] = { bufferline.go_to(3, true), 'Go to buffer 3' },
+    --     --		['4'] = { bufferline.go_to(4, true), 'Go to buffer 4' },
+    --     --		['5'] = { bufferline.go_to(5, true), 'Go to buffer 5' },
+    --     --		['6'] = { bufferline.go_to(6, true), 'Go to buffer 6' },
+    --     --		['7'] = { bufferline.go_to(7, true), 'Go to buffer 7' },
+    --     --		['8'] = { bufferline.go_to(8, true), 'Go to buffer 8' },
+    --     --		['9'] = { bufferline.go_to(9, true), 'Go to buffer 9' },
+    --     --		['$'] = { bufferline.go_to(-1, true), 'Go to buffer $' },
+    --     --	}
+    --   }
+    -- })
 
   end
 }

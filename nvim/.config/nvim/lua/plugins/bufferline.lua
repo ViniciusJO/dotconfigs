@@ -59,7 +59,6 @@ return {
             return result
           end,
         }
-
       }
     })
 

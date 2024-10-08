@@ -11,6 +11,7 @@ calf
 ccache
 cmake
 cowsay
+cups
 curl
 dex
 dfu-util
@@ -53,7 +54,6 @@ luarocks
 ly
 maim
 make
-man-doc
 man-pages
 mdcat
 mesa
@@ -111,4 +111,3 @@ yabridgectl
 yazi
 zathura
 zoxide
-zoxidebob

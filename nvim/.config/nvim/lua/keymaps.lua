@@ -1,6 +1,3 @@
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
-
 -- Source configs
 vim.keymap.set("n", "<leader>r", "<cmd>source ~/.config/nvim/init.lua<CR>", { desc = 'Source configs' })
 
@@ -53,7 +50,7 @@ vim.keymap.set('n', 'Q', '@q', { desc = 'Plays macro at q' })
 vim.keymap.set('x', 'Q', ':norm @q<CR>', { desc = 'Plays macro at q on each lines selected' })
 
 -- Netrw
-vim.keymap.set("n", "<leader>e", ":25Lex<CR>", { desc = 'Toggles netrw tree view' })
+--vim.keymap.set("n", "<leader>e", ":25Lex<CR>", { desc = 'Toggles netrw tree view' })
 
 -- Open term
 vim.keymap.set('n', '<leader>x', '<cmd>split | term<CR>', { noremap = true, silent = true, desc = 'Toggle split terminal' })

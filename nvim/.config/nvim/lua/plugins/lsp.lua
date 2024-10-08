@@ -2,14 +2,17 @@ return {
   'neovim/nvim-lspconfig',
   dependencies = {
     { 'williamboman/mason.nvim', config = true },     -- Adapters package manager
-    'williamboman/mason-lspconfig.nvim',              -- LSP Mason integration
+    { 'williamboman/mason-lspconfig.nvim' },              -- LSP Mason integration
+    { 'hrsh7th/cmp-nvim-lsp' },
+    { 'antosha417/nvim-lsp-file-operations', config=true },
     { 'j-hui/fidget.nvim',       tag = 'legacy' },    -- Shows tasks progress
-    'folke/neoconf.nvim',
-    'folke/neodev.nvim',                              -- Neovim completions and lsp
+    { 'folke/neoconf.nvim' },
+    { 'folke/neodev.nvim' },                              -- Neovim completions and lsp
     { 'VonHeikemen/lsp-zero.nvim', branch = 'v3.x' }, -- Startpoint LSP
-    { "stevanmilic/nvim-lspimport" },
+    { 'stevanmilic/nvim-lspimport' },
   },
-  config = function(opts)
+  config = function()
+    require('fidget').setup()
     require('neoconf').setup()
     require('neodev').setup()
 
@@ -22,46 +25,47 @@ return {
 
     local on_attach = function(client, bufnr)
       local buf = vim.lsp.buf
+      local wk = require('which-key');
 
-      require('which-key').register({
-        ['<leader>'] = {
-          D = { vim.lsp.buf.type_definition, 'Type Definition' },
-          l = {
-            name = 'Lsp',
-            f = { buf.format, "Format" },
-            r = { buf.rename, "Rename" },
-            a = { buf.code_action, "Code Actions" },
+      vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, { desc = 'Type Definition' })
 
-          },
-          w = {
-            name = "Workspace",
-            a = { vim.lsp.buf.add_workspace_folder, 'Workspace Add Folder' },
-            r = { vim.lsp.buf.remove_workspace_folder, 'Workspace Remove Folder' },
-            s = { require('telescope.builtin').lsp_dynamic_workspace_symbols, 'Workspace Symbols' },
-            w = { function()
-              print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-            end, 'Workspace List Folders' },
-          },
-          ds = { require('telescope.builtin').lsp_document_symbols, 'Document Symbols' },
-        },
-        g = {
-          name = 'Goto',
-          d = { buf.definition, 'Goto Definition' },
-          D = { vim.lsp.buf.declaration, 'Goto Declaration' },
-          I = { buf.implementation, 'Goto Implementation' },
-          R = { require('telescope.builtin').lsp_references, 'Goto References' }
-        },
-        -- K = { vim.lsp.buf.hover, 'Hover Documentation' },
-        ['<C-k>'] = { vim.lsp.buf.signature_help, 'Signature Documentation' },
-      });
+      wk.add({ { '<leader>l', desc = 'LSP' } });
+      vim.keymap.set('n', '<leader>lf', buf.format, { desc = 'Format' })
+      vim.keymap.set('n', '<leader>lr', buf.rename, { desc = 'Rename' })
+      vim.keymap.set('n', '<leader>la', buf.code_action, { desc = 'Code Actions' })
+
+      vim.keymap.set('n', '<leader>lR', ':LspRestart<cr>', { desc = 'Restart LSP' })
+
+      wk.add({ { '<leader>w', desc = 'Workspace' } });
+      vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, { desc = 'Workspace Add Folder' })
+      vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, { desc = 'Workspace Remove Folder' })
+      vim.keymap.set('n', '<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, { desc = 'Workspace Symbols' })
+      vim.keymap.set('n', '<leader>ww', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, { desc = 'Workspace List Folders' })
+
+      wk.add({ { '<leader>g', desc = 'Goto' } });
+      vim.keymap.set('n', '<leader>ds', require('telescope.builtin').lsp_document_symbols, { desc = 'Document Symbols' })
+
+      vim.keymap.set('n', '<leader>gd', buf.definition, { desc = 'Goto Definition' })
+      vim.keymap.set('n', '<leader>gD', vim.lsp.buf.declaration, { desc = 'Goto Declaration' })
+      vim.keymap.set('n', '<leader>gI', buf.implementation, { desc = 'Goto Implementation' })
+      vim.keymap.set('n', '<leader>gR', require('telescope.builtin').lsp_references, { desc = 'Goto References' })
+      vim.keymap.set('n', 'gd', buf.definition, { desc = 'Goto Definition' })
+      vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { desc = 'Goto Declaration' })
+      vim.keymap.set('n', 'gI', buf.implementation, { desc = 'Goto Implementation' })
+      vim.keymap.set('n', 'gR', require('telescope.builtin').lsp_references, { desc = 'Goto References' })
+
+      -- vim.keymap.set('n', 'K', vim.lsp.buf.hover, { desc = 'Hover Documentation' })
+      vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, { desc = 'Signature Documentation' })
 
       if client.server_capabilities["documentSymbolProvider"] then
         require("nvim-navic").attach(client, bufnr)
       end
+
       -- Create a command `:Format` local to the LSP buffer
       vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
         vim.lsp.buf.format()
       end, { desc = 'Format current buffer with LSP' })
+
     end
     local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
     local servers = {
