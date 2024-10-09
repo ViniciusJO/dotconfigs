@@ -1,14 +1,14 @@
 return {
   'neovim/nvim-lspconfig',
   dependencies = {
-    { 'williamboman/mason.nvim', config = true },     -- Adapters package manager
-    { 'williamboman/mason-lspconfig.nvim' },              -- LSP Mason integration
+    { 'williamboman/mason.nvim',             config = true }, -- Adapters package manager
+    { 'williamboman/mason-lspconfig.nvim' },      -- LSP Mason integration
     { 'hrsh7th/cmp-nvim-lsp' },
-    { 'antosha417/nvim-lsp-file-operations', config=true },
-    { 'j-hui/fidget.nvim',       tag = 'legacy' },    -- Shows tasks progress
+    { 'antosha417/nvim-lsp-file-operations', config = true },
+    { 'j-hui/fidget.nvim',                   tag = 'legacy' }, -- Shows tasks progress
     { 'folke/neoconf.nvim' },
-    { 'folke/neodev.nvim' },                              -- Neovim completions and lsp
-    { 'VonHeikemen/lsp-zero.nvim', branch = 'v3.x' }, -- Startpoint LSP
+    { 'folke/neodev.nvim' },                          -- Neovim completions and lsp
+    { 'VonHeikemen/lsp-zero.nvim',           branch = 'v3.x' }, -- Startpoint LSP
     { 'stevanmilic/nvim-lspimport' },
   },
   config = function()
@@ -39,8 +39,10 @@ return {
       wk.add({ { '<leader>w', desc = 'Workspace' } });
       vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, { desc = 'Workspace Add Folder' })
       vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, { desc = 'Workspace Remove Folder' })
-      vim.keymap.set('n', '<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, { desc = 'Workspace Symbols' })
-      vim.keymap.set('n', '<leader>ww', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, { desc = 'Workspace List Folders' })
+      vim.keymap.set('n', '<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols,
+        { desc = 'Workspace Symbols' })
+      vim.keymap.set('n', '<leader>ww', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end,
+        { desc = 'Workspace List Folders' })
 
       wk.add({ { '<leader>g', desc = 'Goto' } });
       vim.keymap.set('n', '<leader>ds', require('telescope.builtin').lsp_document_symbols, { desc = 'Document Symbols' })
@@ -65,7 +67,6 @@ return {
       vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
         vim.lsp.buf.format()
       end, { desc = 'Format current buffer with LSP' })
-
     end
     local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
     local servers = {
@@ -74,7 +75,29 @@ return {
           workspace = { checkThirdParty = false },
           telemetry = { enable = false }
         }
-      }
+      },
+      svelte = {},
+      zls = {},
+      eslint = {},
+      yamlls = {},
+      dockerls = {},
+      docker_compose_language_service = {},
+      bashls = {},
+      ast_grep = {},
+      pyright = {},
+      marksman = {},
+      rust_analyzer = {},
+      clangd = {},
+      html = {},
+      remark_ls = {},
+      taplo = {},
+      cssmodules_ls = {},
+      ts_ls = {},
+      css_variables = {},
+      asm_lsp = {},
+      arduino_language_server = {},
+      markdown_oxide = {},
+      cssls = {},
       -- clangd = {},
       -- gopls = {},
       -- pyright = {},
@@ -83,6 +106,8 @@ return {
       -- html = { filetypes = { 'html', 'twig', 'hbs'} },
 
     }
+
+
 
     local mason_lspconfig = require 'mason-lspconfig'
 
