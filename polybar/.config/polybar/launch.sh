@@ -10,7 +10,7 @@ function min { octave --eval "$([ "$1" -gt "$2" ] && echo "$2" || echo "$1")" | 
 
 function minMonitorSide { min "$(takeMonitorWidth "$1")" "$(takeMonitorHeight "$1")"; }
 
-function fontSize { octave --eval "(4/1080)*$1 + 6" | cut -d' ' -f3; }
+function fontSize { octave --eval "floor((4/1080)*$1 + 6)" | cut -d' ' -f3; }
 
   # printf "\n######## %s ########\n\n" "$(date)" >> "$HOME/.local/logs/polybar/polybar_$2.log"
 function polybar_mon {
