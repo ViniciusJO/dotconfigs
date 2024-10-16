@@ -1,0 +1,53 @@
+rm ~/.local/builds/paru -r
+sudo rm ~/.local/builds/paru -r
+cd paru
+existCommand paru
+existCommand paruz || echo oi
+existCommand paru || echo oi
+cd ../paruz
+paru -Syy
+paru -Syy brightnessctl
+paru -S webapp-manager
+paru -S thunar
+paru -S lxappearance
+paru -R lxappearance
+paru -S gnome-tweaks
+paru -Syyu
+paru -S viu
+paru -S bluez bluez-tools bluez-utils
+paru -S alsa-ucm-conf-git
+paru -S grub
+paru -S alsa-card-profiles alsa-tools
+paru -S gnome-desktop
+paru -S sof-firmware
+paru -S opera-ffmpeg-codecs-bin
+paru -S acpi
+paru -R steam
+paru -S steam
+paru -Rns steam
+paru steam
+paru -S jdk11-openjdk jdk8-openjdk jdk17-openjdk jdk21-openjdk
+paru -S java-runtime-common
+paru -S gimp
+paru -S fprint_demo
+paru -S fingerprint-gui
+paru -S openssh
+paru
+paru -S vsftp
+paru -S vsftpd
+paru -S fprintd imagemagick
+paru -S libfprint-tod
+paru -S python pip
+paru -S pip
+paru pip
+paru -S python-pip
+paru -S obsidian
+paru -S youtube-dl
+paruz
+paru -S arandr
+history | grep paru
+cat ~/.zsh_history | grep paru
+paru -S visual-studio-code-bin
+paru -S arduino-ide-bin
+: 1729094545:0;cat ~/.zsh_history | grep paru
+: 1729094565:0;cat ~/.zsh_history | grep paru > new_packs.txt
