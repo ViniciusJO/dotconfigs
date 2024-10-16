@@ -20,22 +20,19 @@ NC='\033[0m' # No Color
 REPO="git@github.com:ViniciusJO/dotconfigs.git"
 
 # Git config
-printf "\n${YELLOW}Git Credentials${NC}:\n\n=> Name: "
-read -r NAME
-printf "=> Email: "
-read -r EMAIL
-printf "[user]\n    name = %s\n    email = %s\n" "$NAME" "$EMAIL" > $HOME/.gitconfig 
-git remote remove origin
-git remote add origin "$REPO"
+#printf "\n${YELLOW}Git Credentials${NC}:\n\n=> Name: "
+#read -r NAME
+#printf "=> Email: "
+#read -r EMAIL
+#printf "[user]\n    name = %s\n    email = %s\n" "$NAME" "$EMAIL" > $HOME/.gitconfig 
+#git remote remove origin
+#git remote add origin "$REPO"
 
 # Create dirs
 # xdg
 mkdir -p "$HOME"/{Desktop,Documents,Downloads,Music,Pictures/Screenshots,Public,Templates,Videos,.local,.config}
 
 mkdir -p "$HOME"/.local/{logs,share/bob}
-
-# User permisions and groups
-sudo usermod -aG audio,disk,docker,kvm,root,tty,uucp "$USER"
 
 # Config limits
 sudo sed -i.bak "s/[\n\r]*# End of file/\n@audio\t\t hard\t rtpio\t\t 94\n@audio\t\t hard\t memlock\t unlimited\n$USER\t\t hard\t rtpio\t\t 94\n$USER\t\t hard\t memlock\t unlimited\n\n# End of file/" /etc/security/limits.conf
@@ -75,6 +72,8 @@ zsh -ic '
 
   eval "paru -Syy --noconfirm --needed --quiet $REQUIRED_PACMAN_PACKAGES"
   eval "paru -Syy --noconfirm --needed --quiet $REQUIRED_AUR_PACKAGES"
+
+  source $HOME/.zshrc
   
   # Config ly
   sudo sed -i.bak -z "s/#animate = false/animate = true/" /etc/ly/config.ini
@@ -85,11 +84,14 @@ zsh -ic '
 
 	existCommand "nvm" && nvm install $NODE_VERSION
 	existCommand "bob" && bob install latest && bob use latest || printf "${RED}Command bob not found..."
-	existCommand "npm" && npm i -g "$REQUIRED_NPM_PACKAGES" || printf "${RED}Command npm not found..."
+	existCommand "npm" && npm i -g $REQUIRED_NPM_PACKAGES || printf "${RED}Command npm not found..."
 '
   # [ -z "$1" ] && reboot
 
+# User permisions and groups
+sudo usermod -aG audio,disk,docker,kvm,root,tty,uucp "$USER"
+
 # Setup platformio
-curl -fsSL https://raw.githubusercontent.com/platformio/platformio-core/develop/platformio/assets/system/99-platformio-udev.rules | sudo tee /etc/udev/rules.d/99-platformio-udev.rules
+#curl -fsSL https://raw.githubusercontent.com/platformio/platformio-core/develop/platformio/assets/system/99-platformio-udev.rules | sudo tee /etc/udev/rules.d/99-platformio-udev.rules
 
 #libreoffice-extension-writer2latex
