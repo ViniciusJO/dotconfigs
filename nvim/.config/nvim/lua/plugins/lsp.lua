@@ -83,7 +83,6 @@ return {
       dockerls = {},
       docker_compose_language_service = {},
       bashls = {},
-      ast_grep = {},
       pyright = {},
       marksman = {},
       rust_analyzer = {},
