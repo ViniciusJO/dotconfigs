@@ -42,7 +42,7 @@ sudo sed -i.bak "s/[\n\r]*# End of file/\n@audio\t\t hard\t rtpio\t\t 94\n@audio
 
 sudo pacman -S --noconfirm --needed --quiet git zsh stow
 
-stow bob/ fonts/ i3/ nchat/ ncspot/ nvim/ octave/ pip/ rofi/ scripts/ sound_effects/ tmux/ wallpapers/ wezterm/ zsh/
+stow bob/ fonts/ i3/ nchat/ ncspot/ nvim/ octave/ pip/ rofi/ scripts/ sound_effects/ tmux/ wallpapers/ wezterm/ zsh/ polybar/ picom/
 
 # Default wallpaper
 echo "$HOME/dotconfigs/wallpapers/.local/share/wallpapers/3DAbstract/nku2ak42wzg31.png" > "$HOME"/.background
@@ -65,31 +65,31 @@ sudo sed -i.bak -z "s/#\[multilib\]\n*\r*#Include/[multilib]\nInclude/" /etc/pac
   #"brave gxplugins.lv2 lv2-plugins-aur-meta opera opera-ffmpeg-codecs sublime-text-4 systemd-numlockontty visual-studio-code-bin"
 echo "${BLUE}installing packages...$NC"
 # TODO: Fix nvm, bob and npm node/packages and nvim install
-zsh -ic '
-  REQUIRED_PACMAN_PACKAGES="$(cat "$HOME/dotconfigs/.packages" | tr "\n" " " | sed "s/ *$//")"
-  REQUIRED_AUR_PACKAGES="$(cat "$HOME/dotconfigs/.packages.aur" | tr "\n" " " | sed "s/ *$//")"
-  REQUIRED_NPM_PACKAGES="$(cat "$HOME/dotconfigs/.packages.npm" | tr "\n" " " | sed "s/ *$//")"
 
-  eval "paru -Syy --noconfirm --needed --quiet $REQUIRED_PACMAN_PACKAGES"
-  eval "paru -Syy --noconfirm --needed --quiet $REQUIRED_AUR_PACKAGES"
+REQUIRED_PACMAN_PACKAGES="$(cat "$HOME/dotconfigs/.packages" | tr "\n" " " | sed "s/ *$//")"
+REQUIRED_AUR_PACKAGES="$(cat "$HOME/dotconfigs/.packages.aur" | tr "\n" " " | sed "s/ *$//")"
+REQUIRED_NPM_PACKAGES="$(cat "$HOME/dotconfigs/.packages.npm" | tr "\n" " " | sed "s/ *$//")"
 
-  source $HOME/.zshrc
-  
-  # Config ly
-  sudo sed -i.bak -z "s/#animate = false/animate = true/" /etc/ly/config.ini
-  sudo sed -i.bak -z "s/#bigclock/bigclock/" /etc/ly/config.ini
-  sudo systemctl enable ly numLockOnTty docker
+eval "paru -Syy --noconfirm --needed --quiet $REQUIRED_PACMAN_PACKAGES"
+eval "paru -Syy --noconfirm --needed --quiet $REQUIRED_AUR_PACKAGES"
 
-  [ ! -f "$HOME/.ssh/id_ed25519" ] && ssh-keygen -t ed25519 -q -f "$HOME/.ssh/id_ed25519" -N ""
 
-	existCommand "nvm" && nvm install $NODE_VERSION
-	existCommand "bob" && bob install latest && bob use latest || printf "${RED}Command bob not found..."
-	existCommand "npm" && npm i -g $REQUIRED_NPM_PACKAGES || printf "${RED}Command npm not found..."
-'
-  # [ -z "$1" ] && reboot
+# Config ly
+sudo sed -i.bak -z "s/#animate = false/animate = true/" /etc/ly/config.ini
+sudo sed -i.bak -z "s/#bigclock/bigclock/" /etc/ly/config.ini
+sudo systemctl enable ly numLockOnTty docker
+
+[ ! -f "$HOME/.ssh/id_ed25519" ] && ssh-keygen -t ed25519 -q -f "$HOME/.ssh/id_ed25519" -N ""
+
+existCommand "nvm" && nvm install $NODE_VERSION
+existCommand "bob" && bob install latest && bob use latest || printf "${RED}Command bob not found..."
+existCommand "npm" && npm i -g $REQUIRED_NPM_PACKAGES || printf "${RED}Command npm not found..."
+
+zsh -ic 'source $HOME/.zshrc'
+# [ -z "$1" ] && reboot
 
 # User permisions and groups
-sudo usermod -aG audio,disk,docker,kvm,root,tty,uucp "$USER"
+sudo usermod -aG adm,audio,bin,cups,dbus,disk,docker,floppy,daemon,ftp,games,git,groups,http,input,kmem,kvm,libvirt,libvirt-qemu,lock,mem,network,optical,power,proc,qemu,render,rfkill,audio,scanner,storage,sys,systemd-coredump,systemd-journal,systemd-journal-remote,systemd-network,systemd-oom,systemd-resolve,systemd-timesync,tty,users,uucp,video,wireshark,uuidd,utmp,root,log,avahi "$USER"
 
 # Setup platformio
 #curl -fsSL https://raw.githubusercontent.com/platformio/platformio-core/develop/platformio/assets/system/99-platformio-udev.rules | sudo tee /etc/udev/rules.d/99-platformio-udev.rules

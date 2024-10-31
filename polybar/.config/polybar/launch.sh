@@ -25,7 +25,7 @@ mkdir -p "$HOME"/.local/logs/polybar &>> /dev/null || true
 killall polybar &> /dev/null
 
 while true; do
-  MAINMON=$(polybar -m | grep primary)
+  MAINMON=$(polybar -m)
   polybar_mon main "$(takeMonitorName "$MAINMON")" "$(fontSize "$(minMonitorSide "$MAINMON")")"
   polybar -m | grep -v primary | \
     while read -r MON; do
