@@ -7,7 +7,7 @@ vim.keymap.set('n', '<C-q>', '<cmd>q<cr>', { desc = 'Quit window', silent = true
 vim.keymap.set('n', '<C-Q>', '<cmd>q!<cr>', { desc = 'Quit window', silent = true })
 
 -- Keymap for sourcing
-vim.keymap.set('n', '<leader><F11>', '<cmd>source $HOME/.config/nvim/init.lua<cr>', { desc = 'Source configs' })
+vim.keymap.set('n', '<leader>r', '<cmd>source $HOME/.config/nvim/init.lua<cr>', { desc = 'Source configs' })
 
 -- Copy to systems clipboard
 vim.keymap.set('n', 'Y', '"+y', { desc = 'Yank to systems clipboard' });
@@ -20,11 +20,21 @@ vim.keymap.set('n', 'gh', function() vim.cmd("h " .. vim.fn.expand("<cword>")) e
 -- See `:help vim.keymap.set()`
 -- vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
+-- Disable arrows
+vim.keymap.set({ 'n', 't', 'i', 'v' }, '<Up>', '<Nop>', { noremap = true, silent = true})
+vim.keymap.set({ 'n', 't', 'i', 'v' }, '<Down>', '<Nop>', { noremap = true, silent = true})
+vim.keymap.set({ 'n', 't', 'i', 'v' }, '<Left>', '<Nop>', { noremap = true, silent = true})
+vim.keymap.set({ 'n', 't', 'i', 'v' }, '<Right>', '<Nop>', { noremap = true, silent = true})
+
+-- Movement on insert mode
+vim.keymap.set({ 'i', 't' }, '<C-k>', '<Up>', { noremap = true, silent = true })
+vim.keymap.set({ 'i', 't' }, '<C-j>', '<Down>', { noremap = true, silent = true })
+vim.keymap.set({ 'i', 't' }, '<C-h>', '<Left>', { noremap = true, silent = true })
+vim.keymap.set({ 'i', 't' }, '<C-l>', '<Right>', { noremap = true, silent = true })
+
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-vim.keymap.set('n', '<Up>', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-vim.keymap.set('n', '<Down>', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- Toggle options
 vim.keymap.set('n', '<M-z>', function() if(vim.o.wrap) then vim.o.wrap = false else vim.o.wrap = true end end, {desc = 'Toggle wrap', expr = true})
@@ -52,9 +62,10 @@ vim.keymap.set('x', 'Q', ':norm @q<CR>', { desc = 'Plays macro at q on each line
 -- Netrw
 --vim.keymap.set("n", "<leader>e", ":25Lex<CR>", { desc = 'Toggles netrw tree view' })
 
--- Open term
+-- Terminal
 vim.keymap.set('n', '<leader>x', '<cmd>split | term<CR>', { noremap = true, silent = true, desc = 'Toggle split terminal' })
 vim.keymap.set('n', '<leader>X', '<cmd>vsplit | term<CR>', { noremap = true, silent = true, desc = 'Toggle split terminal [vertcal]' })
+vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { noremap = true, silent = true, desc = 'Unfocus terminal' })
 
 -- Visual Maps
 vim.keymap.set("v", "<leader>r", "\"hy:%s/<C-r>h//g<left><left>", { desc = 'Replace all instances of highlighted words' })

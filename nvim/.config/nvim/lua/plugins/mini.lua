@@ -58,7 +58,7 @@ return {
       end,
     })
 
-    vim.keymap.set('n', '<C-c>', require('mini.bufremove').delete, { desc = 'Quit window', silent = true })
+    -- vim.keymap.set('n', '<C-c>', require('mini.bufremove').delete, { desc = 'Quit window', silent = true })
     vim.keymap.set('n', '<leader>c', require('mini.bufremove').delete, { desc = 'Close Current Buffer', silent = true })
     -- require('which-key').register({
     --   --['>'] = { "<cmd>bnext<cr>" },

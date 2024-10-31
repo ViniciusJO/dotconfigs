@@ -57,7 +57,7 @@ return {
       vim.keymap.set('n', 'gR', require('telescope.builtin').lsp_references, { desc = 'Goto References' })
 
       -- vim.keymap.set('n', 'K', vim.lsp.buf.hover, { desc = 'Hover Documentation' })
-      vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, { desc = 'Signature Documentation' })
+      vim.keymap.set('i', '<C-\\>', vim.lsp.buf.signature_help, { desc = 'Signature Documentation' })
 
       if client.server_capabilities["documentSymbolProvider"] then
         require("nvim-navic").attach(client, bufnr)

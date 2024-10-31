@@ -35,4 +35,7 @@ return {
       desc = "Quickfix List (Trouble)",
     },
   },
+  init = function ()
+    require('which-key').add({{ '<leader>t', desc='Trouble', noremap=true }})
+  end
 }

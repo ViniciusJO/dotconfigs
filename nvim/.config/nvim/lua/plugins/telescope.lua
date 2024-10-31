@@ -109,7 +109,7 @@ return {
     -- See `:help telescope.builtin`
     local tel_builtin = require('telescope.builtin')
 
-
+    require('which-key').add({ { '<leader>f', desc = 'Telescope Find', remap = false } })
     vim.keymap.set('n', '<leader>fo', tel_builtin.oldfiles, { desc = 'Find recently Opened files' })
     vim.keymap.set('n', '<leader>fb', tel_builtin.buffers, { desc = 'Find existing Buffers' })
     vim.keymap.set('n', '<leader>fg', tel_builtin.git_files, { desc = 'Find Git Files' })
