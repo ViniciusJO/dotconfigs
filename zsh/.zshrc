@@ -3,11 +3,12 @@ export BASE_ZSH_SHARE=$HOME/.local/share/zsh
 
 export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$HOME/.local/share/bob/nvim-bin:$PATH
 export LD_LIBRARY_PATH=$HOME/.local/lib:$LD_LIBRARY_PATH
+
 export FPATH=$BASE_ZSH_SHARE/completions:$FPATH
 export MANPATH="/usr/local/man:$HOME/.local/share/man:$MANPATH"
 export MANPAGER="nvim +Man!"
 
-export NODE_VERSION="22.2"
+export NODE_VERSION="23.1"
 
 # Tools
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"

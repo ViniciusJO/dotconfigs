@@ -4,6 +4,9 @@ alias nvimconfig="editDir $HOME/.config/nvim"
 alias dotconfig="editDir $HOME/dotconfigs"
 alias reload="source $HOME/.zshrc"
 
+alias get_idf='. $HOME/esp/esp-idf/export.sh'
+alias get_pio='export PATH=$HOME/.platformio/penv/bin:$PATH'
+
 alias xcopy="xclip -selection clipboard"
 alias xpaste="xclip -selection clipboard -o"
 
