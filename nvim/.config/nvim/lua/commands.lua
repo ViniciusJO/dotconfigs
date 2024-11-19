@@ -92,7 +92,6 @@ end
 
 vim.keymap.set({ 'n' }, '<C-x>', executeCommandInBuffer(false), { desc = 'Execute command in place' })
 vim.keymap.set({ 'n' }, '<M-x>', executeCommandInBuffer(true), { desc = 'Execute command in place and replace' })
-vim.keymap.set({ 'n' }, '<C-a>', ':source %<cr>', { desc = 'Execute command in place and replace' })
 
 -- Function to print the ASCII code of the character under the cursor
 local function print_char_code()

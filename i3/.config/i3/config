@@ -58,6 +58,9 @@ exec --no-startup-id $HOME/.scripts/wallpaper/change_wallpaper_feh.sh "$HOME/.ba
 # Start Polybar
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
+# Auto rotate screen
+exec_always --no-startup-id 2in1screen &
+
 # Use pactl to adjust volume in PulseAudio.
 # set $refresh_i3status killall -SIGUSR1 i3status
 bindsym XF86AudioRaiseVolume exec --no-startup-id play $HOME/Music/Effects/beep.wav & pactl set-sink-volume @DEFAULT_SINK@ +10%

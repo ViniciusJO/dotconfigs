@@ -11,6 +11,13 @@ require 'keymaps'
 require 'commands'
 require 'colorscheme'
 require 'tui'
+
+vim.filetype.add({
+  extension = {
+    yml = 'yaml.ansible'
+  }
+})
+
 -- require 'nvim-llama'.setup()
 --require('my-plugin')
 

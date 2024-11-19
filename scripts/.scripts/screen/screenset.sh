@@ -12,9 +12,15 @@ MONITORS=$(xrandr | grep -e " connected" | cut -d " " -f 1)
 
 has "$MONITORS" "HDMI-1" && xrandr --output HDMI-1 --primary
 # Align centers of DP-2 with HDMI-1
-has "$MONITORS" "DP-2" && xrandr --output DP-2 -s 1920x1080 --rotate right --left-of HDMI-1 $(has "$MONITORS" "HDMI-1" || echo "--primary")
-has "$MONITORS" "eDP-1" && xrandr --output eDP-1 --rotate $([ -n "$1" ] && echo $1 || echo normal) $(has "$MONITORS" "HDMI-1" || has "$MONITORS" "DP-2" || echo --primary)
-
+has "$MONITORS" "DP-2" &&\
+  xrandr --output DP-2 -s 1920x1080 --rotate right --left-of HDMI-1 \
+  $(has "$MONITORS" "HDMI-1" || echo "--primary")
+has "$MONITORS" "eDP-1" &&\
+  xrandr \
+    --output eDP-1 \
+    --rotate $([ -n "$1" ] && echo $1 || echo normal)\
+    $([ -n "$2" ] && echo "-s $2")\
+    $(has "$MONITORS" "HDMI-1" || has "$MONITORS" "DP-2" || echo --primary);
 numlockx on
 
 

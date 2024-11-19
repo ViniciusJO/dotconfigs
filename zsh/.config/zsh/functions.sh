@@ -120,6 +120,6 @@ function unsetCustomFuncs {
 source "$HOME/.config/zsh/quote.sh"
 
 function configc {
-  ln -s /home/vinicius/shared_projects/codebase/Playground/C/Makefile `pwd`
-  cp /home/vinicius/shared_projects/codebase/Playground/C/local.mak .
+  ln -s /home/vinicius/Projects/codebase/C/Makefile `pwd`
+  cp /home/vinicius/Projects/codebase/C/local.mak .
 }

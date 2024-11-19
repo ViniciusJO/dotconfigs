@@ -21,10 +21,25 @@ vim.keymap.set('n', 'gh', function() vim.cmd("h " .. vim.fn.expand("<cword>")) e
 -- vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 -- Disable arrows
-vim.keymap.set({ 'n', 't', 'i', 'v' }, '<Up>', '<Nop>', { noremap = true, silent = true})
-vim.keymap.set({ 'n', 't', 'i', 'v' }, '<Down>', '<Nop>', { noremap = true, silent = true})
-vim.keymap.set({ 'n', 't', 'i', 'v' }, '<Left>', '<Nop>', { noremap = true, silent = true})
-vim.keymap.set({ 'n', 't', 'i', 'v' }, '<Right>', '<Nop>', { noremap = true, silent = true})
+vim.keymap.set({ 'n', 't', 'i', 'v' }, '<Up>', '<Nop>', { silent = true})
+vim.keymap.set({ 'n', 't', 'i', 'v' }, '<Down>', '<Nop>', { silent = true})
+vim.keymap.set({ 'n', 't', 'i', 'v' }, '<Left>', '<Nop>', { silent = true})
+vim.keymap.set({ 'n', 't', 'i', 'v' }, '<Right>', '<Nop>', { silent = true})
+local arrow_state = false
+vim.keymap.set({ 'n', 't', 'i', 'v' }, '<leader>ç', function ()
+  if arrow_state then
+    vim.keymap.set({ 'n', 't', 'i', 'v' }, '<Up>', '<Nop>', { silent = true})
+    vim.keymap.set({ 'n', 't', 'i', 'v' }, '<Down>', '<Nop>', { silent = true})
+    vim.keymap.set({ 'n', 't', 'i', 'v' }, '<Left>', '<Nop>', { silent = true})
+    vim.keymap.set({ 'n', 't', 'i', 'v' }, '<Right>', '<Nop>', { silent = true})
+  else
+    vim.keymap.set({ 'n', 't', 'i', 'v' }, '<Up>', '<Up>', { silent = true})
+    vim.keymap.set({ 'n', 't', 'i', 'v' }, '<Down>', '<Down>', { silent = true})
+    vim.keymap.set({ 'n', 't', 'i', 'v' }, '<Left>', '<Left>', { silent = true})
+    vim.keymap.set({ 'n', 't', 'i', 'v' }, '<Right>', '<Right>', { silent = true})
+  end
+  arrow_state = not arrow_state
+end, { desc = "Toggle arrow keys", noremap = true, silent = true})
 
 -- Movement on insert mode
 vim.keymap.set({ 'i', 't' }, '<C-k>', '<Up>', { noremap = true, silent = true })

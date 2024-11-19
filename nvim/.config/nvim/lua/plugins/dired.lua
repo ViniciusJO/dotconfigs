@@ -11,6 +11,18 @@ return {
       show_colors = true,
     }
 
+    -- local function open_start_buffer()
+    --   local args = vim.fn.argv();
+    --     if 1 >= #args then
+    --     require("dired").open()
+    --   end
+    -- end
+    --
+    -- -- Set autocommand to open Dired on VimEnter
+    -- vim.api.nvim_create_autocmd("VimEnter", {
+    --   callback = open_start_buffer,
+    -- })
+
     -- TODO: function to toogle dired buffer
     vim.keymap.set('n', '<M-e>', ':split | Dired<cr>', { desc = 'Dired', silent = true })
     vim.keymap.set('n', '<M-E>', ':vsplit | Dired<cr>', { desc = 'Dired', silent = true })

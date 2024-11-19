@@ -77,6 +77,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 -- Using UFU
 --
+-- vim.o.foldmethod = "syntax"
 vim.o.foldcolumn = '1' -- '0' is not bad
 vim.o.foldlevel = 99   -- Using ufo provider need a large value, feel free to decrease the value
 vim.o.foldlevelstart = 99

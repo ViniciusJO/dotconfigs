@@ -39,5 +39,6 @@ require('lazy').setup({
   require('plugins.dired'),
   require('plugins.neogit'),
   require('plugins.multicursors'),
+  require('plugins.dataviewer'),
 })
 -- fidget
