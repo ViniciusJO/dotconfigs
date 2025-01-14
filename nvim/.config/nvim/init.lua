@@ -18,6 +18,8 @@ vim.filetype.add({
   }
 })
 
+require 'custom'
+
 -- require 'nvim-llama'.setup()
 --require('my-plugin')
 

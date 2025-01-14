@@ -1,11 +1,11 @@
 return {
-  'hrsh7th/nvim-cmp',                   -- Autocompletions
+  'hrsh7th/nvim-cmp', -- Autocompletions
   event = 'InsertEnter',
   dependencies = {
-    'L3MON4D3/LuaSnip',                 -- Snippets engine
-    'saadparwaiz1/cmp_luasnip',         -- Snippets autocompletions
+    'L3MON4D3/LuaSnip',         -- Snippets engine
+    'saadparwaiz1/cmp_luasnip', -- Snippets autocompletions
     -- 'rafamadriz/friendly-snippets',     -- Snippets
-    'hrsh7th/cmp-nvim-lsp',             -- Lsp autocompletions
+    'hrsh7th/cmp-nvim-lsp',     -- Lsp autocompletions
     'hrsh7th/cmp-calc',
     -- 'FelipeLema/cmp-async-path',
     'hrsh7th/cmp-path',
@@ -19,6 +19,59 @@ return {
     local luasnip = require('luasnip')
     -- require('luasnip.loaders.from_vscode').lazy_load()
     luasnip.config.setup {}
+
+    cmp.setup.cmdline({ '/', '?' }, {
+      mapping = cmp.mapping.preset.cmdline(),
+      sources = {
+        { name = 'buffer' }
+      }
+    })
+
+    -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+    cmp.setup.cmdline(':', {
+      mapping = cmp.mapping.preset.cmdline(),
+      sources = cmp.config.sources({
+        { name = 'path' }
+      }, {
+        { name = 'cmdline' }
+      }),
+      matching = {
+        disallow_symbol_nonprefix_matching = false,
+        disallow_fuzzy_matching = false,
+        disallow_partial_matching = false,
+        disallow_prefix_unmatching = false,
+        disallow_fullfuzzy_matching = false,
+        disallow_partial_fuzzy_matching = false
+      }
+    })
+
+    local kind_icons = {
+      Text = "",
+      Method = "󰆧",
+      Function = "󰊕",
+      Constructor = "",
+      Field = "󰇽",
+      Variable = "󰂡",
+      Class = "󰠱",
+      Interface = "",
+      Module = "",
+      Property = "󰜢",
+      Unit = "",
+      Value = "󰎠",
+      Enum = "",
+      Keyword = "󰌋",
+      Snippet = "",
+      Color = "󰏘",
+      File = "󰈙",
+      Reference = "",
+      Folder = "󰉋",
+      EnumMember = "",
+      Constant = "󰏿",
+      Struct = "",
+      Event = "",
+      Operator = "󰆕",
+      TypeParameter = "󰅲",
+    }
 
     cmp.setup {
       snippet = {
@@ -68,17 +121,36 @@ return {
         documentation = true
       },
       -- window = {
-      --
       --   completion = {
       --     -- border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
       --     border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-      --     winhighlight = "Normal:CmpPmenu,FloatBorder:CmpBorder,CursorLine:PmenuSel,Search:None",
+      --     -- winhighlight = "Normal:CmpPmenu,FloatBorder:CmpBorder,CursorLine:PmenuSel,Search:None",
       --   },
       --   documentation = {
       --     border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-      --     winhighlight = "Normal:CmpPmenu,FloatBorder:CmpBorder,CursorLine:PmenuSel,Search:None",
+      --     -- winhighlight = "Normal:CmpPmenu,FloatBorder:CmpBorder,CursorLine:PmenuSel,Search:None",
       --   },
       -- },
+      formatting = {
+
+        fields = { 'kind', 'abbr' },
+        expandable_indicator = true,
+        format = function(entry, vim_item)
+
+          vim_item.kind = string.format(' %s %s ', kind_icons[vim_item.kind], vim_item.kind)
+
+          vim_item.menu = ({
+            buffer = "[Buffer]",
+            nvim_lsp = "[LSP]",
+            luasnip = "[LuaSnip]",
+            nvim_lua = "[Lua]",
+            latex_symbols = "[LaTeX]",
+          })[entry.source.name]
+
+
+          return vim_item
+        end
+      },
     }
 
     -- The line beneath this is called `modeline`. See `:help modeline`

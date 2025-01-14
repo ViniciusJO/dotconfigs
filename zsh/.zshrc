@@ -8,7 +8,7 @@ export FPATH=$BASE_ZSH_SHARE/completions:$FPATH
 export MANPATH="/usr/local/man:$HOME/.local/share/man:$MANPATH"
 export MANPAGER="nvim +Man!"
 
-export NODE_VERSION="23.1"
+export NODE_VERSION="23.5"
 
 # Tools
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
