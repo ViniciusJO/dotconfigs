@@ -92,7 +92,6 @@ return {
 			asmfmt = {},
 			bashls = {},
 			beautysh = {},
-			buf_ls = {},
 			["buf-language-server"] = {},
 			checkmake = {},
 			["clang-format"] = {},
