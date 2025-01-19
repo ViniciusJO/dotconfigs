@@ -3,6 +3,7 @@ return {
   dependencies = {
     { 'williamboman/mason.nvim',             config = true }, -- Adapters package manager
     { 'williamboman/mason-lspconfig.nvim' },      -- LSP Mason integration
+    { 'WhoIsSethDaniel/mason-tool-installer.nvim' },
     { 'hrsh7th/cmp-nvim-lsp' },
     { 'antosha417/nvim-lsp-file-operations', config = true },
     { 'j-hui/fidget.nvim',                   tag = 'legacy' }, -- Shows tasks progress
@@ -74,52 +75,102 @@ return {
       lineFoldingOnly = true
     }
     local servers = {
+      clangd = {
+        cmd = {"clangd", "--compile-commands-dir=."},
+        -- root_dir = require('lspconfig.util').root_pattern('compile_commands.json', '.git'),
+      },
       lua_ls = {
         Lua = {
           workspace = { checkThirdParty = false },
           telemetry = { enable = false }
         }
       },
-      svelte = {},
-      zls = {},
-      eslint = {},
-      yamlls = {},
-      dockerls = {},
-      docker_compose_language_service = {},
-      bashls = {},
-      pyright = {},
-      marksman = {},
-      rust_analyzer = {},
-      clangd = {
-        cmd = {"clangd", "--compile-commands-dir=."},
-        -- root_dir = require('lspconfig.util').root_pattern('compile_commands.json', '.git'),
-      },
-      html = {},
-      remark_ls = {},
-      taplo = {},
-      cssmodules_ls = {},
-      ts_ls = {},
-      css_variables = {},
-      asm_lsp = {},
-      arduino_language_server = {},
-      markdown_oxide = {},
-      cssls = {},
-      -- gopls = {},
-      -- pyright = {},
-      -- rust_analyzer = {},
-      -- tsserver = {},
-      -- html = { filetypes = { 'html', 'twig', 'hbs'} },
-
+			ansiblels = {},
+			["ansible-lint"] = {},
+			arduino_language_server = {},
+			asm_lsp = {},
+			asmfmt = {},
+			bashls = {},
+			beautysh = {},
+			buf_ls = {},
+			["buf-language-server"] = {},
+			checkmake = {},
+			["clang-format"] = {},
+			cmake = {},
+			cmakelang = {},
+			cmakelint = {},
+			codelldb = {},
+			cpplint = {},
+			cpptools = {},
+			cssls = {},
+			css_variables = {},
+			cssmodules_ls = {},
+			["dart-debug-adapter"] = {},
+			dcm = {},
+			docker_compose_language_service = {},
+			dockerls = {},
+			eslint = {},
+			eslint_d = {},
+			["firefox-debug-adapter"] = {},
+			gitleaks = {},
+			gitlint = {},
+			gitui = {},
+			glow = {},
+			glsl_analyzer = {},
+			glslls = {},
+			html = {},
+			htmlbeautifier = {},
+			htmlhint = {},
+			["js-debug-adapter"] = {},
+			jsonls = {},
+			jsonnetfmt = {},
+			latexindent = {},
+			ltex = {},
+			luacheck = {},
+			luaformatter = {},
+			markdown_oxide = {},
+			marksman = {},
+			markuplint = {},
+			["node-debug2-adapter"] = {},
+			prettier = {},
+			prettierd = {},
+			pyright = {},
+			remark_ls = {},
+			rust_analyzer = {},
+			shellcheck = {},
+			shellharden = {},
+			shfmt = {},
+			sqlfmt = {},
+			sqls = {},
+			svelte = {},
+			systemdlint = {},
+			taplo = {},
+			["tree-sitter-cli"] = {},
+			["ts-standard"] = {},
+			ts_ls = {},
+			xmlformatter = {},
+			yamlls = {},
+			yamlfix = {},
+			yamlfmt = {},
+			yamllint = {},
+			zls = {}
     }
-
-
 
     local mason_lspconfig = require 'mason-lspconfig'
 
-    mason_lspconfig.setup {
-      automatic_installation = true,
+    mason_lspconfig.setup()
+    -- {
+      -- automatic_installation = true,
+      -- ensure_installed = vim.tbl_keys(servers),
+    -- }
+
+    require("mason-tool-installer").setup({
+      auto_update = true,
       ensure_installed = vim.tbl_keys(servers),
-    }
+      run_on_start = true,
+    })
+
+
 
     mason_lspconfig.setup_handlers {
       function(server_name)

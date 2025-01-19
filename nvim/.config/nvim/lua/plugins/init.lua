@@ -41,6 +41,7 @@ require('lazy').setup({
   { import = 'plugins.multicursors' },
   { import = 'plugins.dataviewer' },
   -- { import = 'plugins.arduino' },
+  { import = 'plugins.fugitive' },
   { import = 'plugins.oil' },
   { import = 'plugins.vi-mongo' },
 })
