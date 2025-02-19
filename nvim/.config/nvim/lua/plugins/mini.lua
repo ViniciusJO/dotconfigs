@@ -12,8 +12,8 @@ return {
     require('mini.move').setup()
     require('mini.operators').setup()
     require('mini.pairs').setup()
-    require('mini.sessions').setup()
-    require('mini.starter').setup()
+    -- require('mini.sessions').setup()
+    -- require('mini.starter').setup()
     -- require('mini.statusline').setup()
     require('mini.surround').setup()
     -- require('mini.tabline').setup()
@@ -41,6 +41,7 @@ return {
             'mason',
             'neo-tree',
             'nnn',
+            'nofile',
             'notify',
             'NvimTree',
             'qf',
@@ -59,7 +60,8 @@ return {
     })
 
     -- vim.keymap.set('n', '<C-c>', require('mini.bufremove').delete, { desc = 'Quit window', silent = true })
-    vim.keymap.set('n', '<leader>c', require('mini.bufremove').delete, { desc = 'Close Current Buffer', silent = true })
+    require('which-key').add({{ '<leader>b', desc='Buffer', noremap=true }})
+    vim.keymap.set('n', '<leader>bd', require('mini.bufremove').delete, { desc = 'Close Current Buffer', silent = true })
     -- require('which-key').register({
     --   --['>'] = { "<cmd>bnext<cr>" },
     --   --['<'] = { "<cmd>bprevious<cr>" },

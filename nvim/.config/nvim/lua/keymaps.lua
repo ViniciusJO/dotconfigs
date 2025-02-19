@@ -1,8 +1,12 @@
 -- Source configs
-vim.keymap.set("n", "<leader>r", "<cmd>source ~/.config/nvim/init.lua<CR>", { desc = 'Source configs' })
+vim.keymap.set('n', '<leader>r', '<cmd>source ~/.config/nvim/init.lua<CR>', { desc = 'Source configs' })
 
--- jj go to ormal mode
-vim.keymap.set({ "i", "t" }, "jj", "<esc>")
+-- jj go to normal mode
+vim.keymap.set({ 'i' }, 'jj', '<esc>')
+vim.keymap.set({ 't', 'c' }, 'jj', '<C-\\><C-n>')
+
+-- çç to enter
+vim.keymap.set({ 'i', 't', 'c' }, 'çç', '<cr>')
 
 -- Keymaps for save and quit
 vim.keymap.set('n', '<C-s>', '<cmd>w<cr>', { desc = 'Save buffer to file', silent = true })
@@ -24,12 +28,12 @@ vim.keymap.set('n', 'gh', function() vim.cmd("h " .. vim.fn.expand("<cword>")) e
 -- vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 -- Disable arrows
-vim.keymap.set({ 'n', 't', 'i', 'v' }, '<Up>', '<Nop>', { silent = true})
-vim.keymap.set({ 'n', 't', 'i', 'v' }, '<Down>', '<Nop>', { silent = true})
-vim.keymap.set({ 'n', 't', 'i', 'v' }, '<Left>', '<Nop>', { silent = true})
-vim.keymap.set({ 'n', 't', 'i', 'v' }, '<Right>', '<Nop>', { silent = true})
-local arrow_state = false
-vim.keymap.set({ 'n', 't', 'i', 'v' }, '<M-a>', function ()
+-- vim.keymap.set({ 'n', 't', 'i', 'v' }, '<Up>', '<Nop>', { silent = true})
+-- vim.keymap.set({ 'n', 't', 'i', 'v' }, '<Down>', '<Nop>', { silent = true})
+-- vim.keymap.set({ 'n', 't', 'i', 'v' }, '<Left>', '<Nop>', { silent = true})
+-- vim.keymap.set({ 'n', 't', 'i', 'v' }, '<Right>', '<Nop>', { silent = true})
+local arrow_state = true
+vim.keymap.set({ 'n', 't', 'i', 'v' }, '<M-A>', function ()
   vim.keymap.set({ 'n', 't', 'i', 'v' }, '<Up>', arrow_state and '<Nop>' or '<Up>', { silent = true})
   vim.keymap.set({ 'n', 't', 'i', 'v' }, '<Down>', arrow_state and '<Nop>' or '<Down>', { silent = true})
   vim.keymap.set({ 'n', 't', 'i', 'v' }, '<Left>', arrow_state and '<Nop>' or '<Left>', { silent = true})
@@ -74,9 +78,10 @@ vim.keymap.set('x', 'Q', ':norm @q<CR>', { desc = 'Plays macro at q on each line
 --vim.keymap.set("n", "<leader>e", ":25Lex<CR>", { desc = 'Toggles netrw tree view' })
 
 -- Terminal
-vim.keymap.set('n', '<leader>x', '<cmd>split | term<CR>', { noremap = true, silent = true, desc = 'Toggle split terminal' })
-vim.keymap.set('n', '<leader>X', '<cmd>vsplit | term<CR>', { noremap = true, silent = true, desc = 'Toggle split terminal [vertcal]' })
+vim.keymap.set('n', '<leader>x', '<cmd>split | term<CR>i', { noremap = true, silent = true, desc = 'Toggle split terminal' })
+vim.keymap.set('n', '<leader>X', '<cmd>vsplit | term<CR>i', { noremap = true, silent = true, desc = 'Toggle split terminal [vertcal]' })
 vim.keymap.set('t', '<esc><esc>', '<C-\\><C-n>', { noremap = true, silent = true, desc = 'Unfocus terminal' })
+vim.keymap.set('t', '<C-w>', '<C-\\><C-n><C-w>', { noremap = true, silent = true, desc = 'Navigate' })
 
 -- Visual Maps
 vim.keymap.set("v", "<leader>r", "\"hy:%s/<C-r>h//g<left><left>", { desc = 'Replace all instances of highlighted words' })

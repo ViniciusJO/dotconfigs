@@ -68,6 +68,9 @@ bindsym XF86AudioLowerVolume exec --no-startup-id play $HOME/Music/Effects/beep.
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
+bindsym XF86MonBrightnessUp exec --no-startup-id . "$HOME/.scripts/brightness/changeBrightness.sh" increase
+bindsym XF86MonBrightnessDown exec --no-startup-id . "$HOME/.scripts/brightness/changeBrightness.sh" decrease
+
 ## Screenshots
 bindsym Print exec --no-startup-id maim "/home/$USER/Pictures/Screenshots/$(date +"%d-%m-%y_%H:%M:%S").png" && play $HOME/Music/Effects/camera.mp3
 bindsym $mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) "/home/$USER/Pictures/Screenshots/$(date +"%d-%m-%y_%H:%M:%S").png" && play $HOME/Music/Effects/camera.mp3

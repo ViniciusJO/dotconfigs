@@ -16,6 +16,21 @@ return {
         -- to add ANSI escape code support, add:
         baleia_setup = true,
     }
-    vim.keymap.set('n', '<leader>lc', ':Compile<cr>', { desc = 'Compile mode' })
+
+    require('which-key').add({{ '<leader>c', desc='Compile', noremap=true }})
+    vim.keymap.set('n', '<leader>cc', ':Compile<cr>', { desc = 'Compile mode' })
+
+    require('which-key').add({{ '<leader>cn', desc='Next', noremap=true }})
+    vim.keymap.set('n', '<leader>cnf', ':CompileNextFile<cr>', { desc = 'Next file' })
+    vim.keymap.set('n', '<leader>cne', ':CompileNextError<cr>', { desc = 'Next error' })
+
+    require('which-key').add({{ '<leader>cp', desc='Previous', noremap=true }})
+    vim.keymap.set('n', '<leader>cpf', ':CompilePrevFile<cr>', { desc = 'Previous file' })
+    vim.keymap.set('n', '<leader>cpe', ':CompilePrevError<cr>', { desc = 'Previous error' })
+
+
+    vim.keymap.set('n', '<leader>cd', ':CompileDebugError<cr>', { desc = 'Debug error' })
+    vim.keymap.set('n', '<leader>cg', ':CompileGotoError<cr>', { desc = 'Goto error' })
+    vim.keymap.set('n', '<leader>ci', ':CompileInterrupt<cr>', { desc = 'Interrupt' })
   end
 }

@@ -4,6 +4,13 @@ vim.opt.runtimepath:remove(vim.fn.stdpath('config') .. '/plugin/netrwPlugin.vim'
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
+-- Netrw
+vim.g.netrw_banner = 0
+vim.g.netrw_browse_split = 4
+vim.g.netrw_altv = 1
+vim.g.netrw_liststyle = 3
+--vim.cmd("let g:netrw_list_hide=netrw_gitignore#Hide()")
+
 -- Set highlight on search
 vim.o.hlsearch = true
 
@@ -47,15 +54,7 @@ vim.o.timeoutlen = 300
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect,preview'
 
--- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
-
--- Netrw
-vim.g.netrw_banner = 0
-vim.g.netrw_browse_split = 4
-vim.g.netrw_altv = 1
-vim.g.netrw_liststyle = 3
---vim.cmd("let g:netrw_list_hide=netrw_gitignore#Hide()")
 
 -- Clipboard
 -- vim.o.clipboard = 'unnamedplus'

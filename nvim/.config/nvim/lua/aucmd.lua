@@ -1,22 +1,13 @@
--- Action on enter
-local ae_group = vim.api.nvim_create_augroup("ActionOnEnter", { clear = true })
-vim.api.nvim_create_autocmd({ "VimEnter" }, {
+-- Makes terminal in insert mode on win enter
+vim.api.nvim_create_autocmd("WinEnter", {
   callback = function()
-    local first_arg = vim.v.argv[3]
-    if first_arg and vim.fn.isdirectory(first_arg) == 1 then
-      -- Vim creates a buffer for folder. Close it.
-      vim.cmd(":bd 1")
-      require('mini.starter').open()
-      -- require("telescope").extensions.file_browser.file_browser({ path = first_arg })
-      -- vim.cmd(":view $HOME/.config/nvim/banner")
-      -- require('telescope.builtin').find_files({ search_dirs = { first_arg } })
+    if vim.bo.buftype == "terminal" then
+      vim.cmd("startinsert")
     end
   end,
-  group = ae_group,
 })
 
 -- JANITOR
-
 local function is_buffer_empty(bufnr)
   local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
   return #lines == 1 and #lines[1] == 0
@@ -62,24 +53,6 @@ vim.api.nvim_create_autocmd({ "BufWinLeave" }, {
   group = janitor_group,
 })
 
-
-
-
--- vim.api.nvim_create_autocmd({ "BufLeave" }, {
---   callback = function()
---     local function is_buffer_empty(bufnr)
---       local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
---       return #lines == 1 and #lines[1] == 0
---     end
---
---     local current_bufnr = vim.api.nvim_get_current_buf()
---
---     if is_buffer_empty(current_bufnr) then
---       vim.api.nvim_buf_delete(current_bufnr, { force = true })
---     end
---   end,
---   group = janitor_group,
--- })
 
 
 
