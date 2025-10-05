@@ -9,6 +9,8 @@
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
+hide_edge_borders smart
+
 set $mod Mod4
 
 set $mainMon HDMI-1
@@ -32,7 +34,7 @@ exec --no-startup-id setxkbmap br
 exec --no-startup-id numlockx on
 
 # Reload cache for kde apps
-exec --no-startup-id XDG_MENU_PREFIX=arch- kbuildsycoca6 &> /dev/null
+# exec --no-startup-id export XDG_MENU_PREFIX=arch- kbuildsycoca6 &> /dev/null
 
 # Set screens/monitors
 exec --no-startup-id source $HOME/.scripts/screen/screenset.sh
@@ -46,7 +48,7 @@ exec --no-startup-id picom --backend glx
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+# exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
@@ -60,6 +62,9 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 # Auto rotate screen
 exec_always --no-startup-id 2in1screen &
+
+# Fix dolphin MIME config
+exec --no-startup-id XDG_MENU_PREFIX=arch- kbuildsycoca6
 
 # Use pactl to adjust volume in PulseAudio.
 # set $refresh_i3status killall -SIGUSR1 i3status
@@ -149,12 +154,22 @@ bindsym $mod+space focus mode_toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
+# bindsym $mod+a focus parent
 
+# emoji picker
+bindsym $mod+o exec --no-startup-id rofi -show emoji
 
 # bindsym $mod+z exec --no-startup-id $HOME/.scripts/wallpaper/change_wallpaper_feh.sh
 bindsym $mod+z exec --no-startup-id wezterm --config window_background_opacity=0.5 start --class "Change Background" ~/.scripts/wallpaper/change_wallpaper_feh.sh
 
-for_window [class="Change Background"] floating enable, move position 50 50, resize set 600 300
+for_window [class="Change Background"] floating enable, move position 50 50, resize set 600 300, border pixel 1
+for_window [class="BarPopup"] floating enable, move position 1270 150, resize set 650 900, border pixel 1
+for_window [class="tabby"] floating enable, move position 100 50, resize set 1720 980, border pixel 1
+for_window [class="matplotlib"] floating enable, move position 1075 25, resize set 800 600, border pixel 1
+
+for_window [class="WebApp-ChatGPT5206"] move to scratchpad 
+#, move position 100 50, resize set 1720 980, border pixel 1
+bindsym $mod+x [class="WebApp-ChatGPT5206"] scratchpad show
 
 workspace 1 output $sideMon
 workspace 2 output $sideMon
@@ -241,6 +256,8 @@ mode "resize" {
 }
 
 bindsym $mod+r mode "resize"
+
+include ~/.cache/i3_colors
 
 # Start i3bar to display a workspace bar (plus the system information ia3status
 # finds out, if available)

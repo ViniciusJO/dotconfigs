@@ -60,7 +60,6 @@ return {
     })
 
     -- vim.keymap.set('n', '<C-c>', require('mini.bufremove').delete, { desc = 'Quit window', silent = true })
-    require('which-key').add({{ '<leader>b', desc='Buffer', noremap=true }})
     vim.keymap.set('n', '<leader>bd', require('mini.bufremove').delete, { desc = 'Close Current Buffer', silent = true })
     -- require('which-key').register({
     --   --['>'] = { "<cmd>bnext<cr>" },

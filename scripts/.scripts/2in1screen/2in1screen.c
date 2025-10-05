@@ -26,6 +26,28 @@ void init_signals(void){
     sigaction(SIGUSR1, &sigact, (struct sigaction *)NULL);
 }
 
+static void signal_handler(int sig){
+    if (sig == SIGINT) panic("\n\nCaught signal for Ctrl+C\n");
+    else if (sig == SIGUSR1) {
+      puts("usr signal\n");      
+    }
+}
+
+void panic(const char *fmt, ...){
+    char buf[50];
+    va_list argptr;
+    va_start(argptr, fmt);
+    vsprintf(buf, fmt, argptr);
+    va_end(argptr);
+    fprintf(stderr, "%s", buf);
+    exit(-1);
+}
+
+void cleanup(void){
+    sigemptyset(&sigact.sa_mask);
+    /* Do any cleaning up chores here */
+}
+
 
 
 
@@ -118,98 +140,56 @@ void rotate_screen(){
 	system(command);
 	sprintf(command, "xinput set-prop \"%s\" \"Coordinate Transformation Matrix\" %s", "GXTP7936:00 27C6:0123", COOR[current_state]);
 	system(command);
-	sprintf(command, "pkill -USR1 polybar");
-	system(command);
   if(auto_save && !save_state()) exit(3);
 }
 
-void refresh_state_dependants() {
-  char cmd[255];
-  sprintf(cmd, "ps -A | grep 2in1screen | awk '{print $1}' | grep -v \"^%d$\" | while read -r TARGET_PID; do kill -USR1 $TARGET_PID; done", getpid());
-  /*printf("\n\nPID: %d\n\n", getpid());*/
-  system(cmd);
-  system("polybar-msg action \"#rotate.hook.0\" &> /dev/null");
-}
-
-void get_state() {
-  FILE *state_fd_r = fopen(STATE_FILEPATH, "r");
-
-  if(state_fd_r == NULL){
-    fprintf(stderr, "Could not open previous state.\n");
-  } else {
-    char buff;
-    if(fscanf(state_fd_r, "%c", &buff) == 1){
-      auto_rotate = (buff - '0') & 4;
-      current_state = (buff - '0') & 3;
-      //{"normal", "inverted", "left", "right"};
-    }; 
-  }
-
-  fclose(state_fd_r);
-}
-
-static void signal_handler(int sig){
-    if (sig == SIGINT) panic("\n\nCaught signal for Ctrl+C\n");
-    else if (sig == SIGUSR1) {
-      get_state();
-      rotate_screen();
-      puts("usr signal\n");      
-    }
-}
-
-void panic(const char *fmt, ...){
-    char buf[50];
-    va_list argptr;
-    va_start(argptr, fmt);
-    vsprintf(buf, fmt, argptr);
-    va_end(argptr);
-    fprintf(stderr, "%s", buf);
-    exit(-1);
-}
-
-void cleanup(void){
-    sigemptyset(&sigact.sa_mask);
-    /* Do any cleaning up chores here */
-}
-
-void get_accell(FILE *dev_accel_x, FILE* dev_accel_y, int scale) {
-		fseek(dev_accel_y, 0, SEEK_SET);
-		fgets(content, DATA_SIZE, dev_accel_y);
-		accel_y = atof(content) * scale;
-#if N_STATE == 4
-		fseek(dev_accel_x, 0, SEEK_SET);
-		fgets(content, DATA_SIZE, dev_accel_x);
-		accel_x = atof(content) * scale;
-#endif
-}
-
 int main(int argc, char *argv[]) {
-  
-  system("mkdir -p " STATE_BASEDIR);
+  /*system("pkill 2in1screen");*/
 
-  get_state();
+  progname = *(argv);
+  atexit(cleanup);
+  init_signals();
 
-  if(argc > 1) {
+  printf("\n\n");
 
-    if(!strcmp("polybar_icon", argv[1])) {
-      if(auto_rotate) puts("%{B-}%{F#0771ed} 󰢆  %{B- F-}");
-      else puts("%{B-}%{F#73d0ff} 󰢆  %{B- F-}");
-      return 0;
+  /*if(argc)*/
+  /*if(argc > 1 && !strcmp(argv[1], "get")) {*/
+  /**/
+  /*  auto_rotate = true;*/
+  /*  auto_save = true;*/
+  /**/
+  /*} else {*/
+
+    auto_rotate = true;
+    /*auto_save = argc > 1 ? !strcmp(argv[1], "false") : true;*/
+
+    system("mkdir -p " STATE_BASEDIR);
+    /*system("touch ~/.local/state/2in1/state");*/
+
+    /*auto_rotate = true;*/
+    /*current_state = 0;*/
+
+    FILE *state_fd_r = fopen(STATE_FILEPATH, "r");
+    if(state_fd_r == NULL){
+      fprintf(stderr, "Could not open previous state.\n");
+    } else {
+      char buff;
+      if(fscanf(state_fd_r, "%c", &buff) == 1){
+        auto_rotate = (buff - '0') & 4;
+        current_state = (buff - '0') & 3;
+        //{"normal", "inverted", "left", "right"};
+      }; 
     }
+    fclose(state_fd_r);
 
-    if(!strcmp("auto_on", argv[1])) {
-      puts("auto_on");
-      auto_rotate = !auto_rotate;
-      save_state();
-      refresh_state_dependants();
-      return 0;
-    }
-
-    if(!strcmp("get_state", argv[1])) {
-      printf("auto_rotate: %s\ncstate: %s\n", auto_rotate ? "true" : "false", ROT[current_state]);
-      return 0;
-    }
-  }
+    auto_save = argc > 1 ? !strcmp(argv[1], "false") ? false : !strcmp(argv[1], "true") ? true : auto_save : auto_save;
+    if(auto_save) save_state();
+    /*printf("ARGC: %d\n", argc);*/
+    /*for(int i = 0; i<argc; i++) {*/
+    /*  printf("%s\n", argv[i]);*/
+    /*}*/
+    printf("auto_rotate: %d\ncstate: %d\n", auto_rotate, current_state);
+  /*}*/
 
 	FILE *pf = popen("ls /sys/bus/iio/devices/iio:device*/in_accel*", "r");
 	if(!pf){
@@ -221,7 +201,8 @@ int main(int argc, char *argv[]) {
 		basedir_end = strrchr(basedir, '/');
 		if(basedir_end) *basedir_end = '\0';
 		/*fprintf(stderr, "Accelerometer: %s\n", basedir);*/
-	} else{
+	}
+	else{
 		fprintf(stderr, "Unable to find any accelerometer.\n");
 		return 1;
 	}
@@ -235,32 +216,30 @@ int main(int argc, char *argv[]) {
 	FILE *dev_accel_x = bdopen("in_accel_x_raw", 1);
 #endif
 
-
-    if(argc > 1 && !strcmp("set_position", argv[1])) {
-      puts("set_position");
-      auto_rotate = false;
-      get_accell(dev_accel_x, dev_accel_y, scale);
-      rotation_changed();
-      rotate_screen();
-      save_state();
-      refresh_state_dependants();
-      /*system("play ~/Music/Effects/peeeiing.mp3");*/
-      return 0;
-    }
-
-
-
-  /*printf("ARGC: %d\n", argc);*/
-  /*for(int i = 0; i<argc; i++) {*/
-  /*  printf("%s\n", argv[i]);*/
-  /*}*/
-
-  progname = *(argv);
-  atexit(cleanup);
-  init_signals();
+/*  if(argc > 1 && !strcmp(argv[1], "get")) {*/
+/*		fseek(dev_accel_y, 0, SEEK_SET);*/
+/*		fgets(content, DATA_SIZE, dev_accel_y);*/
+/*		accel_y = atof(content) * scale;*/
+/*#if N_STATE == 4*/
+/*		fseek(dev_accel_x, 0, SEEK_SET);*/
+/*		fgets(content, DATA_SIZE, dev_accel_x);*/
+/*		accel_x = atof(content) * scale;*/
+/*#endif*/
+/*		if(rotation_changed())*/
+/*			rotate_screen();*/
+/*    save_state();*/
+/*    return 0;*/
+/*  }*/
 
 	while(1){
-    get_accell(dev_accel_x, dev_accel_y, scale);
+		fseek(dev_accel_y, 0, SEEK_SET);
+		fgets(content, DATA_SIZE, dev_accel_y);
+		accel_y = atof(content) * scale;
+#if N_STATE == 4
+		fseek(dev_accel_x, 0, SEEK_SET);
+		fgets(content, DATA_SIZE, dev_accel_x);
+		accel_x = atof(content) * scale;
+#endif
 		if(auto_rotate && rotation_changed())
 			rotate_screen();
 		sleep(2);

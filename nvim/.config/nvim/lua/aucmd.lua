@@ -44,14 +44,14 @@ end
 
 local janitor_group = vim.api.nvim_create_augroup("Janitor", { clear = true })
 
-vim.api.nvim_create_autocmd({ "BufUnload" }, {
-  callback = delete_empty,
-  group = janitor_group,
-})
-vim.api.nvim_create_autocmd({ "BufWinLeave" }, {
-  callback = delete_empty,
-  group = janitor_group,
-})
+-- vim.api.nvim_create_autocmd({ "BufUnload" }, {
+--   callback = delete_empty,
+--   group = janitor_group,
+-- })
+-- vim.api.nvim_create_autocmd({ "BufWinLeave" }, {
+--   callback = delete_empty,
+--   group = janitor_group,
+-- })
 
 
 

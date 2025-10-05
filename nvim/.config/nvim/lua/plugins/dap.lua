@@ -11,7 +11,7 @@ return {
     local dap = require('dap')
     local dapui = require('dapui')
 
-    require('nvim-dap-virtual-text').setup()
+    require('nvim-dap-virtual-text').setup({})
 
     dap.adapters.cppdbg = {
       id = 'cppdbg',
@@ -65,7 +65,7 @@ return {
     vim.keymap.set('n', '<F5>', dap.step_back, { desc = 'Debug: Step Back' })
     vim.keymap.set('n', '<F6>', dap.run_to_cursor, { desc = 'Debug: Run to cursor' })
     vim.keymap.set('n', '<F7>', dapui.toggle, { desc = 'Debug: Toggle UI' })
-
+    
     require('which-key').add({{ '<leader>d', desc = 'Debugger', noremap = true }})
     vim.keymap.set('n', '<leader>db', dap.toggle_breakpoint, { desc = 'Debug: Toggle Breakpoint' })
     vim.keymap.set('n', '<leader>dB', function()
@@ -130,12 +130,5 @@ return {
     --   },
     -- })
     dapui.setup()
-
-    dap.listeners.after.event_initialized['dapui_config'] = dapui.open
-    dap.listeners.before.event_terminated['dapui_config'] = dapui.close
-    dap.listeners.before.event_exited['dapui_config'] = dapui.close
-    -- require("dap-vscode-js").setup({
-    --   adapters = { 'pwa-node', 'pwa-chrome', 'pwa-msedge', 'node-terminal', 'pwa-extensionHost' }, -- which adapters to register in nvim-dap
-    -- })
   end
 }

@@ -111,7 +111,7 @@ local function print_char_code()
 end
 
 -- Create a key mapping to call the function
-vim.keymap.set('n', '<leader>a', print_char_code, { desc = 'Code of char under cursor', noremap = true, silent = true })
+vim.keymap.set('n', '<leader>A', print_char_code, { desc = 'Code of char under cursor', noremap = true, silent = true })
 
 local function preprocessCFile()
   -- Get the current buffer's file name

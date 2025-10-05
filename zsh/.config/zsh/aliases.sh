@@ -35,3 +35,5 @@ alias td="todo.sh done"
 alias nr="node --run"
 
 alias ..="cd .."
+
+alias grep='grep --color=auto'

@@ -24,15 +24,15 @@ mkdir -p "$HOME"/.local/logs/polybar &>> /dev/null || true
 
 killall polybar &> /dev/null
 
+MAINMON=$(polybar -m)
+polybar_mon main "$(takeMonitorName "$MAINMON")" "$(fontSize "$(minMonitorSide "$MAINMON")")"
+polybar -m | grep -v primary | \
+  while read -r MON; do
+    polybar_mon pc_sec "$(takeMonitorName "$MON")" "$(minMonitorSide "$MON")"
+  done
 while true; do
-  MAINMON=$(polybar -m)
-  polybar_mon main "$(takeMonitorName "$MAINMON")" "$(fontSize "$(minMonitorSide "$MAINMON")")"
-  polybar -m | grep -v primary | \
-    while read -r MON; do
-      polybar_mon pc_sec "$(takeMonitorName "$MON")" "$(minMonitorSide "$MON")"
-    done
   inotifywait -e modify -e move -e create -e delete "$HOME"/.config/polybar/**/*.ini -q &> /dev/null
-  killall polybar;
+  polybar-msg cmd restart
 done
 
 # polybar -m | sed -e 's/: *[^ ]*//g' | sed -e 's/(primary)/#/g'

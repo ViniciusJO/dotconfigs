@@ -1,58 +1,58 @@
-export BASE_ZSH_CONFIGS=$HOME/.config/zsh
-export BASE_ZSH_SHARE=$HOME/.local/share/zsh
+  export BASE_ZSH_CONFIGS=$HOME/.config/zsh
+  export BASE_ZSH_SHARE=$HOME/.local/share/zsh
 
-export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$HOME/.local/share/bob/nvim-bin:$PATH
-export LD_LIBRARY_PATH=$HOME/.local/lib:$LD_LIBRARY_PATH
+  export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$HOME/.local/share/bob/nvim-bin:$PATH
+  export LD_LIBRARY_PATH=$HOME/.local/lib:$LD_LIBRARY_PATH
 
-export FPATH=$BASE_ZSH_SHARE/completions:$FPATH
-export MANPATH="/usr/local/man:$HOME/.local/share/man:$MANPATH"
-export MANPAGER="nvim +Man!"
+  export FPATH=$BASE_ZSH_SHARE/completions:$FPATH
+  export MANPATH="/usr/local/man:$HOME/.local/share/man:$MANPATH"
+  export MANPAGER="nvim +Man!"
 
-export NODE_VERSION="23.5"
+  export NODE_VERSION="24.4.1"
 
-# Tools
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+  # Tools
+  export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-source "$BASE_ZSH_CONFIGS/aliases.sh"
-source "$BASE_ZSH_CONFIGS/colors.sh"
-source "$BASE_ZSH_CONFIGS/functions.sh"
+  source "$BASE_ZSH_CONFIGS/aliases.sh"
+  source "$BASE_ZSH_CONFIGS/colors.sh"
+  source "$BASE_ZSH_CONFIGS/functions.sh"
 
-# General configs
-# Preferred editor for local and remote sessions
-export EDITOR=$(
-	( existCommand "nvim" && echo "nvim" ) || \
-	( existCommand "vim" && echo "vim" ) || \
-	( existCommand "nano" && echo "nano" )
-)
+  # General configs
+  # Preferred editor for local and remote sessions
+  export EDITOR=$(
+    ( existCommand "nvim" && echo "nvim" ) || \
+    ( existCommand "vim" && echo "vim" ) || \
+    ( existCommand "nano" && echo "nano" )
+  )
 
-# Evals
-existCommand "starship" || (curl -sS https://starship.rs/install.sh | sh) && eval "$(starship init zsh)"
-existCommand "zoxide"   && eval "$(zoxide init zsh)"
-existCommand "fzf"			&& eval "$(fzf --zsh)"
-existCommand "fuck"			&& eval "$(thefuck --alias)"
+  # Evals
+  existCommand "starship" || (curl -sS https://starship.rs/install.sh | sh) && eval "$(starship init zsh)"
+  existCommand "zoxide"   && eval "$(zoxide init zsh)"
+  existCommand "fzf"			&& eval "$(fzf --zsh)"
+  existCommand "fuck"			&& eval "$(thefuck --alias)"
 
-## Completiions
-# bob
-[ ! -f $HOME/.local/share/zsh/completions/_bob ] && \
-	mkdir -p $HOME/.local/share/zsh/completions && \
-	bob complete zsh > $HOME/.local/share/zsh/completions/_bob
-autoload -U compinit && compinit
+  ## Completiions
+  # bob
+  [ ! -f $HOME/.local/share/zsh/completions/_bob ] && \
+    mkdir -p $HOME/.local/share/zsh/completions && \
+    bob complete zsh > $HOME/.local/share/zsh/completions/_bob
+  autoload -U compinit && compinit
 
-# Plugins
-export ZSH_PLUGINS=$HOME/.local/share/zsh/plugins
+  # Plugins
+  export ZSH_PLUGINS=$HOME/.local/share/zsh/plugins
 
-botstrap_plugin zsh-autosuggestions https://github.com/zsh-users/zsh-autosuggestions
-botstrap_plugin zsh-completions https://github.com/zsh-users/zsh-completions.git
-botstrap_plugin zsh-syntax-highlighting https://github.com/zsh-users/zsh-syntax-highlighting.git
-botstrap_plugin fzf_tab https://github.com/Aloxaf/fzf-tab
-botstrap_plugin you_should_use https://github.com/MichaelAquilina/zsh-you-should-use.git
+  botstrap_plugin zsh-autosuggestions https://github.com/zsh-users/zsh-autosuggestions
+  botstrap_plugin zsh-completions https://github.com/zsh-users/zsh-completions.git
+  botstrap_plugin zsh-syntax-highlighting https://github.com/zsh-users/zsh-syntax-highlighting.git
+  botstrap_plugin fzf_tab https://github.com/Aloxaf/fzf-tab
+  botstrap_plugin you_should_use https://github.com/MichaelAquilina/zsh-you-should-use.git
 
-botstrap_omzsh_plugin "aliases git npm pip python pyenv sudo systemd zsh-autosuggestions zsh-syntax-highlighting colored-man-pages command-not-found archlinux"
-# botstrap_omzsh_plugin "aliases git docker npm pip python pyenv sudo systemd zsh-autosuggestions zsh-syntax-highlighting colored-man-pages command-not-found archlinux"
+  botstrap_omzsh_plugin "aliases git npm pip python pyenv sudo systemd zsh-autosuggestions zsh-syntax-highlighting colored-man-pages command-not-found archlinux"
+  # botstrap_omzsh_plugin "aliases git docker npm pip python pyenv sudo systemd zsh-autosuggestions zsh-syntax-highlighting colored-man-pages command-not-found archlinux"
 
-find $ZSH_PLUGINS -maxdepth 2 -name "*.zsh" | while read -r plugin; do source $plugin; done
+  find $ZSH_PLUGINS -maxdepth 2 -name "*.zsh" | while read -r plugin; do source $plugin; done
 
 # Completions
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
@@ -95,6 +95,8 @@ ulimit -l unlimited
 
 # weather
 
+export QT_QPA_PLATFORMTHEME="qt6ct"
+export QT_STYLE_OVERRIDE="qt6ct"
 
 
 

@@ -1,7 +1,8 @@
 vim.o.cmdheight = 1
-vim.o.showcmd = true
-vim.o.showcmdloc = "statusline"
+vim.o.showcmd = false
+-- vim.o.showcmdloc = "statusline"
 vim.o.laststatus = 3
+vim.o.ruler = false
 
 local cmdline_content = ""
 
@@ -186,9 +187,7 @@ Statusline.active = function()
     update_mode_colors(),
     mode(),
     "%#Normal#",
-    filepath(),
-    filename(),
-    commandstr(),
+    cmdline_content == "" and filepath() .. filename() or " " .. cmdline_content,
     -- vim.api.nvim_get_mode().mode,
     -- "%#Directory# ",
     "%=%#WarningMsg#",
@@ -351,7 +350,8 @@ vim.api.nvim_create_autocmd({ "CmdlineEnter" }, {
     -- open_cmdline_window()
     cmdline_content = vim.fn.getcmdline()
     -- update_cmdline_window(cmdline_content)
-    vim.cmd('redrawstatus')
+    -- vim.cmd('redrawstatus')
+    vim.cmd.redrawstatus()
   end,
 })
 
@@ -360,8 +360,9 @@ vim.api.nvim_create_autocmd({ "CmdlineChanged" }, {
   callback = function()
     cmdline_content = vim.fn.getcmdline()
     -- update_cmdline_window(cmdline_content)
-    vim.cmd('redrawstatus')
+    -- vim.cmd('redrawstatus')
     -- vim.on_key(nil)
+    vim.cmd.redrawstatus()
   end,
 })
 
@@ -370,7 +371,8 @@ vim.api.nvim_create_autocmd({ "CmdlineLeave" }, {
   callback = function()
     cmdline_content = ""
     -- close_cmdline_window()
-    vim.cmd('redrawstatus')
+    -- vim.cmd('redrawstatus')
+    vim.cmd.redrawstatus()
   end,
 })
 

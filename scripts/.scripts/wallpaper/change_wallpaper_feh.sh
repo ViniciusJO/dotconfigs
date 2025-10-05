@@ -8,7 +8,7 @@ pickBG() {
     (printf "%s\n%s" "$(cat "$HOME/.background")" "$(find "$HOME"/.local/share/wallpapers/)" |
       grep -e ".jpg$" -e ".jpeg$" -e ".png$" -e ".gif$" |
       sed -r 's/^.*\/wallpapers\/(.*)$/\1/' |
-      fzf --preview="feh --bg-fill --no-xinerama $HOME/.local/share/wallpapers/{}") || cat "$HOME"/.background
+      fzf --preview="printf \"Colorscheme:\n\n\" && feh --bg-fill --no-xinerama $HOME/.local/share/wallpapers/{} && color_juicer $HOME/.local/share/wallpapers/{} 4 15 && (polybar-msg cmd restart; i3-msg reload) &> /dev/null") || cat "$HOME"/.background
   )" > ~/.background
 }
 
@@ -37,6 +37,11 @@ changeBG() {
     #echo "pick"
     pickBG
   fi
+  
+  color_juicer "$(cat ~/.background)" 6 5
+  polybar-msg cmd restart
+  i3-msg reload
+  # sleep 10
 }
 
 changeBG "$1"

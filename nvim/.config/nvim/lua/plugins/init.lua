@@ -43,11 +43,19 @@ require('lazy').setup({
   -- { import = 'plugins.blink' },
   -- { import = 'plugins.dressing' },
   -- { import = 'plugins.lualine' },
-  -- { import = 'plugins.navic' },
+  { import = 'plugins.navic' },
   -- { import = 'plugins.barbecue' },
   -- { import = 'plugins.kanban' },
   -- { import = 'plugins.llama' },
   -- { import = 'plugins.lazygit' },
   -- { import = 'plugins.dashboard' },
+  { import = 'plugins.aerial' },
+  { import = 'plugins.typst-preview' },
+  { import = 'plugins.typst' },
+  { import = 'plugins.neogen' },
+
+  { import = 'plugins.rfc' },
+  { import = 'plugins.rest' },
+  { import = 'plugins.w3m' },
+  { import = 'plugins.tiny-inline-diagnostic' },
 })
--- fidget

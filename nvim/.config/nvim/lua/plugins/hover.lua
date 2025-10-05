@@ -36,7 +36,7 @@ return {
       { desc = "Hover Documentation (next source)" })
 
     -- Mouse support
-    vim.keymap.set('n', '<MouseMove>', require('hover').hover_mouse, { desc = "Hover Documentation (mouse)" })
-    vim.o.mousemoveevent = true
+    -- vim.keymap.set('n', '<MouseMove>', require('hover').hover_mouse, { desc = "Hover Documentation (mouse)" })
+    -- vim.o.mousemoveevent = true
   end
 }

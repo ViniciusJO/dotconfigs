@@ -21,7 +21,7 @@ vim.keymap.set('n', 'Y', '"+y', { desc = 'Yank to systems clipboard' });
 vim.keymap.set('v', '<C-c>', '"+y', { desc = 'Yank to systems clipboard' });
 
 -- Go to help
-vim.keymap.set('n', 'gh', function() vim.cmd("h " .. vim.fn.expand("<cword>")) end, { desc = "Goto help", noremap = true, silent = true })
+vim.keymap.set('n', 'gh', function() vim.cmd('h ' .. vim.fn.expand('<cword>')) end, { desc = 'Goto help', noremap = true, silent = true })
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
@@ -32,14 +32,14 @@ vim.keymap.set('n', 'gh', function() vim.cmd("h " .. vim.fn.expand("<cword>")) e
 -- vim.keymap.set({ 'n', 't', 'i', 'v' }, '<Down>', '<Nop>', { silent = true})
 -- vim.keymap.set({ 'n', 't', 'i', 'v' }, '<Left>', '<Nop>', { silent = true})
 -- vim.keymap.set({ 'n', 't', 'i', 'v' }, '<Right>', '<Nop>', { silent = true})
-local arrow_state = true
+local arrow_state = false
 vim.keymap.set({ 'n', 't', 'i', 'v' }, '<M-A>', function ()
   vim.keymap.set({ 'n', 't', 'i', 'v' }, '<Up>', arrow_state and '<Nop>' or '<Up>', { silent = true})
   vim.keymap.set({ 'n', 't', 'i', 'v' }, '<Down>', arrow_state and '<Nop>' or '<Down>', { silent = true})
   vim.keymap.set({ 'n', 't', 'i', 'v' }, '<Left>', arrow_state and '<Nop>' or '<Left>', { silent = true})
   vim.keymap.set({ 'n', 't', 'i', 'v' }, '<Right>', arrow_state and '<Nop>' or '<Right>', { silent = true})
   arrow_state = not arrow_state
-end, { desc = "Toggle arrow keys", noremap = true, silent = true})
+end, { desc = 'Toggle arrow keys', noremap = true, silent = true})
 
 -- Movement on insert mode
 vim.keymap.set({ 'i', 't' }, '<C-k>', '<Up>', { noremap = true, silent = true })
@@ -55,7 +55,19 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 vim.keymap.set('n', '<M-z>', function() if(vim.o.wrap) then vim.o.wrap = false else vim.o.wrap = true end end, {desc = 'Toggle wrap', expr = true})
 vim.keymap.set('n', '<M-r>', function() if(vim.o.relativenumber) then vim.o.relativenumber = false else vim.o.relativenumber = true end end, {desc = 'Toggle relative collumn number', expr = true})
 
--- Diagnostic keymaps
+-- Tabs
+vim.keymap.set('n', '[t', '<CMD>tabnext<CR>', { desc = 'Go to previous tab' })
+vim.keymap.set('n', '[T', '<CMD>tablast<CR>', { desc = 'Go to last tab' })
+vim.keymap.set('n', ']t', '<CMD>tabprev<CR>', { desc = 'Go to previous tab' })
+vim.keymap.set('n', ']T', '<CMD>tabfirst<CR>', { desc = 'Go to first tab' })
+vim.keymap.set('n', '<leader>tn', '<CMD>tabnew<CR>', { desc = 'Tab new' })
+vim.keymap.set('n', '<leader>td', '<CMD>tabclose<CR>', { desc = 'Tab close' })
+
+-- Buffers
+-- vim.keymap.set('n', '<leader>bd', '<CMD>bd<CR>', { desc = 'Close Current Buffer', silent = true })
+vim.keymap.set('n', '<leader>bn', '<CMD>enew<CR>', { desc = 'Open Blank Buffer', silent = true })
+
+-- Diagnostic
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', '<leader>dd', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
@@ -75,7 +87,7 @@ vim.keymap.set('n', 'Q', '@q', { desc = 'Plays macro at q' })
 vim.keymap.set('x', 'Q', ':norm @q<CR>', { desc = 'Plays macro at q on each lines selected' })
 
 -- Netrw
---vim.keymap.set("n", "<leader>e", ":25Lex<CR>", { desc = 'Toggles netrw tree view' })
+--vim.keymap.set('n', '<leader>e', ':25Lex<CR>', { desc = 'Toggles netrw tree view' })
 
 -- Terminal
 vim.keymap.set('n', '<leader>x', '<cmd>split | term<CR>i', { noremap = true, silent = true, desc = 'Toggle split terminal' })
@@ -89,6 +101,17 @@ vim.keymap.set("v", "<C-s>", "<cmd>sort<CR>", { desc = 'Sort highlighted text' }
 vim.keymap.set("v", "J", "<cmd>m '>+1<CR>gv=gv", { desc = 'Move current line down' })
 -- FIX: Multi line select not moving (need to know how many lines are selected to make the move: m '>[+-]{number_of_lines+1})
 vim.keymap.set("v", "K", "<cmd>m '>-2<CR>gv=gv", { desc = 'Move current line up' })
+
+-- Quickfix
+vim.keymap.set({ 'n', 'v', 't' }, "<leader>q",  function()
+  for _, win in ipairs(vim.fn.getwininfo()) do
+    if win.quickfix == 1 then
+      vim.cmd("cclose")
+      return
+    end
+  end
+  vim.cmd("cw")
+end, { desc = "Toggle quickfix list" })
 
 -- Autometic close match
 -- vim.keymap.set("i", "'", "''<left>")
