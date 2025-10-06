@@ -1,7 +1,7 @@
   export BASE_ZSH_CONFIGS=$HOME/.config/zsh
   export BASE_ZSH_SHARE=$HOME/.local/share/zsh
 
-  export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$HOME/.local/share/bob/nvim-bin:$PATH
+  export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$HOME/.local/loc_bin:$HOME/.local/share/bob/nvim-bin:$PATH
   export LD_LIBRARY_PATH=$HOME/.local/lib:$LD_LIBRARY_PATH
 
   export FPATH=$BASE_ZSH_SHARE/completions:$FPATH
