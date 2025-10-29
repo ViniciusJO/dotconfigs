@@ -58,4 +58,6 @@ require('lazy').setup({
   { import = 'plugins.rest' },
   { import = 'plugins.w3m' },
   { import = 'plugins.tiny-inline-diagnostic' },
+  { import = 'plugins.stupyder' },
+  { import = 'plugins.align' },
 })

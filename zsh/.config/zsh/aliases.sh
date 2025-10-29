@@ -37,3 +37,5 @@ alias nr="node --run"
 alias ..="cd .."
 
 alias grep='grep --color=auto'
+
+alias vv='NVIM_APPNAME=nvim-new nvim'

@@ -20,19 +20,19 @@ NC='\033[0m' # No Color
 REPO="git@github.com:ViniciusJO/dotconfigs.git"
 
 # Git config
-#printf "\n${YELLOW}Git Credentials${NC}:\n\n=> Name: "
-#read -r NAME
-#printf "=> Email: "
-#read -r EMAIL
-#printf "[user]\n    name = %s\n    email = %s\n" "$NAME" "$EMAIL" > $HOME/.gitconfig 
-#git remote remove origin
-#git remote add origin "$REPO"
+printf "\n${YELLOW}Git Credentials${NC}:\n\n=> Name: "
+read -r NAME
+printf "=> Email: "
+read -r EMAIL
+printf "[user]\n    name = %s\n    email = %s\n" "$NAME" "$EMAIL" > $HOME/.gitconfig 
+git remote remove origin
+git remote add origin "$REPO"
 
 # Create dirs
 # xdg
 mkdir -p "$HOME"/{Desktop,Documents,Downloads,Music,Pictures/Screenshots,Public,Templates,Videos,.local,.config}
 
-mkdir -p "$HOME"/.local/{logs,share/bob}
+mkdir -p "$HOME"/.local/{logs,bin,lib,include,builds,thirdparty,share/bob}
 
 # Config limits
 sudo sed -i.bak "s/[\n\r]*# End of file/\n@audio\t\t hard\t rtpio\t\t 94\n@audio\t\t hard\t memlock\t unlimited\n$USER\t\t hard\t rtpio\t\t 94\n$USER\t\t hard\t memlock\t unlimited\n\n# End of file/" /etc/security/limits.conf
@@ -42,7 +42,24 @@ sudo sed -i.bak "s/[\n\r]*# End of file/\n@audio\t\t hard\t rtpio\t\t 94\n@audio
 
 sudo pacman -S --noconfirm --needed --quiet git zsh stow
 
-stow bob/ fonts/ i3/ nchat/ ncspot/ nvim/ octave/ pip/ rofi/ scripts/ sound_effects/ tmux/ wallpapers/ wezterm/ zsh/ polybar/ picom/
+stow             \
+	bob/           \
+	fonts/         \
+	i3/            \
+	nchat/         \
+	ncspot/        \
+	nvim/          \
+	octave/        \
+	pip/           \
+	rofi/          \
+	scripts/       \
+	sound_effects/ \
+	tmux/          \
+	wallpapers/    \
+	wezterm/       \
+	zsh/           \
+	polybar/       \
+	picom/
 
 # Default wallpaper
 echo "$HOME/dotconfigs/wallpapers/.local/share/wallpapers/3DAbstract/nku2ak42wzg31.png" > "$HOME"/.background
@@ -73,11 +90,10 @@ REQUIRED_NPM_PACKAGES="$(cat "$HOME/dotconfigs/.packages.npm" | tr "\n" " " | se
 eval "paru -Syy --noconfirm --needed --quiet $REQUIRED_PACMAN_PACKAGES"
 eval "paru -Syy --noconfirm --needed --quiet $REQUIRED_AUR_PACKAGES"
 
-
 # Config ly
 sudo sed -i.bak -z "s/#animate = false/animate = true/" /etc/ly/config.ini
 sudo sed -i.bak -z "s/#bigclock/bigclock/" /etc/ly/config.ini
-sudo systemctl enable ly numLockOnTty docker
+sudo systemctl enable ly numLockOnTty
 
 [ ! -f "$HOME/.ssh/id_ed25519" ] && ssh-keygen -t ed25519 -q -f "$HOME/.ssh/id_ed25519" -N ""
 
