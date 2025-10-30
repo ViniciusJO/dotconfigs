@@ -145,8 +145,8 @@ zsh -ic 'source $HOME/.zshrc'
 zsh -ic 'command -v "npm" > /dev/null && npm i -g $REQUIRED_NPM_PACKAGES || set +x; printf "${RED}Command npm not found...${NC}\n"; set -x;';
 
 # Setup tmux
-set +x; printf "${ORANGE}--> tmux setup${NC}"; set -x;
-[[ -f ~/.tmux/plugins/tpm/bin/install_plugins ]] && . ~/.tmux/plugins/tpm/bin/install_plugins || set +x; printf "${RED}TPM not installed...${NC}\n"; set -x;)
+set +x; printf "${ORANGE}--> tmux setup ${NC}\n"; set -x;
+[[ -f ~/.tmux/plugins/tpm/bin/install_plugins ]] && . ~/.tmux/plugins/tpm/bin/install_plugins || set +x; printf "${RED}TPM not installed...${NC}\n"; set -x;
 
 # User permisions and groups
 sudo usermod -aG adm,audio,bin,cups,dbus,disk,docker,floppy,daemon,ftp,games,git,groups,http,input,kmem,kvm,libvirt,libvirt-qemu,lock,mem,network,optical,power,proc,qemu,render,rfkill,audio,scanner,storage,sys,systemd-coredump,systemd-journal,systemd-journal-remote,systemd-network,systemd-oom,systemd-resolve,systemd-timesync,tty,users,uucp,video,wireshark,uuidd,utmp,root,log,avahi "$USER"
