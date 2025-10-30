@@ -133,14 +133,14 @@ sudo systemctl enable ly
 [ ! -f "$HOME/.ssh/id_ed25519" ] && ssh-keygen -t ed25519 -q -f "$HOME/.ssh/id_ed25519" -N ""
 
 existCommand "nvm" && nvm install $NODE_VERSION
-existCommand "bob" && bob install nightly && bob use nightly || printf "${RED}Command bob not found...${NC}"
+existCommand "bob" && bob install nightly && bob use nightly || printf "${RED}Command bob not found...${NC}\n"
 
 zsh -ic 'source $HOME/.zshrc'
 
 # User permisions and groups
 sudo usermod -aG adm,audio,bin,cups,dbus,disk,docker,floppy,daemon,ftp,games,git,groups,http,input,kmem,kvm,libvirt,libvirt-qemu,lock,mem,network,optical,power,proc,qemu,render,rfkill,audio,scanner,storage,sys,systemd-coredump,systemd-journal,systemd-journal-remote,systemd-network,systemd-oom,systemd-resolve,systemd-timesync,tty,users,uucp,video,wireshark,uuidd,utmp,root,log,avahi "$USER"
 
-existCommand "npm" && npm i -g $REQUIRED_NPM_PACKAGES || printf "${RED}Command npm not found...${NC}"
+existCommand "npm" && npm i -g $REQUIRED_NPM_PACKAGES || printf "${RED}Command npm not found...${NC}\n"
 
 paru -Syyu --noconfirm
 
