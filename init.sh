@@ -19,7 +19,13 @@ NC='\033[0m' # No Color
 
 REPO="git@github.com:ViniciusJO/dotconfigs.git"
 
-# TODO: only configure if there is nothing in .gitconfig
+# if [[ ! -s /etc/.machine ]]; then
+#   printf "\n${PURPLE}Machine name: ${NC} "
+#   read -r MACHINE
+#   printf "%s\n" "$MACHINE" | sudo tee /etc/.machine &> /dev/null
+#   sudo chmod 444 /etc/.machine
+# fi
+
 # Git config
 if [[ ! -s ~/.gitconfig ]]; then
   printf "\n${YELLOW}Git Credentials${NC}:\n\n=> Name: "
@@ -37,6 +43,10 @@ mkdir -p "$HOME"/{Desktop,Documents,Downloads,Music,Pictures/Screenshots,Public,
 
 mkdir -p "$HOME"/.local/{logs,bin,lib,include,builds,thirdparty,share/{bob,fonts}}
 
+mkdir -p "$HOME"/.nchat
+
+mkdir -p "$HOME"/.config/ncspot
+
 # Config limits
 sudo sed -i.bak "s/[\n\r]*# End of file/\n@audio\t\t hard\t rtpio\t\t 94\n@audio\t\t hard\t memlock\t unlimited\n$USER\t\t hard\t rtpio\t\t 94\n$USER\t\t hard\t memlock\t unlimited\n\n# End of file/" /etc/security/limits.conf
 # sudo sed -i.bak "s/[\n\r]*# End of file/\n@audio;hard;rtpio;94\n@audio;hard;memlock;unlimited\n$USER;hard;rtpio;94\n$USER;hard;memlock;unlimited\n\n# End of file/" /etc/security/limits.conf
@@ -46,26 +56,30 @@ sudo sed -i.bak "s/[\n\r]*# End of file/\n@audio\t\t hard\t rtpio\t\t 94\n@audio
 sudo pacman -S --noconfirm --needed --quiet git zsh stow
 
 stow             \
+  binaries       \
 	bob/           \
 	fonts/         \
+  gdb/           \
 	i3/            \
+  kde/           \
 	nchat/         \
 	ncspot/        \
 	nvim/          \
 	octave/        \
+	picom/         \
 	pip/           \
+	polybar/       \
 	rofi/          \
 	scripts/       \
 	sound_effects/ \
 	tmux/          \
+  vlc/           \
 	wallpapers/    \
 	wezterm/       \
 	zsh/           \
-	polybar/       \
-	picom/
 
 # Default wallpaper
-echo "$HOME/dotconfigs/wallpapers/.local/share/wallpapers/3DAbstract/nku2ak42wzg31.png" > "$HOME"/.background
+echo "$HOME/dotconfigs/wallpapers/.local/share/wallpapers/default.png" > "$HOME"/.background
 
 (grep "$USER" /etc/passwd | awk -F':' '{print $7}' | grep "zsh" > /dev/null) || chsh -s "/usr/bin/zsh" "$USER"
 
@@ -100,8 +114,8 @@ eval "paru -Syy --noconfirm --needed --quiet $REQUIRED_PACMAN_PACKAGES"
 eval "paru -Syy --noconfirm --needed --quiet $REQUIRED_AUR_PACKAGES"
 
 # Config ly
-sudo sed -i.bak -z "s/#animate = false/animate = true/" /etc/ly/config.ini
-sudo sed -i.bak -z "s/#bigclock/bigclock/" /etc/ly/config.ini
+# sudo sed -i.bak -z "s/#animate = false/animate = true/" /etc/ly/config.ini
+# sudo sed -i.bak -z "s/#bigclock/bigclock/" /etc/ly/config.ini
 sudo systemctl enable ly numLockOnTty
 
 [ ! -f "$HOME/.ssh/id_ed25519" ] && ssh-keygen -t ed25519 -q -f "$HOME/.ssh/id_ed25519" -N ""
