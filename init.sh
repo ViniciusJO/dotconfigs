@@ -137,7 +137,7 @@ sudo systemctl enable ly
 
 [ ! -f "$HOME/.ssh/id_ed25519" ] && ssh-keygen -t ed25519 -q -f "$HOME/.ssh/id_ed25519" -N ""
 
-existCommand "nvm" && nvm install $NODE_VERSION || (set +x; printf "${RED}Command nvm not found...${NC}\n"); set -x;
+existCommand "nvm" && nvm install $NODE_VERSION && nvm use $NODE_VERSION || (set +x; printf "${RED}Command nvm not found...${NC}\n"); set -x;
 existCommand "bob" && bob install nightly && bob use nightly || set +x; printf "${RED}Command bob not found...${NC}\n"; set -x;
 (existCommand "npm" && npm i -g $REQUIRED_NPM_PACKAGES || set +x; printf "${RED}Command npm not found...${NC}\n"; set -x;)
 
