@@ -46,8 +46,8 @@ if [[ ! -s ~/.gitconfig ]]; then
   set -x
 fi
 OLD_URL=$(git remote get-url origin)
-git remote remove origin
-git remote remove old_url
+if git remote | grep -qx "origin"; then git remote remove origin; fi
+if git remote | grep -qx "old_url"; then git remote remove old_url; fi
 git remote add origin "$REPO"
 git remote add old_url "$OLD_URL"
 unset OLD_URL
