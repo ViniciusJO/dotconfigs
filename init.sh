@@ -143,7 +143,7 @@ existCommand "bob" && bob install nightly && bob use nightly || set +x; printf "
 
 zsh -ic 'source $HOME/.zshrc'
 
-zsh -ic 'command -v "npm" > /dev/null && npm i -g $REQUIRED_NPM_PACKAGES || set +x; printf "${RED}Command npm not found...${NC}\n"; set -x;';
+command -v \"npm\" > /dev/null && npm i -g $REQUIRED_NPM_PACKAGES # || printf \"${RED}Command npm not found...${NC}\n\";
 
 # Setup tmux
 set +x; printf "${ORANGE}--> tmux setup ${NC}\n"; set -x;
