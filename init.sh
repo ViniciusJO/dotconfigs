@@ -139,9 +139,10 @@ sudo systemctl enable ly
 
 existCommand "nvm" && nvm install $NODE_VERSION && nvm use $NODE_VERSION || (set +x; printf "${RED}Command nvm not found...${NC}\n"); set -x;
 existCommand "bob" && bob install nightly && bob use nightly || set +x; printf "${RED}Command bob not found...${NC}\n"; set -x;
-(existCommand "npm" && npm i -g $REQUIRED_NPM_PACKAGES || set +x; printf "${RED}Command npm not found...${NC}\n"; set -x;)
 
 zsh -ic 'source $HOME/.zshrc'
+
+zsh -ic 'command -v "npm" > /dev/null && npm i -g $REQUIRED_NPM_PACKAGES || set +x; printf "${RED}Command npm not found...${NC}\n"; set -x;';
 
 # Setup tmux
 set +x; printf "${ORANGE}--> tmux setup${NC}"; set -x;
