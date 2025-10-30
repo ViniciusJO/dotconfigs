@@ -26,10 +26,11 @@ REPO="git@github.com:ViniciusJO/dotconfigs.git"
 #   sudo chmod 444 /etc/.machine
 # fi
 
+# TODO: fix local_print
 local_print() {
-  set +x
+  # set +x
   printf $@
-  set -x
+  # set -x
 }
 
 set -xeo pipefail
@@ -144,6 +145,10 @@ sudo systemctl enable ly
 existCommand "nvm" && nvm install $NODE_VERSION || (local_print "${RED}Command nvm not found...${NC}\n")
 existCommand "bob" && bob install nightly && bob use nightly || local_print "${RED}Command bob not found...${NC}\n"
 existCommand "npm" && npm i -g $REQUIRED_NPM_PACKAGES || local_print "${RED}Command npm not found...${NC}\n"
+
+# Setup nvim
+local_print "${ORANGE}--> nvim setup${NC}"
+nvim --headless "+Lazy! sync" "+TSUpdateSync" +qa
 
 zsh -ic 'source $HOME/.zshrc'
 
