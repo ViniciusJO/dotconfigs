@@ -55,7 +55,7 @@ require('lazy').setup({
   { import = 'plugins.neogen' },
 
   { import = 'plugins.rfc' },
-  { import = 'plugins.rest' },
+  -- { import = 'plugins.rest' }, -- BROKEN
   { import = 'plugins.w3m' },
   { import = 'plugins.tiny-inline-diagnostic' },
   { import = 'plugins.stupyder' },

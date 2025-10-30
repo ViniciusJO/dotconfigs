@@ -121,7 +121,7 @@ sudo systemctl enable ly numLockOnTty
 [ ! -f "$HOME/.ssh/id_ed25519" ] && ssh-keygen -t ed25519 -q -f "$HOME/.ssh/id_ed25519" -N ""
 
 existCommand "nvm" && nvm install $NODE_VERSION
-existCommand "bob" && bob install latest && bob use latest || printf "${RED}Command bob not found..."
+existCommand "bob" && bob install nightly && bob use nightly || printf "${RED}Command bob not found..."
 existCommand "npm" && npm i -g $REQUIRED_NPM_PACKAGES || printf "${RED}Command npm not found..."
 
 zsh -ic 'source $HOME/.zshrc'
