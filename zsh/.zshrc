@@ -31,7 +31,7 @@
   )
 
   # Evals
-  existCommand "starship" || (curl -sS https://starship.rs/install.sh | sh) && eval "$(starship init zsh)"
+  existCommand "starship" || (curl -sS https://starship.rs/install.sh | sh) && eval "$(yes | starship init zsh)"
   existCommand "zoxide"   && eval "$(zoxide init zsh)"
   existCommand "fzf"			&& eval "$(fzf --zsh)"
   existCommand "fuck"			&& eval "$(thefuck --alias)"
