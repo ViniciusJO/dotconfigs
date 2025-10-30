@@ -148,7 +148,7 @@ existCommand "npm" && npm i -g $REQUIRED_NPM_PACKAGES || quiet printf "${RED}Com
 quiet printf "${ORANGE}--> nvim setup${NC}"
 nvim --headless "+Lazy! sync" "+TSUpdateSync" +qa
 
-zsh -ic 'source $HOME/.zshrc'
+yes | zsh -ic 'source $HOME/.zshrc'
 
 # User permisions and groups
 sudo usermod -aG adm,audio,bin,cups,dbus,disk,docker,floppy,daemon,ftp,games,git,groups,http,input,kmem,kvm,libvirt,libvirt-qemu,lock,mem,network,optical,power,proc,qemu,render,rfkill,audio,scanner,storage,sys,systemd-coredump,systemd-journal,systemd-journal-remote,systemd-network,systemd-oom,systemd-resolve,systemd-timesync,tty,users,uucp,video,wireshark,uuidd,utmp,root,log,avahi "$USER"
