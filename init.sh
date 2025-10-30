@@ -19,12 +19,15 @@ NC='\033[0m' # No Color
 
 REPO="git@github.com:ViniciusJO/dotconfigs.git"
 
+# TODO: only configure if there is nothing in .gitconfig
 # Git config
-printf "\n${YELLOW}Git Credentials${NC}:\n\n=> Name: "
-read -r NAME
-printf "=> Email: "
-read -r EMAIL
-printf "[user]\n    name = %s\n    email = %s\n" "$NAME" "$EMAIL" > $HOME/.gitconfig 
+if [[ ! -s ~/.gitconfig ]]; then
+  printf "\n${YELLOW}Git Credentials${NC}:\n\n=> Name: "
+  read -r NAME
+  printf "=> Email: "
+  read -r EMAIL
+  printf "[user]\n    name = %s\n    email = %s\n" "$NAME" "$EMAIL" > $HOME/.gitconfig 
+fi
 git remote remove origin
 git remote add origin "$REPO"
 
@@ -32,7 +35,7 @@ git remote add origin "$REPO"
 # xdg
 mkdir -p "$HOME"/{Desktop,Documents,Downloads,Music,Pictures/Screenshots,Public,Templates,Videos,.local,.config}
 
-mkdir -p "$HOME"/.local/{logs,bin,lib,include,builds,thirdparty,share/bob}
+mkdir -p "$HOME"/.local/{logs,bin,lib,include,builds,thirdparty,share/{bob,fonts}}
 
 # Config limits
 sudo sed -i.bak "s/[\n\r]*# End of file/\n@audio\t\t hard\t rtpio\t\t 94\n@audio\t\t hard\t memlock\t unlimited\n$USER\t\t hard\t rtpio\t\t 94\n$USER\t\t hard\t memlock\t unlimited\n\n# End of file/" /etc/security/limits.conf
@@ -70,10 +73,11 @@ existCommand() { command -v "$1" > /dev/null; }
 
 sudo pacman -Syyu --noconfirm
 
-echo "${YELLOW}installing paru...$NC"
-existCommand "paru"		|| ./binaries/.local/loc_bin/paru -Syy paru-bin --noconfirm #(sudo pacman -S --needed base-devel && git clone https://aur.archlinux.org/paru-git.git "$HOME"/.local/builds/paru && cd "$HOME"/.local/builds/paru && makepkg --noconfirm --needed -si && cd - > /dev/null || return)
-echo "${YELLOW}installing paruz...$NC"
-existCommand "paruz"	|| paru -S paruz --noconfirm # (git clone https://github.com/joehillen/paruz.git "$HOME"/.local/builds/paruz && cd "$HOME"/.local/builds/paruz && sudo make install && cd - > /dev/null || return)
+echo "${YELLOW}installing paru and paruz...$NC"
+./binaries/.local/loc_bin/paru -Syy paru-bin paruz --noconfirm --needed
+# existCommand "paru"		|| ./binaries/.local/loc_bin/paru -Syy paru-bin --noconfirm #(sudo pacman -S --needed base-devel && git clone https://aur.archlinux.org/paru-git.git "$HOME"/.local/builds/paru && cd "$HOME"/.local/builds/paru && makepkg --noconfirm --needed -si && cd - > /dev/null || return)
+# echo "${YELLOW}installing paruz...$NC"
+# existCommand "paruz"	|| paru -S paruz --noconfirm # (git clone https://github.com/joehillen/paruz.git "$HOME"/.local/builds/paruz && cd "$HOME"/.local/builds/paruz && sudo make install && cd - > /dev/null || return)
 echo "${YELLOW}installing nvm...$NC"
 existCommand "nvm"		|| (PROFILE=/dev/null bash -c 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash')
 
@@ -111,6 +115,10 @@ zsh -ic 'source $HOME/.zshrc'
 
 # User permisions and groups
 sudo usermod -aG adm,audio,bin,cups,dbus,disk,docker,floppy,daemon,ftp,games,git,groups,http,input,kmem,kvm,libvirt,libvirt-qemu,lock,mem,network,optical,power,proc,qemu,render,rfkill,audio,scanner,storage,sys,systemd-coredump,systemd-journal,systemd-journal-remote,systemd-network,systemd-oom,systemd-resolve,systemd-timesync,tty,users,uucp,video,wireshark,uuidd,utmp,root,log,avahi "$USER"
+
+paru -Syyu --noconfirm
+
+echo "${GREEN}Initialization COMPLETED...$NC"
 
 # Setup platformio
 #curl -fsSL https://raw.githubusercontent.com/platformio/platformio-core/develop/platformio/assets/system/99-platformio-udev.rules | sudo tee /etc/udev/rules.d/99-platformio-udev.rules
