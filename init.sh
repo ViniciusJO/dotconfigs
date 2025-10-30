@@ -29,7 +29,7 @@ REPO="git@github.com:ViniciusJO/dotconfigs.git"
 set -xeo pipefail
 
 # Save logs
-[[ -s .init.log ]] && rm .init.log
+[[ -s .init.log ]] && mv .init.log .init.log.old
 exec > >(tee -a ".init.log") 2>&1
 
 # Git config
@@ -94,10 +94,9 @@ existCommand() { command -v "$1" > /dev/null; }
 sudo pacman -Syyu --noconfirm
 
 echo "${YELLOW}installing paru and paruz...$NC"
-./binaries/.local/loc_bin/paru -Syy paru-bin paruz --noconfirm --needed
-# existCommand "paru"		|| ./binaries/.local/loc_bin/paru -Syy paru-bin --noconfirm #(sudo pacman -S --needed base-devel && git clone https://aur.archlinux.org/paru-git.git "$HOME"/.local/builds/paru && cd "$HOME"/.local/builds/paru && makepkg --noconfirm --needed -si && cd - > /dev/null || return)
+existCommand "paru"		|| ./binaries/.local/loc_bin/paru -Syy paru-bin --noconfirm --needed #(sudo pacman -S --needed base-devel && git clone https://aur.archlinux.org/paru-git.git "$HOME"/.local/builds/paru && cd "$HOME"/.local/builds/paru && makepkg --noconfirm --needed -si && cd - > /dev/null || return)
 # echo "${YELLOW}installing paruz...$NC"
-# existCommand "paruz"	|| paru -S paruz --noconfirm # (git clone https://github.com/joehillen/paruz.git "$HOME"/.local/builds/paruz && cd "$HOME"/.local/builds/paruz && sudo make install && cd - > /dev/null || return)
+existCommand "paruz"	|| paru -S paruz --noconfirm --needed # (git clone https://github.com/joehillen/paruz.git "$HOME"/.local/builds/paruz && cd "$HOME"/.local/builds/paruz && sudo make install && cd - > /dev/null || return)
 echo "${YELLOW}installing nvm...$NC"
 existCommand "nvm"		|| (PROFILE=/dev/null bash -c 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash')
 
@@ -128,13 +127,14 @@ sudo systemctl enable ly numLockOnTty
 
 existCommand "nvm" && nvm install $NODE_VERSION
 existCommand "bob" && bob install nightly && bob use nightly || printf "${RED}Command bob not found..."
-existCommand "npm" && npm i -g $REQUIRED_NPM_PACKAGES || printf "${RED}Command npm not found..."
 
 zsh -ic 'source $HOME/.zshrc'
 # [ -z "$1" ] && reboot
 
 # User permisions and groups
 sudo usermod -aG adm,audio,bin,cups,dbus,disk,docker,floppy,daemon,ftp,games,git,groups,http,input,kmem,kvm,libvirt,libvirt-qemu,lock,mem,network,optical,power,proc,qemu,render,rfkill,audio,scanner,storage,sys,systemd-coredump,systemd-journal,systemd-journal-remote,systemd-network,systemd-oom,systemd-resolve,systemd-timesync,tty,users,uucp,video,wireshark,uuidd,utmp,root,log,avahi "$USER"
+
+existCommand "npm" && npm i -g $REQUIRED_NPM_PACKAGES || printf "${RED}Command npm not found..."
 
 paru -Syyu --noconfirm
 

@@ -56,7 +56,7 @@ require('lazy').setup({
 
   { import = 'plugins.rfc' },
   -- { import = 'plugins.rest' }, -- BROKEN
-  { import = 'plugins.w3m' },
+  -- { import = 'plugins.w3m' },
   { import = 'plugins.tiny-inline-diagnostic' },
   { import = 'plugins.stupyder' },
   { import = 'plugins.align' },
