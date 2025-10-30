@@ -124,7 +124,7 @@ eval "paru -Syy --noconfirm --needed --quiet $REQUIRED_AUR_PACKAGES"
 sudo sed -i.bak -z "s/animate = [a-z]*/animate = matrix/" /etc/ly/config.ini
 sudo sed -i.bak -z "s/bigclock = [a-z]*/bigclock = en/" /etc/ly/config.ini
 sudo sed -i.bak -z "s/numlock = [a-z]*/numlock = true/" /etc/ly/config.ini
-sudo systemctl enable ly numLockOnTty
+sudo systemctl enable ly
 
 [ ! -f "$HOME/.ssh/id_ed25519" ] && ssh-keygen -t ed25519 -q -f "$HOME/.ssh/id_ed25519" -N ""
 
@@ -141,7 +141,7 @@ existCommand "npm" && npm i -g $REQUIRED_NPM_PACKAGES || printf "${RED}Command n
 
 paru -Syyu --noconfirm
 
-echo "${GREEN}Initialization COMPLETED...$NC"
+echo "${GREEN}Automatic steps COMPLETED${NC}: reboot to finish the initialization..."
 
 # Setup platformio
 #curl -fsSL https://raw.githubusercontent.com/platformio/platformio-core/develop/platformio/assets/system/99-platformio-udev.rules | sudo tee /etc/udev/rules.d/99-platformio-udev.rules
