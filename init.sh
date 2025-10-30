@@ -2,6 +2,7 @@
 BLACK='\033[0;30m'     
 RED='\033[0;31m'     
 GREEN='\033[0;32m'     
+GREEN_BG='\032[0;32m'     
 ORANGE='\033[0;33m'     
 BLUE='\033[0;34m'     
 PURPLE='\033[0;35m'     
@@ -146,14 +147,14 @@ zsh -ic 'command -v "npm" > /dev/null && npm i -g $REQUIRED_NPM_PACKAGES || set 
 
 # Setup tmux
 set +x; printf "${ORANGE}--> tmux setup ${NC}\n"; set -x;
-[[ -f ~/.tmux/plugins/tpm/bin/install_plugins ]] && . ~/.tmux/plugins/tpm/bin/install_plugins || set +x; printf "${RED}TPM not installed...${NC}\n"; set -x;
+[[ -s "$HOME/.tmux/plugins/tpm/bin/install_plugins" ]] && . ~/.tmux/plugins/tpm/bin/install_plugins || set +x; printf "${RED}TPM not installed...${NC}\n"; set -x;
 
 # User permisions and groups
 sudo usermod -aG adm,audio,bin,cups,dbus,disk,docker,floppy,daemon,ftp,games,git,groups,http,input,kmem,kvm,libvirt,libvirt-qemu,lock,mem,network,optical,power,proc,qemu,render,rfkill,audio,scanner,storage,sys,systemd-coredump,systemd-journal,systemd-journal-remote,systemd-network,systemd-oom,systemd-resolve,systemd-timesync,tty,users,uucp,video,wireshark,uuidd,utmp,root,log,avahi "$USER"
 
 paru -Syyu --noconfirm
 
-set +x; printf "\n\n${GREEN}Automatic steps COMPLETED${NC}: reboot to finish the initialization...\n"; set -x;
+set +x; printf "\n\n${GREEN_BG}Automatic steps COMPLETED${NC}: reboot to finish the initialization...\n"; set -x;
 
 # Setup platformio
 #curl -fsSL https://raw.githubusercontent.com/platformio/platformio-core/develop/platformio/assets/system/99-platformio-udev.rules | sudo tee /etc/udev/rules.d/99-platformio-udev.rules
