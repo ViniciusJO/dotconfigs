@@ -1,0 +1,7 @@
+# Parameters
+TARGET=2in1screen
+PKGS=
+LIBS=
+ADITIONAL_BUILD?=
+ADITIONAL_LINK?=
+

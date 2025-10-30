@@ -1,0 +1,44 @@
+octave:1> x = 0:0.001:1;
+octave:2> r = 10e3;
+octave:3> plot(x, 10e3*log(x+1));
+octave:4> hold on;
+octave:5> for i=0:0.1:10 t(x, 10e3, 10e3*i); hold on; endfor
+octave:6> for i=0:1:10 t(x, 10e3, 10e3*i); hold on; endfor
+octave:7> hold off;
+octave:8> for i=0:1:10 t(x, 10e3, 10e3*i); hold on; endfor
+octave:9> plot(x, 10e3*log(x+1));
+octave:10> plot(x, 10e3*log(x+1));
+octave:10> hold off;
+octave:11> for i=0:0.01:1 t(x, 10e3, 10e3*i); hold on; endfor
+octave:12> plot(x, 10e3*log(x+1));
+octave:13> hold off;
+octave:14> for i=0:0.02:2 t(x, 10e3, 10e3*i); hold on; endfor
+octave:15> plot(x, 10e3*log(x+1));
+octave:16> 10e3*log(2)
+ans = 6931.5
+octave:17> rp(6931.5, 10e3);
+error: 'endfunciton' undefined near line 3, column 1
+error: called from
+    rp at line 3 column 1
+octave:18> rp(6931.5, 10e3);
+octave:19> rp(6931.5, 10e3)
+ans = 2.2589e+04
+octave:20> t(x,rp(10e3*log(2),10e3),10e3);
+octave:21> t(x,rp(10e3*log(2),10e3),10e3);
+octave:22> t(x,rp(10e3*log(2),10e3),10e3);
+octave:23> t(x,rp(10e3*log(2),10e3),10e3);
+octave:24> t(x,rp(10e3*log(2),10e3),10e3);
+octave:25> t(x,rp(10e3*log(2),10e3),10e3);
+octave:26> t(x,rp(10e3*log(2),10e3),10e3);
+octave:27> hold off;
+octave:28> t(x,rp(10e3*log(2),10e3),10e3);
+octave:29> hold on;
+octave:30> plot(x, 10e3*log(x+1));
+octave:31> t(x,22e3,10e3);
+octave:32> plot(x, 10e3*log10(x+1));
+octave:33> t(x,rp(10e3*log10(2),10e3),10e3);
+octave:34> t(x,rp(10e3*log10(10),10e3),10e3);
+octave:35> t(x,rp(10e3*log10(2),10e3),10e3);
+octave:36> save("arr.mat")
+octave:37> diary off
+octave:38> 
