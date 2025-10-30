@@ -26,6 +26,12 @@ REPO="git@github.com:ViniciusJO/dotconfigs.git"
 #   sudo chmod 444 /etc/.machine
 # fi
 
+set -xeo pipefail
+
+# Save logs
+[[ -s .init.log ]] && rm .init.log
+exec > >(tee -a ".init.log") 2>&1
+
 # Git config
 if [[ ! -s ~/.gitconfig ]]; then
   printf "\n${YELLOW}Git Credentials${NC}:\n\n=> Name: "
