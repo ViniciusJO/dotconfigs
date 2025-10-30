@@ -40,10 +40,14 @@ if [[ ! -s ~/.gitconfig ]]; then
   printf "=> Email: "
   read -r EMAIL
   printf "[user]\n    name = %s\n    email = %s\n" "$NAME" "$EMAIL" > $HOME/.gitconfig 
+  printf "\n"
   set -x
 fi
+OLD_URL=$(git remote get-url origin)
 git remote remove origin
 git remote add origin "$REPO"
+git remote add old_rul "$OLD_URL"
+unset OLD_URL
 
 # Create dirs
 # xdg
@@ -95,11 +99,11 @@ existCommand() { command -v "$1" > /dev/null; }
 
 sudo pacman -Syyu --noconfirm
 
-echo "${YELLOW}installing paru and paruz...$NC"
+printf "${YELLOW}installing paru and paruz...$NC\n"
 existCommand "paru"		|| ./binaries/.local/loc_bin/paru -Syy paru-bin --noconfirm --needed #(sudo pacman -S --needed base-devel && git clone https://aur.archlinux.org/paru-git.git "$HOME"/.local/builds/paru && cd "$HOME"/.local/builds/paru && makepkg --noconfirm --needed -si && cd - > /dev/null || return)
-# echo "${YELLOW}installing paruz...$NC"
+# printf "${YELLOW}installing paruz...$NC\n"
 existCommand "paruz"	|| paru -S paruz --noconfirm --needed # (git clone https://github.com/joehillen/paruz.git "$HOME"/.local/builds/paruz && cd "$HOME"/.local/builds/paruz && sudo make install && cd - > /dev/null || return)
-echo "${YELLOW}installing nvm...$NC"
+printf "${YELLOW}installing nvm...$NC\n"
 existCommand "nvm"		|| (PROFILE=/dev/null bash -c 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash')
 
 # Config pacman & paru
@@ -110,7 +114,7 @@ sudo sed -i.bak -z "s/#\[multilib\]\n*\r*#Include/[multilib]\nInclude/" /etc/pac
 
   #"ark ardour bat bob btop calf curl discord dolphin docker docker-compose dragonfly-reverb eza fd feh firefox fzf gcc gdb guitarix gxplugins.lv2 htop i3 kicad kicad-library kicad-library-3d lazygit lolcat lua lua-jsregexp luarocks ly maim make mdcat mesa mesa-demos mesa-utils mupdf nano ncspot numlockx octave okular onlyoffice openssh picom pipewire pipewire-alsa pipewire-autostart pipewire-jack pipewire-pulse pipewire-zeroconf pavucontrol qpwgraph ripgrep rofi screenfetch sox steam thefuck tldr tmux twolame vim wezterm wget wine xclip xorg yabridge yabridgectl yazi zathura zoxide"
   #"brave gxplugins.lv2 lv2-plugins-aur-meta opera opera-ffmpeg-codecs sublime-text-4 systemd-numlockontty visual-studio-code-bin"
-echo "${BLUE}installing packages...$NC"
+printf "${BLUE}installing packages...$NC\n"
 # TODO: Fix nvm, bob and npm node/packages and nvim install
 
 REQUIRED_PACMAN_PACKAGES="$(cat "$HOME/dotconfigs/.packages" | tr "\n" " " | sed "s/ *$//")"
@@ -129,19 +133,18 @@ sudo systemctl enable ly
 [ ! -f "$HOME/.ssh/id_ed25519" ] && ssh-keygen -t ed25519 -q -f "$HOME/.ssh/id_ed25519" -N ""
 
 existCommand "nvm" && nvm install $NODE_VERSION
-existCommand "bob" && bob install nightly && bob use nightly || printf "${RED}Command bob not found..."
+existCommand "bob" && bob install nightly && bob use nightly || printf "${RED}Command bob not found...${NC}"
 
 zsh -ic 'source $HOME/.zshrc'
-# [ -z "$1" ] && reboot
 
 # User permisions and groups
 sudo usermod -aG adm,audio,bin,cups,dbus,disk,docker,floppy,daemon,ftp,games,git,groups,http,input,kmem,kvm,libvirt,libvirt-qemu,lock,mem,network,optical,power,proc,qemu,render,rfkill,audio,scanner,storage,sys,systemd-coredump,systemd-journal,systemd-journal-remote,systemd-network,systemd-oom,systemd-resolve,systemd-timesync,tty,users,uucp,video,wireshark,uuidd,utmp,root,log,avahi "$USER"
 
-existCommand "npm" && npm i -g $REQUIRED_NPM_PACKAGES || printf "${RED}Command npm not found..."
+existCommand "npm" && npm i -g $REQUIRED_NPM_PACKAGES || printf "${RED}Command npm not found...${NC}"
 
 paru -Syyu --noconfirm
 
-echo "${GREEN}Automatic steps COMPLETED${NC}: reboot to finish the initialization..."
+printf "${GREEN}Automatic steps COMPLETED${NC}: reboot to finish the initialization...\n"
 
 # Setup platformio
 #curl -fsSL https://raw.githubusercontent.com/platformio/platformio-core/develop/platformio/assets/system/99-platformio-udev.rules | sudo tee /etc/udev/rules.d/99-platformio-udev.rules
