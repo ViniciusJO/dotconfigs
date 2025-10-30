@@ -140,7 +140,7 @@ sudo systemctl enable ly
 
 existCommand "nvm" && nvm install $NODE_VERSION || (set +x; printf "${RED}Command nvm not found...${NC}\n"); set -x;
 existCommand "bob" && bob install nightly && bob use nightly || set +x; printf "${RED}Command bob not found...${NC}\n"; set -x;
-existCommand "npm" && npm i -g $REQUIRED_NPM_PACKAGES || set +x; printf "${RED}Command npm not found...${NC}\n"; set -x;
+(existCommand "npm" && npm i -g $REQUIRED_NPM_PACKAGES || set +x; printf "${RED}Command npm not found...${NC}\n"; set -x;)
 
 # Setup nvim
 set +x; printf "${ORANGE}--> nvim setup${NC}"; set -x;
@@ -153,7 +153,7 @@ sudo usermod -aG adm,audio,bin,cups,dbus,disk,docker,floppy,daemon,ftp,games,git
 
 paru -Syyu --noconfirm
 
-set +x; printf "${GREEN}Automatic steps COMPLETED${NC}: reboot to finish the initialization...\n"; set -x;
+set +x; printf "\n\n${GREEN}Automatic steps COMPLETED${NC}: reboot to finish the initialization...\n"; set -x;
 
 # Setup platformio
 #curl -fsSL https://raw.githubusercontent.com/platformio/platformio-core/develop/platformio/assets/system/99-platformio-udev.rules | sudo tee /etc/udev/rules.d/99-platformio-udev.rules
