@@ -70,8 +70,11 @@ existCommand() { command -v "$1" > /dev/null; }
 
 sudo pacman -Syyu --noconfirm
 
-existCommand "paru"		|| ./binaries/.local/loc_bin/paru -Syy paru --noconfirm #(sudo pacman -S --needed base-devel && git clone https://aur.archlinux.org/paru-git.git "$HOME"/.local/builds/paru && cd "$HOME"/.local/builds/paru && makepkg --noconfirm --needed -si && cd - > /dev/null || return)
+echo "${YELLOW}installing paru...$NC"
+existCommand "paru"		|| ./binaries/.local/loc_bin/paru -Syy paru-bin --noconfirm #(sudo pacman -S --needed base-devel && git clone https://aur.archlinux.org/paru-git.git "$HOME"/.local/builds/paru && cd "$HOME"/.local/builds/paru && makepkg --noconfirm --needed -si && cd - > /dev/null || return)
+echo "${YELLOW}installing paruz...$NC"
 existCommand "paruz"	|| paru -S paruz --noconfirm # (git clone https://github.com/joehillen/paruz.git "$HOME"/.local/builds/paruz && cd "$HOME"/.local/builds/paruz && sudo make install && cd - > /dev/null || return)
+echo "${YELLOW}installing nvm...$NC"
 existCommand "nvm"		|| (PROFILE=/dev/null bash -c 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash')
 
 # Config pacman & paru
