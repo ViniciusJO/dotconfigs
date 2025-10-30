@@ -34,11 +34,13 @@ exec > >(tee -a ".init.log") 2>&1
 
 # Git config
 if [[ ! -s ~/.gitconfig ]]; then
+  set +x
   printf "\n${YELLOW}Git Credentials${NC}:\n\n=> Name: "
   read -r NAME
   printf "=> Email: "
   read -r EMAIL
   printf "[user]\n    name = %s\n    email = %s\n" "$NAME" "$EMAIL" > $HOME/.gitconfig 
+  set -x
 fi
 git remote remove origin
 git remote add origin "$REPO"
