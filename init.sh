@@ -52,7 +52,7 @@ fi
 OLD_URL=$(git remote get-url origin)
 git remote remove origin
 git remote add origin "$REPO"
-git remote add old_rul "$OLD_URL"
+git remote add old_url "$OLD_URL"
 unset OLD_URL
 
 # Create dirs
