@@ -20,18 +20,13 @@ NC='\033[0m' # No Color
 REPO="git@github.com:ViniciusJO/dotconfigs.git"
 
 # if [[ ! -s /etc/.machine ]]; then
-#   local_print "\n${PURPLE}Machine name: ${NC} "
+#   quiet printf "\n${PURPLE}Machine name: ${NC} "
 #   read -r MACHINE
-#   local_print "%s\n" "$MACHINE" | sudo tee /etc/.machine &> /dev/null
+#   quiet printf "%s\n" "$MACHINE" | sudo tee /etc/.machine &> /dev/null
 #   sudo chmod 444 /etc/.machine
 # fi
 
-# TODO: fix local_print
-local_print() {
-  # set +x
-  printf $@
-  # set -x
-}
+quiet() { (set +x; "$@") }
 
 set -xeo pipefail
 
@@ -42,12 +37,12 @@ exec > >(tee -a ".init.log") 2>&1
 # Git config
 if [[ ! -s ~/.gitconfig ]]; then
   set +x
-  local_print "\n${YELLOW}Git Credentials${NC}:\n\n=> Name: "
+  quiet printf "\n${YELLOW}Git Credentials${NC}:\n\n=> Name: "
   read -r NAME
-  local_print "=> Email: "
+  quiet printf "=> Email: "
   read -r EMAIL
-  local_print "[user]\n    name = %s\n    email = %s\n" "$NAME" "$EMAIL" > $HOME/.gitconfig 
-  local_print "\n"
+  quiet printf "[user]\n    name = %s\n    email = %s\n" "$NAME" "$EMAIL" > $HOME/.gitconfig 
+  quiet printf "\n"
   set -x
 fi
 OLD_URL=$(git remote get-url origin)
@@ -106,11 +101,11 @@ existCommand() { command -v "$1" > /dev/null; }
 
 sudo pacman -Syyu --noconfirm
 
-local_print "${YELLOW}installing paru and paruz...$NC\n"
+quiet printf "${YELLOW}installing paru and paruz...$NC\n"
 existCommand "paru"		|| ./binaries/.local/loc_bin/paru -Syy paru-bin --noconfirm --needed #(sudo pacman -S --needed base-devel && git clone https://aur.archlinux.org/paru-git.git "$HOME"/.local/builds/paru && cd "$HOME"/.local/builds/paru && makepkg --noconfirm --needed -si && cd - > /dev/null || return)
-# local_print "${YELLOW}installing paruz...$NC\n"
+# quiet printf "${YELLOW}installing paruz...$NC\n"
 existCommand "paruz"	|| paru -S paruz --noconfirm --needed # (git clone https://github.com/joehillen/paruz.git "$HOME"/.local/builds/paruz && cd "$HOME"/.local/builds/paruz && sudo make install && cd - > /dev/null || return)
-local_print "${YELLOW}installing nvm...$NC\n"
+quiet printf "${YELLOW}installing nvm...$NC\n"
 existCommand "nvm"		|| (PROFILE=/dev/null bash -c 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash')
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
@@ -124,7 +119,7 @@ sudo sed -i.bak -z "s/#\[multilib\]\n*\r*#Include/[multilib]\nInclude/" /etc/pac
 
   #"ark ardour bat bob btop calf curl discord dolphin docker docker-compose dragonfly-reverb eza fd feh firefox fzf gcc gdb guitarix gxplugins.lv2 htop i3 kicad kicad-library kicad-library-3d lazygit lolcat lua lua-jsregexp luarocks ly maim make mdcat mesa mesa-demos mesa-utils mupdf nano ncspot numlockx octave okular onlyoffice openssh picom pipewire pipewire-alsa pipewire-autostart pipewire-jack pipewire-pulse pipewire-zeroconf pavucontrol qpwgraph ripgrep rofi screenfetch sox steam thefuck tldr tmux twolame vim wezterm wget wine xclip xorg yabridge yabridgectl yazi zathura zoxide"
   #"brave gxplugins.lv2 lv2-plugins-aur-meta opera opera-ffmpeg-codecs sublime-text-4 systemd-numlockontty visual-studio-code-bin"
-local_print "${BLUE}installing packages...$NC\n"
+quiet printf "${BLUE}installing packages...$NC\n"
 # TODO: Fix nvm, bob and npm node/packages and nvim install
 
 REQUIRED_PACMAN_PACKAGES="$(cat "$HOME/dotconfigs/.packages" | tr "\n" " " | sed "s/ *$//")"
@@ -142,12 +137,12 @@ sudo systemctl enable ly
 
 [ ! -f "$HOME/.ssh/id_ed25519" ] && ssh-keygen -t ed25519 -q -f "$HOME/.ssh/id_ed25519" -N ""
 
-existCommand "nvm" && nvm install $NODE_VERSION || (local_print "${RED}Command nvm not found...${NC}\n")
-existCommand "bob" && bob install nightly && bob use nightly || local_print "${RED}Command bob not found...${NC}\n"
-existCommand "npm" && npm i -g $REQUIRED_NPM_PACKAGES || local_print "${RED}Command npm not found...${NC}\n"
+existCommand "nvm" && nvm install $NODE_VERSION || (quiet printf "${RED}Command nvm not found...${NC}\n")
+existCommand "bob" && bob install nightly && bob use nightly || quiet printf "${RED}Command bob not found...${NC}\n"
+existCommand "npm" && npm i -g $REQUIRED_NPM_PACKAGES || quiet printf "${RED}Command npm not found...${NC}\n"
 
 # Setup nvim
-local_print "${ORANGE}--> nvim setup${NC}"
+quiet printf "${ORANGE}--> nvim setup${NC}"
 nvim --headless "+Lazy! sync" "+TSUpdateSync" +qa
 
 zsh -ic 'source $HOME/.zshrc'
@@ -157,7 +152,7 @@ sudo usermod -aG adm,audio,bin,cups,dbus,disk,docker,floppy,daemon,ftp,games,git
 
 paru -Syyu --noconfirm
 
-local_print "${GREEN}Automatic steps COMPLETED${NC}: reboot to finish the initialization...\n"
+quiet printf "${GREEN}Automatic steps COMPLETED${NC}: reboot to finish the initialization...\n"
 
 # Setup platformio
 #curl -fsSL https://raw.githubusercontent.com/platformio/platformio-core/develop/platformio/assets/system/99-platformio-udev.rules | sudo tee /etc/udev/rules.d/99-platformio-udev.rules
