@@ -119,8 +119,9 @@ eval "paru -Syy --noconfirm --needed --quiet $REQUIRED_PACMAN_PACKAGES"
 eval "paru -Syy --noconfirm --needed --quiet $REQUIRED_AUR_PACKAGES"
 
 # Config ly
-# sudo sed -i.bak -z "s/#animate = false/animate = true/" /etc/ly/config.ini
-# sudo sed -i.bak -z "s/#bigclock/bigclock/" /etc/ly/config.ini
+sudo sed -i.bak -z "s/animate = [a-z]*/animate = matrix/" /etc/ly/config.ini
+sudo sed -i.bak -z "s/bigclock = [a-z]*/bigclock = en/" /etc/ly/config.ini
+sudo sed -i.bak -z "s/numlock = [a-z]*/numlock = true/" /etc/ly/config.ini
 sudo systemctl enable ly numLockOnTty
 
 [ ! -f "$HOME/.ssh/id_ed25519" ] && ssh-keygen -t ed25519 -q -f "$HOME/.ssh/id_ed25519" -N ""
