@@ -151,15 +151,18 @@ zsh -ic "source $HOME/.zshrc && command -v \"npm\" > /dev/null && npm i -g $REQU
 # Setup tmux
 printf "${ORANGE}--> tmux setup ${NC}\n"
 
-if "test ! -d ~/.tmux/plugins/tpm" \
-   "run 'git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm && ~/.tmux/plugins/tpm/bin/install_plugins'"
-
-tmux start-server
-tmux new-session -d -s setup "sleep 1"
-[[ -s "$HOME/.tmux/plugins/tpm/bin/install_plugins" ]] || log_error "${RED}TPM not installed...${NC}\n" && \
-  ~/.tmux/plugins/tpm/bin/install_plugins && \
-  ~/.tmux/plugins/tpm/bin/update_plugins all
-tmux kill-session -t setup
+if existCommand "tmux"; then
+  tmux start-server
+  tmux new-session -d -s setup "
+    [[ -s \"$HOME/.tmux/plugins/tpm/bin/install_plugins\" ]] || log_error \"${RED}TPM not installed...${NC}\n\" && \
+      ~/.tmux/plugins/tpm/bin/install_plugins >> .tmux.log && \
+      ~/.tmux/plugins/tpm/bin/update_plugins  >> .tmux.log all;
+    exit
+  "
+  tmux wait-for -S 'done'
+  cat .tmux.log || true
+  rm .tmux.log || true
+else log_error "${RED}tmux not found...${NC}" fi
 
 # User permisions and groups
 sudo usermod -aG adm,audio,bin,cups,dbus,disk,docker,floppy,daemon,ftp,games,git,groups,http,input,kmem,kvm,libvirt,libvirt-qemu,lock,mem,network,optical,power,proc,qemu,render,rfkill,audio,scanner,storage,sys,systemd-coredump,systemd-journal,systemd-journal-remote,systemd-network,systemd-oom,systemd-resolve,systemd-timesync,tty,users,uucp,video,wireshark,uuidd,utmp,root,log,avahi "$USER"
