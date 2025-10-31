@@ -21,9 +21,7 @@ NC='\033[0m' # No Color
 REPO="git@github.com:ViniciusJO/dotconfigs.git"
 
 log() {
-  set +x
   printf $1
-  set -x
 }
 
 log_error() {
@@ -169,7 +167,7 @@ if [ ! -d ~/.tmux/plugins/tpm ]; then
 fi
 
 tmux start-server
-tmux new-session -d -s setup "tmux source-file ~/.tmux.conf; sleep 1"
+tmux new-session -d -s setup "sleep 1"
 ([[ -s "$HOME/.tmux/plugins/tpm/bin/install_plugins" ]] || log_error "${RED}TPM not installed...${NC}\n" && \
   ~/.tmux/plugins/tpm/bin/install_plugins && \
   ~/.tmux/plugins/tpm/bin/update_plugins all
