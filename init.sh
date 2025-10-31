@@ -20,6 +20,21 @@ NC='\033[0m' # No Color
 
 REPO="git@github.com:ViniciusJO/dotconfigs.git"
 
+log() {
+  set +x
+  printf $1
+  set -x
+}
+
+log_error() {
+  set +x
+  printf $1
+  set -x
+  false
+}
+
+existCommand() { command -v "$1" > /dev/null; }
+
 # if [[ ! -s /etc/.machine ]]; then
 #   set +x; printf "\n${PURPLE}Machine name: ${NC} "; set -x;
 #   read -r MACHINE
@@ -60,6 +75,8 @@ mkdir -p "$HOME"/.nchat
 
 mkdir -p "$HOME"/.config/ncspot
 
+export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$HOME/.local/loc_bin:$HOME/.local/share/bob/nvim-bin:$PATH
+
 # Config limits
 sudo sed -i.bak "s/[\n\r]*# End of file/\n@audio\t\t hard\t rtpio\t\t 94\n@audio\t\t hard\t memlock\t unlimited\n$USER\t\t hard\t rtpio\t\t 94\n$USER\t\t hard\t memlock\t unlimited\n\n# End of file/" /etc/security/limits.conf
 # sudo sed -i.bak "s/[\n\r]*# End of file/\n@audio;hard;rtpio;94\n@audio;hard;memlock;unlimited\n$USER;hard;rtpio;94\n$USER;hard;memlock;unlimited\n\n# End of file/" /etc/security/limits.conf
@@ -96,21 +113,11 @@ echo "$HOME/dotconfigs/wallpapers/.local/share/wallpapers/default.png" > "$HOME"
 
 (grep "$USER" /etc/passwd | awk -F':' '{print $7}' | grep "zsh" > /dev/null) || chsh -s "/usr/bin/zsh" "$USER"
 
-existCommand() { command -v "$1" > /dev/null; }
-
 sudo pacman -Syyu --noconfirm
 
 set +x; printf "${ORANGE}installing paru and paruz...$NC\n"; set -x;
-existCommand "paru"		|| ./binaries/.local/loc_bin/paru -Syy paru-bin --noconfirm --needed #(sudo pacman -S --needed base-devel && git clone https://aur.archlinux.org/paru-git.git "$HOME"/.local/builds/paru && cd "$HOME"/.local/builds/paru && makepkg --noconfirm --needed -si && cd - > /dev/null || return)
-# set +x; printf "${ORANGE}installing paruz...$NC\n"; set -x;
-existCommand "paruz"	|| paru -S paruz --noconfirm --needed # (git clone https://github.com/joehillen/paruz.git "$HOME"/.local/builds/paruz && cd "$HOME"/.local/builds/paruz && sudo make install && cd - > /dev/null || return)
-set +x; printf "${ORANGE}installing nvm...$NC\n"; set -x;
-existCommand "nvm"		|| (PROFILE=/dev/null bash -c 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash')
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$HOME/.local/loc_bin:$HOME/.local/share/bob/nvim-bin:$PATH
+existCommand "paru"	 || ./binaries/.local/loc_bin/paru -Syy paru-bin --noconfirm --needed #(sudo pacman -S --needed base-devel && git clone https://aur.archlinux.org/paru-git.git "$HOME"/.local/builds/paru && cd "$HOME"/.local/builds/paru && makepkg --noconfirm --needed -si && cd - > /dev/null || return)
+existCommand "paruz" || paru -S paruz --noconfirm --needed # (git clone https://github.com/joehillen/paruz.git "$HOME"/.local/builds/paruz && cd "$HOME"/.local/builds/paruz && sudo make install && cd - > /dev/null || return)
 
 # Config pacman & paru
 sudo sed -i.bak "s/#BottomUp/BottomUp/" /etc/paru.conf
@@ -138,23 +145,42 @@ sudo systemctl enable ly
 
 [ ! -f "$HOME/.ssh/id_ed25519" ] && ssh-keygen -t ed25519 -q -f "$HOME/.ssh/id_ed25519" -N ""
 
-existCommand "nvm" && nvm install $NODE_VERSION && nvm use $NODE_VERSION || (set +x; printf "${RED}Command nvm not found...${NC}\n"); set -x;
-existCommand "bob" && bob install nightly && bob use nightly || set +x; printf "${RED}Command bob not found...${NC}\n"; set -x;
+
+set +x; printf "${ORANGE}installing nvm...$NC\n"; set -x;
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -d "$NVM_DIR" ]	|| (PROFILE=/dev/null bash -c 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash')
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+existCommand "nvm" || log_error "${RED}Command nvm not found...${NC}\n" && nvm install $NODE_VERSION && nvm use $NODE_VERSION
+
+
+existCommand "bob" || log_error "${RED}Command bob not found...${NC}\n" && ! existCommand "nvim" && bob install nightly && bob use nightly
+nvim --headless "+Lazy! sync" "+TSUpdateSync" +qa
 
 zsh -ic 'source $HOME/.zshrc'
 
-zsh -ic "command -v \"npm\" > /dev/null && npm i -g $REQUIRED_NPM_PACKAGES" # || printf \"${RED}Command npm not found...${NC}\n\";
+zsh -ic "source $HOME/.zshrc && command -v \"npm\" > /dev/null && npm i -g $REQUIRED_NPM_PACKAGES" # || printf \"${RED}Command npm not found...${NC}\n\";
 
 # Setup tmux
-set +x; printf "${ORANGE}--> tmux setup ${NC}\n"; set -x;
-[[ -s "$HOME/.tmux/plugins/tpm/bin/install_plugins" ]] && . ~/.tmux/plugins/tpm/bin/install_plugins || set +x; printf "${RED}TPM not installed...${NC}\n"; set -x;
+log "${ORANGE}--> tmux setup ${NC}\n"
+
+if [ ! -d ~/.tmux/plugins/tpm ]; then
+  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+fi
+
+tmux start-server
+tmux new-session -d -s setup "tmux source-file ~/.tmux.conf; sleep 1"
+([[ -s "$HOME/.tmux/plugins/tpm/bin/install_plugins" ]] || log_error "${RED}TPM not installed...${NC}\n" && \
+  ~/.tmux/plugins/tpm/bin/install_plugins && \
+  ~/.tmux/plugins/tpm/bin/update_plugins all
+tmux kill-session -t setup
 
 # User permisions and groups
 sudo usermod -aG adm,audio,bin,cups,dbus,disk,docker,floppy,daemon,ftp,games,git,groups,http,input,kmem,kvm,libvirt,libvirt-qemu,lock,mem,network,optical,power,proc,qemu,render,rfkill,audio,scanner,storage,sys,systemd-coredump,systemd-journal,systemd-journal-remote,systemd-network,systemd-oom,systemd-resolve,systemd-timesync,tty,users,uucp,video,wireshark,uuidd,utmp,root,log,avahi "$USER"
 
 paru -Syyu --noconfirm
 
-set +x; printf "\n\n${GREEN_BG}Automatic steps COMPLETED${NC}: reboot to finish the initialization...\n"; set -x;
+log "\n\n${GREEN_BG}Automatic steps COMPLETED${NC}: reboot to finish the initialization...\n"
 
 # Setup platformio
 #curl -fsSL https://raw.githubusercontent.com/platformio/platformio-core/develop/platformio/assets/system/99-platformio-udev.rules | sudo tee /etc/udev/rules.d/99-platformio-udev.rules
