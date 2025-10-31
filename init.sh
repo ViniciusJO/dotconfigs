@@ -162,7 +162,7 @@ zsh -ic "source $HOME/.zshrc && command -v \"npm\" > /dev/null && npm i -g $REQU
 # Setup tmux
 log "${ORANGE}--> tmux setup ${NC}\n"
 
-if [ ! -d ~/.tmux/plugins/tpm ]; then
+if [ ! -d "~/.tmux/plugins/tpm" ]; then
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 fi
 
