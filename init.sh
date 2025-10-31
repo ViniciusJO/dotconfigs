@@ -162,9 +162,7 @@ zsh -ic "source $HOME/.zshrc && command -v \"npm\" > /dev/null && npm i -g $REQU
 # Setup tmux
 log "${ORANGE}--> tmux setup ${NC}\n"
 
-if [ ! -d "~/.tmux/plugins/tpm" ]; then
-  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-fi
+[[ -d "~/.tmux/plugins/tpm" ]] || git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 tmux start-server
 tmux new-session -d -s setup "sleep 1"
