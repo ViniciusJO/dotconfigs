@@ -22,7 +22,7 @@ REPO="git@github.com:ViniciusJO/dotconfigs.git"
 
 existCommand() { command -v "$1" > /dev/null; }
 
-log_error() { printf "$@"; false }
+log_error() { printf "$@"; false; }
 
 # if [[ ! -s /etc/.machine ]]; then
 #   set +x; printf "\n${PURPLE}Machine name: ${NC} "; set -x;
@@ -162,7 +162,9 @@ if existCommand "tmux"; then
   tmux wait-for -S 'done'
   cat .tmux.log || true
   rm .tmux.log || true
-else log_error "${RED}tmux not found...${NC}" fi
+else
+  log_error "${RED}tmux not found...${NC}"
+fi
 
 # User permisions and groups
 sudo usermod -aG adm,audio,bin,cups,dbus,disk,docker,floppy,daemon,ftp,games,git,groups,http,input,kmem,kvm,libvirt,libvirt-qemu,lock,mem,network,optical,power,proc,qemu,render,rfkill,audio,scanner,storage,sys,systemd-coredump,systemd-journal,systemd-journal-remote,systemd-network,systemd-oom,systemd-resolve,systemd-timesync,tty,users,uucp,video,wireshark,uuidd,utmp,root,log,avahi "$USER"
