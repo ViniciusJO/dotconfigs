@@ -20,18 +20,9 @@ NC='\033[0m' # No Color
 
 REPO="git@github.com:ViniciusJO/dotconfigs.git"
 
-log() {
-  printf $1
-}
-
-log_error() {
-  set +x
-  printf $1
-  set -x
-  false
-}
-
 existCommand() { command -v "$1" > /dev/null; }
+
+log_error() { printf "$@"; false }
 
 # if [[ ! -s /etc/.machine ]]; then
 #   set +x; printf "\n${PURPLE}Machine name: ${NC} "; set -x;
@@ -40,7 +31,7 @@ existCommand() { command -v "$1" > /dev/null; }
 #   sudo chmod 444 /etc/.machine
 # fi
 
-set -xeo pipefail
+set -eo pipefail
 
 # Save logs
 [[ -s .init.log ]] && mv .init.log .init.log.old
@@ -48,14 +39,12 @@ exec > >(tee -a ".init.log") 2>&1
 
 # Git config
 if [[ ! -s ~/.gitconfig ]]; then
-  set +x
   printf "\n${YELLOW}Git Credentials${NC}:\n\n=> Name: ";
   read -r NAME
   printf "=> Email: ";
   read -r EMAIL
   printf "[user]\n    name = %s\n    email = %s\n" "$NAME" "$EMAIL" > $HOME/.gitconfig;
   printf "\n";
-  set -x
 fi
 OLD_URL=$(git remote get-url origin)
 if git remote | grep -qx "origin"; then git remote remove origin; fi
@@ -113,7 +102,7 @@ echo "$HOME/dotconfigs/wallpapers/.local/share/wallpapers/default.png" > "$HOME"
 
 sudo pacman -Syyu --noconfirm
 
-set +x; printf "${ORANGE}installing paru and paruz...$NC\n"; set -x;
+printf "${ORANGE}installing paru and paruz...$NC\n"
 existCommand "paru"	 || ./binaries/.local/loc_bin/paru -Syy paru-bin --noconfirm --needed #(sudo pacman -S --needed base-devel && git clone https://aur.archlinux.org/paru-git.git "$HOME"/.local/builds/paru && cd "$HOME"/.local/builds/paru && makepkg --noconfirm --needed -si && cd - > /dev/null || return)
 existCommand "paruz" || paru -S paruz --noconfirm --needed # (git clone https://github.com/joehillen/paruz.git "$HOME"/.local/builds/paruz && cd "$HOME"/.local/builds/paruz && sudo make install && cd - > /dev/null || return)
 
@@ -125,7 +114,7 @@ sudo sed -i.bak -z "s/#\[multilib\]\n*\r*#Include/[multilib]\nInclude/" /etc/pac
 
   #"ark ardour bat bob btop calf curl discord dolphin docker docker-compose dragonfly-reverb eza fd feh firefox fzf gcc gdb guitarix gxplugins.lv2 htop i3 kicad kicad-library kicad-library-3d lazygit lolcat lua lua-jsregexp luarocks ly maim make mdcat mesa mesa-demos mesa-utils mupdf nano ncspot numlockx octave okular onlyoffice openssh picom pipewire pipewire-alsa pipewire-autostart pipewire-jack pipewire-pulse pipewire-zeroconf pavucontrol qpwgraph ripgrep rofi screenfetch sox steam thefuck tldr tmux twolame vim wezterm wget wine xclip xorg yabridge yabridgectl yazi zathura zoxide"
   #"brave gxplugins.lv2 lv2-plugins-aur-meta opera opera-ffmpeg-codecs sublime-text-4 systemd-numlockontty visual-studio-code-bin"
-set +x; printf "${ORANGE}installing packages...$NC\n"; set -x;
+printf "${ORANGE}installing packages...$NC\n"
 # TODO: Fix nvm, bob and npm node/packages and nvim install
 
 REQUIRED_PACMAN_PACKAGES="$(cat "$HOME/dotconfigs/.packages" | tr "\n" " " | sed "s/ *$//")"
@@ -160,14 +149,14 @@ zsh -ic 'source $HOME/.zshrc'
 zsh -ic "source $HOME/.zshrc && command -v \"npm\" > /dev/null && npm i -g $REQUIRED_NPM_PACKAGES" # || printf \"${RED}Command npm not found...${NC}\n\";
 
 # Setup tmux
-log "${ORANGE}--> tmux setup ${NC}\n"
+printf "${ORANGE}--> tmux setup ${NC}\n"
 
 if "test ! -d ~/.tmux/plugins/tpm" \
    "run 'git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm && ~/.tmux/plugins/tpm/bin/install_plugins'"
 
 tmux start-server
 tmux new-session -d -s setup "sleep 1"
-([[ -s "$HOME/.tmux/plugins/tpm/bin/install_plugins" ]] || log_error "${RED}TPM not installed...${NC}\n" && \
+[[ -s "$HOME/.tmux/plugins/tpm/bin/install_plugins" ]] || log_error "${RED}TPM not installed...${NC}\n" && \
   ~/.tmux/plugins/tpm/bin/install_plugins && \
   ~/.tmux/plugins/tpm/bin/update_plugins all
 tmux kill-session -t setup
@@ -177,7 +166,7 @@ sudo usermod -aG adm,audio,bin,cups,dbus,disk,docker,floppy,daemon,ftp,games,git
 
 paru -Syyu --noconfirm
 
-log "\n\n${GREEN_BG}Automatic steps COMPLETED${NC}: reboot to finish the initialization...\n"
+printf "\n\n${GREEN_BG}Automatic steps COMPLETED${NC}: reboot to finish the initialization...\n"
 
 # Setup platformio
 #curl -fsSL https://raw.githubusercontent.com/platformio/platformio-core/develop/platformio/assets/system/99-platformio-udev.rules | sudo tee /etc/udev/rules.d/99-platformio-udev.rules
