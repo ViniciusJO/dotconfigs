@@ -1,0 +1,20 @@
+# Maintainer: Aditya Shakya <adi1090x@gmail.com>
+
+pkgname=archcraft-plymouth-theme
+pkgver=1.0
+pkgrel=5
+pkgdesc="Default plymouth theme for Archcraft"
+arch=('any')
+url="https://github.com/archcraft-os/extra-packages"
+license=('GPL3')
+depends=('plymouth')
+groups=(archcraft-plymouth-themes)
+options=(!strip !emptydirs)
+
+prepare() {
+	cp -af ../files/. "$srcdir"
+}
+
+package() {
+	(find archcraft -type f -exec install -Dm 644 "{}" "$pkgdir/usr/share/plymouth/themes/{}" \;)
+}

@@ -33,8 +33,8 @@ exec --no-startup-id setxkbmap br
 # Set NUMLOCK on
 exec --no-startup-id numlockx on
 
-# Reload cache for kde apps
-# exec --no-startup-id export XDG_MENU_PREFIX=arch- kbuildsycoca6 &> /dev/null
+# Reload cache for kde apps and fix dolphin MIME config
+exec --no-startup-id XDG_MENU_PREFIX=arch- kbuildsycoca6 &> /dev/null
 
 # Set screens/monitors
 exec --no-startup-id source $HOME/.scripts/screen/screenset.sh
@@ -57,14 +57,14 @@ exec --no-startup-id picom --backend glx
 exec --no-startup-id $HOME/.scripts/wallpaper/change_wallpaper_feh.sh "$HOME/.background"
 #exec --no-startup-id feh --no-xinerama --bg-fill "$(cat $HOME/.background)"
 
+# Mate
+exec --no-startup-id /usr/lib/mate-polkit/polkit-mate-authentication-agent-1 &
+
 # Start Polybar
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 # Auto rotate screen
 exec_always --no-startup-id 2in1screen &
-
-# Fix dolphin MIME config
-exec --no-startup-id XDG_MENU_PREFIX=arch- kbuildsycoca6
 
 # Use pactl to adjust volume in PulseAudio.
 # set $refresh_i3status killall -SIGUSR1 i3status
