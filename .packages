@@ -16,7 +16,6 @@ cups
 curl
 dex
 dfu-util
-discord
 docker
 docker-compose
 dolphin
@@ -54,6 +53,7 @@ ly
 maim
 make
 man-pages
+mate-polkit
 mdcat
 mesa
 mesa-demos
@@ -80,6 +80,10 @@ pipewire-autostart
 pipewire-jack
 pipewire-pulse
 pipewire-zeroconf
+plymouth
+polkit
+polkit-qt5
+polkit-qt6
 polybar
 python3
 qemu

@@ -124,12 +124,6 @@ REQUIRED_NPM_PACKAGES="$(cat "$HOME/dotconfigs/.packages.npm" | tr "\n" " " | se
 eval "paru -Syy --noconfirm --needed --quiet $REQUIRED_PACMAN_PACKAGES"
 eval "paru -Syy --noconfirm --needed --quiet $REQUIRED_AUR_PACKAGES"
 
-# Config ly
-sudo sed -i.bak -z "s/animate = [a-z]*/animate = matrix/" /etc/ly/config.ini
-sudo sed -i.bak -z "s/bigclock = [a-z]*/bigclock = en/" /etc/ly/config.ini
-sudo sed -i.bak -z "s/numlock = [a-z]*/numlock = true/" /etc/ly/config.ini
-sudo systemctl enable ly
-
 [ ! -f "$HOME/.ssh/id_ed25519" ] && ssh-keygen -t ed25519 -q -f "$HOME/.ssh/id_ed25519" -N ""
 
 
@@ -143,8 +137,6 @@ existCommand "nvm" || log_error "${RED}Command nvm not found...${NC}\n" && nvm i
 
 existCommand "bob" || log_error "${RED}Command bob not found...${NC}\n" && ! existCommand "nvim" && bob install nightly && bob use nightly
 nvim --headless "+Lazy! sync" "+TSUpdateSync" +qa
-
-zsh -ic 'source $HOME/.zshrc'
 
 zsh -ic "source $HOME/.zshrc && command -v \"npm\" > /dev/null && npm i -g $REQUIRED_NPM_PACKAGES" # || printf \"${RED}Command npm not found...${NC}\n\";
 
@@ -171,9 +163,35 @@ sudo usermod -aG adm,audio,bin,cups,dbus,disk,docker,floppy,daemon,ftp,games,git
 
 paru -Syyu --noconfirm
 
+# Config ly
+sudo sed -i.bak -z "s/animation = [a-z]*/animation = matrix/" /etc/ly/config.ini
+sudo sed -i.bak -z "s/bigclock = [a-z]*/bigclock = en/" /etc/ly/config.ini
+sudo sed -i.bak -z "s/numlock = [a-z]*/numlock = true/" /etc/ly/config.ini
+sudo systemctl enable ly
+
+# Config grub
+sudo sed -i.bak -z "s/GRUB_TIMEOUT=[0-9]*/GRUB_TIMEOUT=0/" /etc/default/grub
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+
+# Privilege rules
+if [[ ! -S /etc/sudoers.d/50_default ]]; then
+  NOPASSWD_ENTITIES=(%whell %sudo root vinicius)
+  for entity in "${NOPASSWD_ENTITIES[@]}"; do
+    printf "%-15s ALL=(ALL:ALL) NOPASSWD: ALL\n" "$entity" >> .50_default.tmp
+  done
+  sudo chown root:root .50_default.tmp
+  sudo chmod 440 .50_default.tmp
+  sudo mv .50_default.tmp /etc/sudoers.d/50_default
+fi
+
+# Plymouth
+./plymouth/install_theme.sh
+./plymouth/install_plymouth.sh
+
+
+
 printf "\n\n${GREEN_BG}Automatic steps COMPLETED${NC}: reboot to finish the initialization...\n"
 
-# Setup platformio
-#curl -fsSL https://raw.githubusercontent.com/platformio/platformio-core/develop/platformio/assets/system/99-platformio-udev.rules | sudo tee /etc/udev/rules.d/99-platformio-udev.rules
+# TODO:
+#   - plymouth
 
-#libreoffice-extension-writer2latex
