@@ -1,13 +1,14 @@
 #!/usr/bin/bash
-BLACK='\033[0;30m'     
-RED='\033[0;31m'     
-GREEN='\033[0;32m'     
-GREEN_BG='\032[0;32m'     
-ORANGE='\033[0;33m'     
-BLUE='\033[0;34m'     
-PURPLE='\033[0;35m'     
-CYAN='\033[0;36m'     
-LIGHT_GRAY='\033[0;37m'     
+BLACK='\033[0;30m'
+RED='\033[0;31m'
+RED_BG='\033[41m'
+GREEN='\033[0;32m'
+GREEN_BG='\033[42m'
+ORANGE='\033[0;33m'
+BLUE='\033[0;34m'
+PURPLE='\033[0;35m'
+CYAN='\033[0;36m'
+LIGHT_GRAY='\033[0;37m'
 DARK_GRAY='\033[1;30m'
 LIGHT_RED='\033[1;31m'
 LIGHT_GREEN='\033[1;32m'
@@ -17,6 +18,9 @@ LIGHT_PURPLE='\033[1;35m'
 LIGHT_CYAN='\033[1;36m'
 WHITE='\033[1;37m'
 NC='\033[0m' # No Color
+
+ERROR_STYLE="${BLACK}${RED_BG}"
+SUCC_STYLE="${BLACK}${GREEN_BG}"
 
 REPO="git@github.com:ViniciusJO/dotconfigs.git"
 
@@ -98,6 +102,7 @@ stow             \
 # Default wallpaper
 echo "$HOME/dotconfigs/wallpapers/.local/share/wallpapers/default.png" > "$HOME"/.background
 
+# Set zsh as default shell
 (grep "$USER" /etc/passwd | awk -F':' '{print $7}' | grep "zsh" > /dev/null) || chsh -s "/usr/bin/zsh" "$USER"
 
 sudo pacman -Syyu --noconfirm
@@ -112,10 +117,7 @@ sudo sed -i.bak "s/#Color/Color/" /etc/pacman.conf
 sudo sed -i.bak "s/#ParallelDownloads/ParallelDownloads/" /etc/pacman.conf
 sudo sed -i.bak -z "s/#\[multilib\]\n*\r*#Include/[multilib]\nInclude/" /etc/pacman.conf
 
-  #"ark ardour bat bob btop calf curl discord dolphin docker docker-compose dragonfly-reverb eza fd feh firefox fzf gcc gdb guitarix gxplugins.lv2 htop i3 kicad kicad-library kicad-library-3d lazygit lolcat lua lua-jsregexp luarocks ly maim make mdcat mesa mesa-demos mesa-utils mupdf nano ncspot numlockx octave okular onlyoffice openssh picom pipewire pipewire-alsa pipewire-autostart pipewire-jack pipewire-pulse pipewire-zeroconf pavucontrol qpwgraph ripgrep rofi screenfetch sox steam thefuck tldr tmux twolame vim wezterm wget wine xclip xorg yabridge yabridgectl yazi zathura zoxide"
-  #"brave gxplugins.lv2 lv2-plugins-aur-meta opera opera-ffmpeg-codecs sublime-text-4 systemd-numlockontty visual-studio-code-bin"
 printf "${ORANGE}installing packages...$NC\n"
-# TODO: Fix nvm, bob and npm node/packages and nvim install
 
 REQUIRED_PACMAN_PACKAGES="$(cat "$HOME/dotconfigs/.packages" | tr "\n" " " | sed "s/ *$//")"
 REQUIRED_AUR_PACKAGES="$(cat "$HOME/dotconfigs/.packages.aur" | tr "\n" " " | sed "s/ *$//")"
@@ -124,29 +126,29 @@ REQUIRED_NPM_PACKAGES="$(cat "$HOME/dotconfigs/.packages.npm" | tr "\n" " " | se
 eval "paru -Syy --noconfirm --needed --quiet $REQUIRED_PACMAN_PACKAGES"
 eval "paru -Syy --noconfirm --needed --quiet $REQUIRED_AUR_PACKAGES"
 
+# SSH key
 [ ! -f "$HOME/.ssh/id_ed25519" ] && ssh-keygen -t ed25519 -q -f "$HOME/.ssh/id_ed25519" -N ""
 
-
+# Setup node
 set +x; printf "${ORANGE}installing nvm...$NC\n"; set -x;
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -d "$NVM_DIR" ]	|| (PROFILE=/dev/null bash -c 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash')
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-existCommand "nvm" || log_error "${RED}Command nvm not found...${NC}\n" && nvm install $NODE_VERSION && nvm use $NODE_VERSION
+existCommand "nvm" || log_error "${ERROR_STYLE} ERROR ${NC}: ${RED}Command nvm not found...${NC}\n" && nvm install $NODE_VERSION && nvm use $NODE_VERSION
 
-
-existCommand "bob" || log_error "${RED}Command bob not found...${NC}\n" && ! existCommand "nvim" && bob install nightly && bob use nightly
+# Setup nvim
+existCommand "bob" || log_error "${ERROR_STYLE} ERROR ${NC}: ${RED}Command bob not found...${NC}\n" && ! existCommand "nvim" && bob install nightly && bob use nightly
 nvim --headless "+Lazy! sync" "+TSUpdateSync" +qa
 
 zsh -ic "source $HOME/.zshrc && command -v \"npm\" > /dev/null && npm i -g $REQUIRED_NPM_PACKAGES" # || printf \"${RED}Command npm not found...${NC}\n\";
 
 # Setup tmux
 printf "${ORANGE}--> tmux setup ${NC}\n"
-
 if existCommand "tmux"; then
   tmux start-server
   tmux new-session -d -s setup "
-    [[ -s \"$HOME/.tmux/plugins/tpm/bin/install_plugins\" ]] || log_error \"${RED}TPM not installed...${NC}\n\" && \
+    [[ -s \"$HOME/.tmux/plugins/tpm/bin/install_plugins\" ]] || log_error \"${ERROR_STYLE} ERROR ${NC}: ${RED}TPM not installed...${NC}\n\" && \
       ~/.tmux/plugins/tpm/bin/install_plugins >> .tmux.log && \
       ~/.tmux/plugins/tpm/bin/update_plugins  >> .tmux.log all;
     exit
@@ -155,7 +157,7 @@ if existCommand "tmux"; then
   cat .tmux.log || true
   rm .tmux.log || true
 else
-  log_error "${RED}tmux not found...${NC}"
+  log_error "${ERROR_STYLE} ERROR ${NC}: ${RED}tmux not found...${NC}"
 fi
 
 # User permisions and groups
@@ -189,8 +191,7 @@ fi
 ./plymouth/install_plymouth.sh
 
 
-
-printf "\n\n${GREEN_BG}Automatic steps COMPLETED${NC}: reboot to finish the initialization...\n"
+printf "\n\n${SUCC_STYLE} Automatic steps COMPLETED ${NC}: reboot to finish the initialization...\n"
 
 # TODO:
 #   - consolefonts
