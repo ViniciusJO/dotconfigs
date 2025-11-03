@@ -190,7 +190,6 @@ fi
 ./plymouth/install_theme.sh
 ./plymouth/install_plymouth.sh
 
-
 printf "\n\n${SUCC_STYLE} Automatic steps COMPLETED ${NC}: reboot to finish the initialization...\n"
 
 # TODO:
