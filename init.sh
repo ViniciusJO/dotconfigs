@@ -193,5 +193,5 @@ fi
 printf "\n\n${GREEN_BG}Automatic steps COMPLETED${NC}: reboot to finish the initialization...\n"
 
 # TODO:
-#   - plymouth
+#   - consolefonts
 
