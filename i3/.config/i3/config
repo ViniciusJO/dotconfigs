@@ -37,7 +37,7 @@ exec --no-startup-id numlockx on
 exec --no-startup-id XDG_MENU_PREFIX=arch- kbuildsycoca6 &> /dev/null
 
 # Set screens/monitors
-exec --no-startup-id source $HOME/.scripts/screen/screenset.sh
+exec --no-startup-id [[ -s "~/.screenlayout/default.sh" ]] && ~/.screenlayout/default.sh || $HOME/.scripts/screen/screenset.sh
 
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_AutostartDeno.addSignalListener("SIGINT", sigIntHandler);
@@ -162,10 +162,14 @@ bindsym $mod+o exec --no-startup-id rofi -show emoji
 # bindsym $mod+z exec --no-startup-id $HOME/.scripts/wallpaper/change_wallpaper_feh.sh
 bindsym $mod+z exec --no-startup-id wezterm --config window_background_opacity=0.5 start --class "Change Background" ~/.scripts/wallpaper/change_wallpaper_feh.sh
 
+bindsym $mod+p exec --no-startup-id arandr
+
 for_window [class="Change Background"] floating enable, move position 50 50, resize set 600 300, border pixel 1
 for_window [class="BarPopup"] floating enable, move position 1270 150, resize set 650 900, border pixel 1
-for_window [class="tabby"] floating enable, move position 100 50, resize set 1720 980, border pixel 1
-for_window [class="matplotlib"] floating enable, move position 1075 25, resize set 800 600, border pixel 1
+for_window [class="matplotlib"] floating enable, resize set 800 600, border pixel 1, move position 1075 25
+
+for_window [class="tabby"] floating enable, resize set 1720 980, border pixel 1, move position center
+for_window [class="Arandr"] floating enable, resize set 1720 980, border pixel 1, move position center 
 
 for_window [class="WebApp-ChatGPT5206"] move to scratchpad 
 #, move position 100 50, resize set 1720 980, border pixel 1
