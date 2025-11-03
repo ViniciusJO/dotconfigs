@@ -194,4 +194,5 @@ printf "\n\n${SUCC_STYLE} Automatic steps COMPLETED ${NC}: reboot to finish the 
 
 # TODO:
 #   - consolefonts
+#   - fix plymouth hook placement (going to the end even when there is udev)
 
