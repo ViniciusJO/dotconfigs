@@ -69,7 +69,33 @@ else
   sudo sed -i -E "s|^\s*HOOKS=\(.*\)|$new_line|" "$CONF"
   echo "Updated HOOKS line: ${new_line}"
 
+  CONF="/etc/default/grub"
+  params=(quiet splash loglevel=3 rd.udev.log_priority=3 vt.global_cursor_default=0 plymouth.ignore-serial-consoles)
+
+  line=$(grep '^GRUB_CMDLINE_LINUX_DEFAULT=' "$CONF" || echo 'GRUB_CMDLINE_LINUX_DEFAULT=""')
+  current=$(echo "$line" | sed -E 's/.*="(.*)"/\1/')
+
+  for p in "${params[@]}"; do
+    [[ " $current " =~ " $p " ]] || current="$current $p"
+  done
+
+  new_line="GRUB_CMDLINE_LINUX_DEFAULT=\"${current# }\""
+  sudo sed -i -E "s|^GRUB_CMDLINE_LINUX_DEFAULT=.*|$new_line|" "$CONF"
+
+  # GRUB_CONF="/etc/default/grub"
+  #
+  # # Desired parameters
+  # PLYMOUTH_PARAMS="quiet splash loglevel=3 rd.udev.log_priority=3 vt.global_cursor_default=0 plymouth.ignore-serial-consoles"
+  #
+  # # Replace or append in GRUB_CMDLINE_LINUX_DEFAULT
+  # if grep -q '^GRUB_CMDLINE_LINUX_DEFAULT=' "$GRUB_CONF"; then
+  #   sudo sed -i -E "s|^GRUB_CMDLINE_LINUX_DEFAULT=.*|GRUB_CMDLINE_LINUX_DEFAULT=\"${PLYMOUTH_PARAMS}\"|" "$GRUB_CONF"
+  # else
+  #   echo "GRUB_CMDLINE_LINUX_DEFAULT=\"${PLYMOUTH_PARAMS}\"" | sudo tee -a "$GRUB_CONF" >/dev/null
+  # fi
+
   sudo mkinitcpio -P linux
+  sudo grub-mkconfig -o /boot/grub/grub.cfg
 fi
 
 
