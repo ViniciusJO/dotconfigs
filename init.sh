@@ -14,8 +14,7 @@ LIGHT_RED='\033[1;31m'
 LIGHT_GREEN='\033[1;32m'
 YELLOW='\033[1;33m'
 LIGHT_BLUE='\033[1;34m'
-LIGHT_PURPLE='\033[1;35m'
-LIGHT_CYAN='\033[1;36m'
+LIGHT_PURPLE='\033[1;35m' LIGHT_CYAN='\033[1;36m'
 WHITE='\033[1;37m'
 NC='\033[0m' # No Color
 
@@ -105,12 +104,13 @@ echo "$HOME/dotconfigs/wallpapers/.local/share/wallpapers/default.png" > "$HOME"
 # Set zsh as default shell
 (grep "$USER" /etc/passwd | awk -F':' '{print $7}' | grep "zsh" > /dev/null) || chsh -s "/usr/bin/zsh" "$USER"
 
-sudo pacman -Syyu --noconfirm
+sudo pacman -Syy
 
 printf "${ORANGE}installing paru and paruz...$NC\n"
 existCommand "paru"	 || ./binaries/.local/loc_bin/paru -Syy paru-bin --noconfirm --needed #(sudo pacman -S --needed base-devel && git clone https://aur.archlinux.org/paru-git.git "$HOME"/.local/builds/paru && cd "$HOME"/.local/builds/paru && makepkg --noconfirm --needed -si && cd - > /dev/null || return)
 existCommand "paruz" || paru -S paruz --noconfirm --needed # (git clone https://github.com/joehillen/paruz.git "$HOME"/.local/builds/paruz && cd "$HOME"/.local/builds/paruz && sudo make install && cd - > /dev/null || return)
 
+# TODO: fix paru.conf not found at this point
 # Config pacman & paru
 sudo sed -i.bak "s/#BottomUp/BottomUp/" /etc/paru.conf
 sudo sed -i.bak "s/#Color/Color/" /etc/pacman.conf
@@ -123,8 +123,8 @@ REQUIRED_PACMAN_PACKAGES="$(cat "$HOME/dotconfigs/.packages" | tr "\n" " " | sed
 REQUIRED_AUR_PACKAGES="$(cat "$HOME/dotconfigs/.packages.aur" | tr "\n" " " | sed "s/ *$//")"
 REQUIRED_NPM_PACKAGES="$(cat "$HOME/dotconfigs/.packages.npm" | tr "\n" " " | sed "s/ *$//")"
 
-eval "paru -Syy --noconfirm --needed --quiet $REQUIRED_PACMAN_PACKAGES"
-eval "paru -Syy --noconfirm --needed --quiet $REQUIRED_AUR_PACKAGES"
+eval "paru -S --noconfirm --needed --quiet $REQUIRED_PACMAN_PACKAGES"
+eval "paru -S --noconfirm --needed --quiet $REQUIRED_AUR_PACKAGES"
 
 # SSH key
 [ ! -f "$HOME/.ssh/id_ed25519" ] && ssh-keygen -t ed25519 -q -f "$HOME/.ssh/id_ed25519" -N ""
@@ -141,7 +141,9 @@ existCommand "nvm" || log_error "${ERROR_STYLE} ERROR ${NC}: ${RED}Command nvm n
 existCommand "bob" || log_error "${ERROR_STYLE} ERROR ${NC}: ${RED}Command bob not found...${NC}\n" && ! existCommand "nvim" && bob install nightly && bob use nightly
 nvim --headless "+Lazy! sync" "+TSUpdateSync" +qa
 
-zsh -ic "source $HOME/.zshrc && command -v \"npm\" > /dev/null && npm i -g $REQUIRED_NPM_PACKAGES" # || printf \"${RED}Command npm not found...${NC}\n\";
+# TODO> fix npm packages instalation
+# zsh -ic "source $HOME/.zshrc && command -v \"npm\" > /dev/null && npm i -g $REQUIRED_NPM_PACKAGES" # || printf \"${RED}Command npm not found...${NC}\n\";
+zsh -ic "source $HOME/.zshrc" # || printf \"${RED}Command npm not found...${NC}\n\";
 
 # Setup tmux
 printf "${ORANGE}--> tmux setup ${NC}\n"
@@ -169,7 +171,6 @@ paru -Syyu --noconfirm
 sudo sed -i.bak -z "s/animation = [a-z]*/animation = matrix/" /etc/ly/config.ini
 sudo sed -i.bak -z "s/bigclock = [a-z]*/bigclock = en/" /etc/ly/config.ini
 sudo sed -i.bak -z "s/numlock = [a-z]*/numlock = true/" /etc/ly/config.ini
-sudo systemctl enable ly
 
 # Config grub
 sudo sed -i.bak -z "s/GRUB_TIMEOUT=[0-9]*/GRUB_TIMEOUT=0/" /etc/default/grub
@@ -189,6 +190,9 @@ fi
 # Plymouth
 ./plymouth/install_theme.sh
 ./plymouth/install_plymouth.sh
+
+# TODO: enable services
+sudo systemctl enable ly cups sshd vsftpd
 
 printf "\n\n${SUCC_STYLE} Automatic steps COMPLETED ${NC}: reboot to finish the initialization...\n"
 

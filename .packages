@@ -1,3 +1,6 @@
+alsa-firmware
+alsa-tools
+alsa-utils
 arandr
 archlinux-xdg-menu
 ardour
@@ -8,8 +11,10 @@ bear
 bison
 bob
 btop
+calcurse
 calf
 ccache
+clang
 cmake
 cowsay
 cups
@@ -22,6 +27,7 @@ dolphin
 dosfstools
 dragonfly-bin
 dragonfly-reverb
+exfat-utils
 eza
 fd
 feh
@@ -58,6 +64,8 @@ mdcat
 mesa
 mesa-demos
 mesa-utils
+mise
+mpv
 mupdf
 nano
 ncspot
@@ -89,6 +97,7 @@ python3
 qemu
 qpwgraph
 ripgrep
+rlwrap
 rofi
 screenfetch
 sox
@@ -104,8 +113,11 @@ unrar
 vim
 virt-manager
 viu
+vlc
+vsftpd
 wezterm
 wget
+whois
 wine
 xclip
 xorg

@@ -60,4 +60,5 @@ require('lazy').setup({
   { import = 'plugins.tiny-inline-diagnostic' },
   { import = 'plugins.stupyder' },
   { import = 'plugins.align' },
+  { import = 'plugins.timerly' },
 })
