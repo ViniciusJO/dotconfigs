@@ -61,4 +61,5 @@ require('lazy').setup({
   { import = 'plugins.stupyder' },
   { import = 'plugins.align' },
   { import = 'plugins.timerly' },
+  { import = 'plugins.nomad' },
 })

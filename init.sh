@@ -165,7 +165,7 @@ fi
 # User permisions and groups
 sudo usermod -aG adm,audio,bin,cups,dbus,disk,docker,floppy,daemon,ftp,games,git,groups,http,input,kmem,kvm,libvirt,libvirt-qemu,lock,mem,network,optical,power,proc,qemu,render,rfkill,audio,scanner,storage,sys,systemd-coredump,systemd-journal,systemd-journal-remote,systemd-network,systemd-oom,systemd-resolve,systemd-timesync,tty,users,uucp,video,wireshark,uuidd,utmp,root,log,avahi "$USER"
 
-paru -Syyu --noconfirm
+# paru -Syyu --noconfirm
 
 # Config ly
 sudo sed -i.bak -z "s/animation = [a-z]*/animation = matrix/" /etc/ly/config.ini
