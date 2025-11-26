@@ -4,3 +4,5 @@ zsh/.oh-my-zsh
 **/.*.uuid
 **/*-lock.json
 **/*.tmp
+ncspot/.config/ncspot/userstate.cbor
+nvim/.config/nvim/lazy-lock.json
