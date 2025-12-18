@@ -187,52 +187,53 @@ return {
 
     mason_lspconfig.setup_handlers {
       function(server_name)
-        require('lspconfig')[server_name].setup {
+        vim.lsp.config(server_name, {
           capabilities = capabilities,
           on_attach = on_attach,
           settings = servers[server_name],
           filetypes = (servers[server_name] or {}).filetypes,
-        }
+        });
+        vim.lsp.enable(server_name);
       end
     }
 
     require('lspconfig.ui.windows').default_options.border = 'double'
     vim.keymap.set("n", "<leader>li", require("lspimport").import, { noremap = true, desc = "Auto Import on file" })
 
-    local lspconfig = require('lspconfig')
+    -- local lspconfig = require('lspconfig')
 
-    function StopClangd()
-      for _, client in ipairs(vim.lsp.get_active_clients()) do
-        if client.name == "clangd" then
-          client.stop()
-        end
-      end
-    end
-
-    -- Função para reconfigurar o clangd dinamicamente
-    function ChangeClangd(cmd_path)
-      StopClangd()
-
-      -- Reconfigurar clangd com novo cmd
-      lspconfig.clangd.setup{
-        cmd = { cmd_path },
-      }
-
-      -- Reatachar clangd ao buffer atual
-      vim.cmd("edit") -- Força reanalisar o buffer atual
-    end
-
-    -- Comando para usar clangd normal do sistema
-    vim.api.nvim_create_user_command("SystemClangd", function()
-      ChangeClangd("clangd")
-      print("Switched to system clangd")
-    end, {})
-
-    -- Comando para usar clangd do ESP-IDF
-    vim.api.nvim_create_user_command("IdfClangd", function()
-      ChangeClangd("/home/vinicius/.espressif/tools/esp-clang/esp-18.1.2_20240912/esp-clang/bin/clangd")
-      print("Switched to ESP-IDF clangd")
-    end, {})
+    -- function StopClangd()
+    --   for _, client in ipairs(vim.lsp.get_active_clients()) do
+    --     if client.name == "clangd" then
+    --       client.stop()
+    --     end
+    --   end
+    -- end
+    --
+    -- -- Função para reconfigurar o clangd dinamicamente
+    -- function ChangeClangd(cmd_path)
+    --   StopClangd()
+    --
+    --   -- Reconfigurar clangd com novo cmd
+    --   lspconfig.clangd.setup{
+    --     cmd = { cmd_path },
+    --   }
+    --
+    --   -- Reatachar clangd ao buffer atual
+    --   vim.cmd("edit") -- Força reanalisar o buffer atual
+    -- end
+    --
+    -- -- Comando para usar clangd normal do sistema
+    -- vim.api.nvim_create_user_command("SystemClangd", function()
+    --   ChangeClangd("clangd")
+    --   print("Switched to system clangd")
+    -- end, {})
+    --
+    -- -- Comando para usar clangd do ESP-IDF
+    -- vim.api.nvim_create_user_command("IdfClangd", function()
+    --   ChangeClangd("/home/vinicius/.espressif/tools/esp-clang/esp-18.1.2_20240912/esp-clang/bin/clangd")
+    --   print("Switched to ESP-IDF clangd")
+    -- end, {})
 
 
 

@@ -84,6 +84,11 @@ return {
       end
 		end, { desc = 'Compile mode' })
 
+    vim.keymap.set('n', '<leader>cC', function()
+      cm.compile();
+      cm.send_to_qflist();
+		end, { desc = 'Compile mode' })
+
 
     -- Closes compilation window if the last one open
     vim.api.nvim_create_autocmd("BufEnter", {

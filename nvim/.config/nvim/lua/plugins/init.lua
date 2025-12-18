@@ -17,10 +17,10 @@ require('lazy').setup({
   { import = 'plugins.which-key' },
   { import = 'plugins.fugitive' },
   { import = 'plugins.gitsigns' },
-  { import = 'plugins.oil' },
-  { import = 'plugins.neo-tree' },
+  -- { import = 'plugins.oil' },
+  -- { import = 'plugins.neo-tree' },
   { import = 'plugins.compile_mode' },
-  { import = 'plugins.twoslash-queries' },
+  -- { import = 'plugins.twoslash-queries' }, -- BROKEN when update to the nvim >= 0.11 vim.lsp
   { import = 'plugins.bufferline' },
   { import = 'plugins.transparent' },
   { import = 'plugins.todo-comments' },
@@ -61,5 +61,6 @@ require('lazy').setup({
   { import = 'plugins.stupyder' },
   { import = 'plugins.align' },
   { import = 'plugins.timerly' },
-  { import = 'plugins.nomad' },
+  -- { import = 'plugins.nomad' }, -- BROKEN
+  { import = 'plugins.fyler' },
 })

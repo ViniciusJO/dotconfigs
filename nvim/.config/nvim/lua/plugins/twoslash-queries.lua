@@ -6,7 +6,7 @@ return {
     highlight = "Type",   -- to set up a highlight group for the virtual text
   },
   init = function()
-    require("lspconfig")["ts_ls"].setup({
+    vim.lsp.config("ts_ls", {
       on_attach = function(client, bufnr)
         require("twoslash-queries").attach(client, bufnr)
       end,
