@@ -92,7 +92,10 @@ function M.attach()
     elseif event == "msg_history_show" then
       vim.schedule(function()
         for _, msg in ipairs(args.entries or {}) do
-          append(chunks_to_lines(msg.content))
+          local ctl = chunks_to_lines(msg.content);
+          append(ctl);
+          local bufnr = vim.api.nvim_get_current_buf();
+          vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, ctl);
         end
       end)
 
@@ -118,8 +121,6 @@ function M.toggle()
     ensure_window()
   end
 end
-
-M.attach()
 
 vim.keymap.set("n", "<leader>o", function()
   M.toggle()

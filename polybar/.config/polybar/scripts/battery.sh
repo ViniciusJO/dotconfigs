@@ -9,6 +9,8 @@ if [[ -z "$BAT" ]]; then
   exit 0
 fi
 
+printf " "
+
 STATUS=$(cat /sys/class/power_supply/$BAT/status)
 PERC=$(cat /sys/class/power_supply/$BAT/capacity)
 
@@ -20,13 +22,13 @@ fi
 if [ "$STATUS" = "Charging" ]; then
     ICON="%{F$(get_color pprim)}"
 else
-    if   [ "$PERC" -ge 90 ]; then ICON="%{F$(get_color psec)}"
-    elif [ "$PERC" -ge 70 ]; then ICON="%{F$(get_color psec)}"
-    elif [ "$PERC" -ge 50 ]; then ICON="%{F$(get_color psec)}"
-    elif [ "$PERC" -ge 30 ]; then ICON="%{F$(get_color psec)}"
-    else ICON="%{F$(get_color psec)}"
+    if   [ "$PERC" -ge 90 ]; then ICON="%{F$(get_color psec)} "
+    elif [ "$PERC" -ge 70 ]; then ICON="%{F$(get_color psec)} "
+    elif [ "$PERC" -ge 50 ]; then ICON="%{F$(get_color psec)} "
+    elif [ "$PERC" -ge 30 ]; then ICON="%{F$(get_color psec)} "
+    else ICON="%{F$(get_color psec)} "
     fi
 fi
 
-echo " $ICON  ${PERC}%% %{F-}"
+echo " $ICON ${PERC}% %{F-}"
 

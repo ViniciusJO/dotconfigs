@@ -13,7 +13,7 @@ require 'tui'
 
 require 'c_things'
 
-require 'command_output'
+-- require('command_output').attach();
 
 vim.filetype.add({
   extension = {
