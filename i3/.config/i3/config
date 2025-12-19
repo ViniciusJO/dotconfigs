@@ -10,6 +10,8 @@
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
 hide_edge_borders smart
+default_border pixel 2
+default_floating_border normal
 
 set $mod Mod4
 
