@@ -15,11 +15,9 @@ require 'c_things'
 
 -- require('command_output').attach();
 
-vim.filetype.add({
-  extension = {
-    yml = 'yaml.ansible'
-  }
-})
+
+
+vim.filetype.add({ extension = { yml = 'yaml.ansible' } })
 
 require 'custom'
 
@@ -148,6 +146,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 
   end,
 })
+
 
 -- vim.api.nvim_create_autocmd({ "FileType" }, {
 --   pattern = "typst",
