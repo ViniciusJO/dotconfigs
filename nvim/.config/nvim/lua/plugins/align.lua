@@ -3,9 +3,6 @@ return {
   branch = "v2",
   lazy = true,
   init = function()
-    local NS = { noremap = true, silent = true }
-
-    -- Aligns to 1 character
     vim.keymap.set(
       'x',
       '<leader>=a',
@@ -14,10 +11,9 @@ return {
           length = 1,
         })
       end,
-      NS
+      { noremap = true, silent = true, desc = "Aligns to 1 character" }
     )
 
-    -- Aligns to 2 characters with previews
     vim.keymap.set(
       'x',
       '<leader>=d',
@@ -27,10 +23,9 @@ return {
           length = 2,
         })
       end,
-      NS
+      { noremap = true, silent = true, desc = "Aligns to 2 characters with previews" }
     )
 
-    -- Aligns to a string with previews
     vim.keymap.set(
       'x',
       '<leader>=w',
@@ -40,10 +35,9 @@ return {
           regex = false,
         })
       end,
-      NS
+      { noremap = true, silent = true, desc = "Aligns to a string with previews" }
     )
 
-    -- Aligns to a Vim regex with previews
     vim.keymap.set(
       'x',
       '<leader>=r',
@@ -53,10 +47,9 @@ return {
           regex = true,
         })
       end,
-      NS
+      { noremap = true, silent = true, desc = "Aligns to a Vim regex with previews" }
     )
 
-    -- Example gawip to align a paragraph to a string with previews
     vim.keymap.set(
       'n',
       'gaw',
@@ -70,10 +63,9 @@ return {
           }
         )
       end,
-      NS
+      { noremap = true, silent = true, desc = "Example gawip to align a paragraph to a string with previews" }
     )
 
-    -- Example gaaip to align a paragraph to 1 character
     vim.keymap.set(
       'n',
       'gaa',
@@ -81,7 +73,7 @@ return {
         local a = require'align'
         a.operator(a.align_to_char)
       end,
-      NS
+      { noremap = true, silent = true, desc = "Example gaaip to align a paragraph to 1 character" }
     )
   end
 }

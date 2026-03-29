@@ -50,7 +50,7 @@
   botstrap_plugin zsh-completions https://github.com/zsh-users/zsh-completions.git
   botstrap_plugin zsh-syntax-highlighting https://github.com/zsh-users/zsh-syntax-highlighting.git
   botstrap_plugin fzf_tab https://github.com/Aloxaf/fzf-tab
-  botstrap_plugin you_should_use https://github.com/MichaelAquilina/zsh-you-should-use.git
+  # botstrap_plugin you_should_use https://github.com/MichaelAquilina/zsh-you-should-use.git
 
   botstrap_omzsh_plugin "aliases git npm pip python pyenv sudo systemd zsh-autosuggestions zsh-syntax-highlighting colored-man-pages command-not-found archlinux"
   # botstrap_omzsh_plugin "aliases git docker npm pip python pyenv sudo systemd zsh-autosuggestions zsh-syntax-highlighting colored-man-pages command-not-found archlinux"
@@ -130,3 +130,6 @@ export QT_STYLE_OVERRIDE="qt6ct"
 # much, much faster.
 # DISABLE_UNTRACKED_FILES_DIRTY="true"
 
+
+# eval "$($HOME/.local/bin/mise activate zsh)" # added by https://mise.run/zsh
+eval "$($HOME/.local/bin/mise completions zsh)"

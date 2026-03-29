@@ -16,5 +16,4 @@ return {
     require('which-key').add({{ "<leader>a", desc = "Aerial" }})
     vim.keymap.set("n", "<leader>aa", "<cmd>AerialToggle!<CR>")
   end
-
 }

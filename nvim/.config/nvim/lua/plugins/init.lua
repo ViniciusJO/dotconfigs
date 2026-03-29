@@ -63,4 +63,5 @@ require('lazy').setup({
   { import = 'plugins.timerly' },
   -- { import = 'plugins.nomad' }, -- BROKEN
   { import = 'plugins.fyler' },
+  { import = 'plugins.claude' },
 })

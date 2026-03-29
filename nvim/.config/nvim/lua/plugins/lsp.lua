@@ -16,6 +16,8 @@ return {
     { 'ziglang/zig.vim' },
   },
   config = function()
+    vim.lsp.set_log_level("debug")
+
     require('fidget').setup()
     require('neoconf').setup()
     require('neodev').setup()
@@ -38,6 +40,18 @@ return {
       vim.keymap.set('n', '<leader>lf', buf.format, { desc = 'Format' })
       vim.keymap.set('n', '<leader>lr', buf.rename, { desc = 'Rename' })
       vim.keymap.set('n', '<leader>la', buf.code_action, { desc = 'Code Actions' })
+
+      wk.add({ { '<leader>ls', desc = 'Split horizontaly and...' } });
+      wk.add({ { '<leader>lv', desc = 'Split verticaly and...' } });
+
+      vim.keymap.set('n', '<leader>lsd', function()
+        vim.cmd("split")
+        buf.definition()
+      end, { desc = 'Goto Definition' })
+      vim.keymap.set('n', '<leader>lvd', function()
+        vim.cmd("vsplit")
+        buf.definition()
+      end, { desc = 'Goto Definition' })
 
       vim.keymap.set('n', '<leader>lR', ':LspRestart<cr>', { desc = 'Restart LSP' })
 
@@ -73,12 +87,19 @@ return {
         vim.lsp.buf.format()
       end, { desc = 'Format current buffer with LSP' })
     end
+
     local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
     capabilities.textDocument.foldingRange = {
       dynamicRegistration = false,
       lineFoldingOnly = true
     }
+
     local servers = {
+      chibicc = {
+        cmd = { "~/.local/bin/chibicc", "--lsp" },
+        filetypes = { "c" },
+        -- root_dir = require('lspconfig.util').util.root_pattern(".git", "."),
+      },
       clangd = {
         -- capabilities = capabilities;
         -- cmd = { "/home/vinicius/.espressif/tools/esp-clang/esp-18.1.2_20240912/esp-clang/bin/clangd", "--background-index", "--query-driver=**", },
@@ -187,6 +208,7 @@ return {
 
     mason_lspconfig.setup_handlers {
       function(server_name)
+        -- vim.print(server_name)
         vim.lsp.config(server_name, {
           capabilities = capabilities,
           on_attach = on_attach,
@@ -196,6 +218,17 @@ return {
         vim.lsp.enable(server_name);
       end
     }
+
+    local server_name = "chibicc"
+    -- vim.print(server_name)
+    vim.lsp.config(server_name, {
+      capabilities = capabilities,
+      on_attach = on_attach,
+      settings = servers[server_name],
+      filetypes = (servers[server_name] or {}).filetypes,
+    });
+    vim.lsp.enable(server_name);
+    
 
     require('lspconfig.ui.windows').default_options.border = 'double'
     vim.keymap.set("n", "<leader>li", require("lspimport").import, { noremap = true, desc = "Auto Import on file" })

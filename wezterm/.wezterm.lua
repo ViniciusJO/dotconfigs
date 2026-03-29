@@ -21,6 +21,7 @@ end
 
 config.window_background_opacity = 0.85
 config.enable_scroll_bar = true
+config.term = "xterm-256color"
 
 config.window_frame = {
   -- The font used in the tab bar.

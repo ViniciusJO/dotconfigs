@@ -1,10 +1,11 @@
-
+alias y="yt-dlp -t mp4"
 alias zshconfig="editDir $HOME/dotconfigs/zsh"
 alias nvimconfig="editDir $HOME/.config/nvim"
 alias dotconfig="editDir $HOME/dotconfigs"
 alias reload="source $HOME/.zshrc"
 
-alias get_idf='. $HOME/esp/esp-idf/export.sh'
+alias get_idf='. $HOME/.local/share/esp/esp-idf/export.sh'
+alias get_idf5='. $HOME/.local/share/esp/esp-idf-5/export.sh'
 alias get_pio='export PATH=$HOME/.platformio/penv/bin:$PATH'
 
 alias xcopy="xclip -selection clipboard"
