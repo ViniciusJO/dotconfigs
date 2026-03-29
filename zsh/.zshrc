@@ -132,4 +132,4 @@ export QT_STYLE_OVERRIDE="qt6ct"
 
 
 # eval "$($HOME/.local/bin/mise activate zsh)" # added by https://mise.run/zsh
-eval "$($HOME/.local/bin/mise completions zsh)"
+existCommand "mise" && eval "$(mise completions zsh)"
