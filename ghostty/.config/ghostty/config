@@ -1,0 +1,46 @@
+# Ghostty configuration converted from wezterm
+# Optimized for Neovim usage
+
+# Font & Text Rendering
+font-family = FiraCode Nerd Font Mono
+font-size = 16
+
+# Window appearance
+window-padding-x = 16
+window-padding-y = 0
+background = #000000
+background-opacity = 0.85
+window-decoration = false
+gtk-titlebar = false
+# window-titlebar-background = #000000
+# gtk-titlebar-style = tabs
+# window-titlebar-foreground = #ffffff
+window-show-tab-bar = never
+
+# Theme - neutral basic theme
+theme = Terminal Basic Dark
+
+# Cursor
+cursor-style = block
+cursor-style-blink = true
+# cursor-color = #00ff00
+cursor-text = cell-background
+
+# Shell integration
+shell-integration-features = no-cursor,no-sudo,title,no-ssh-env,no-ssh-terminfo,path
+
+# Scrollbar
+scrollback-limit = 1000000
+
+# Terminal settings
+term = xterm-256color
+
+# Use Ghostty window theme so the titlebar/tab area follows the terminal background
+# window-theme = ghostty
+# window-titlebar-background = #000000
+# gtk-titlebar-style = tabs
+# window-titlebar-foreground = #ffffff
+
+# Custom GTK CSS to style the tab/titlebar area (transparent background, black tabs)
+# gtk-custom-css = /home/vinicius/.config/ghostty/gtk-tabs-2.css
+# gtk-custom-css = /home/vinicius/.config/ghostty/gtk-tabs-3.css

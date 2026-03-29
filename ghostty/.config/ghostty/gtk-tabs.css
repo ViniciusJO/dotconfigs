@@ -1,0 +1,60 @@
+/* Ghostty GTK custom CSS to make titlebar/tab bar transparent and tabs pure black */
+
+/* Broad headerbar selectors (GTK3/GTK4 and libadwaita)
+   Make the titlebar area transparent so it matches the terminal background */
+headerbar, .headerbar, GtkHeaderBar, .GtkHeaderBar, .adw-headerbar, .adw-header-bar, .adw-headerbar * {
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  border: none !important;
+  color: inherit !important;
+}
+
+/* Additional fallbacks for titlebar areas */
+.headerbar, .titlebar, .window .titlebar, .window .headerbar, .adw-header-bar {
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* Tabs: set tab buttons background to pure black and white text */
+.adw-tabs, .adw-tabs *, .adw-tabs .tab, .adw-tabs .tab-button, .notebook, .notebook * , .notebook .tab, .tab-button {
+  background-color: #000000 !important;
+  background-image: none !important;
+  color: #ffffff !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Active tab styling */
+.adw-tabs .tab:checked, .adw-tabs .tab:active, .adw-tabs button:checked, .adw-tabs button:active, .notebook button:checked, .notebook .tab:checked {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+/* Inactive tab text color */
+.adw-tabs .tab, .adw-tabs button, .notebook button, .notebook .tab {
+  color: #ffffff !important;
+}
+
+/* Remove separators */
+.headerbar separator, .headerbar .separator, .notebook separator, .adw-tabs separator {
+  background-color: transparent !important;
+}
+
+/* Tweak padding */
+.headerbar, .adw-headerbar, .notebook {
+  padding: 0 !important;
+}
+
+/* Fallback selectors for other toolkits */
+.titlebar, .window-title, .window-titlebar {
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+/* Ensure headerbar title color is white for readability */
+.headerbar .title, .adw-headerbar .title {
+  color: #ffffff !important;
+}

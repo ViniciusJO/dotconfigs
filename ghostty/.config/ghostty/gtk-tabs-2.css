@@ -1,0 +1,55 @@
+/* Improved Ghostty GTK custom CSS for transparent titlebar and pure black tabs */
+
+/* Make the header/titlebar area fully transparent */
+headerbar, .headerbar, GtkHeaderBar, .GtkHeaderBar, .adw-headerbar, .adw-header-bar, .adw-headerbar * {
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  border: none !important;
+  color: inherit !important;
+}
+
+/* Ensure the tabs container itself is transparent so it matches the terminal */
+.headerbar .adw-tabs, .headerbar .adw-tabs *, .adw-tabs, .adw-tabs * {
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* Make individual tab buttons pure black with white text */
+.adw-tabs .adw-tab, .adw-tabs .adw-tab-button, .adw-tabs button, .headerbar .adw-tab, .headerbar .adw-tab-button {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Active/selected tab should also be pure black */
+.adw-tabs .adw-tab:checked, .adw-tabs .adw-tab:active, .adw-tabs button:checked, .adw-tabs button:active, .headerbar .adw-tab:checked {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+/* GTK3 fallback selectors: notebook-based tabs */
+.notebook, .notebook * , .notebook .tab, .notebook button, .tab-button {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Remove separators and borders around the title area */
+.headerbar separator, .headerbar .separator, .notebook separator, .adw-tabs separator {
+  background-color: transparent !important;
+}
+
+/* Remove extra padding */
+.headerbar, .adw-headerbar, .notebook {
+  padding: 0 !important;
+}
+
+/* Ensure title text is visible */
+.headerbar .title, .adw-headerbar .title, .headerbar .window-title, .adw-headerbar .window-title {
+  color: #ffffff !important;
+}

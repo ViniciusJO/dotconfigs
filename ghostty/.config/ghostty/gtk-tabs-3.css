@@ -1,0 +1,70 @@
+/* Aggressive GTK CSS to force transparent titlebar and pure black tabs across many GTK/theme variants */
+
+/* Make any header/titlebar area fully transparent */
+headerbar, .headerbar, GtkHeaderBar, .GtkHeaderBar, #headerbar, .titlebar, .window .headerbar, .window .titlebar, .adw-headerbar, .adw-header-bar, .adw-headerbar * {
+  background: transparent !important;
+  background-color: rgba(0,0,0,0) !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  border: none !important;
+  color: inherit !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* Ensure tabs container does not draw its own background */
+.headerbar .adw-tabs, .headerbar .adw-tabs *, .adw-tabs, .adw-tabs * , .notebook, .notebook * {
+  background: transparent !important;
+  background-color: rgba(0,0,0,0) !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* Make individual tab buttons pure black with white text */
+.adw-tabs .adw-tab, .adw-tabs .adw-tab-button, .adw-tabs button, .headerbar .adw-tab, .headerbar .adw-tab-button, .notebook button, .notebook .tab, .tab-button, .tab {
+  background: #000000 !important;
+  background-color: #000000 !important;
+  background-image: none !important;
+  color: #ffffff !important;
+  border: none !important;
+  box-shadow: none !important;
+  min-height: 0 !important;
+  padding-top: 2px !important;
+  padding-bottom: 2px !important;
+  padding-left: 8px !important;
+  padding-right: 8px !important;
+}
+
+/* Active/selected tab should also be pure black */
+.adw-tabs .adw-tab:checked, .adw-tabs .adw-tab:active, .adw-tabs button:checked, .adw-tabs button:active, .notebook button:checked, .notebook .tab:checked, .tab:checked {
+  background: #000000 !important;
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+/* Tab labels */
+.adw-tabs .adw-tab .label, .notebook .label, .tab-label, .adw-tabs .label {
+  color: #ffffff !important;
+}
+
+/* Remove separators and borders around the title area */
+.headerbar separator, .headerbar .separator, .notebook separator, .adw-tabs separator, .adw-tabs .separator {
+  background-color: transparent !important;
+  background: transparent !important;
+}
+
+/* Fallback: ensure title text is white */
+.headerbar .title, .adw-headerbar .title, .headerbar .window-title, .adw-headerbar .window-title, .headerbar .title label {
+  color: #ffffff !important;
+}
+
+/* Force full transparency for any background-image or overlay */
+* { background-image: none !important; }
+
+/* Last resort: make sure the header region is fully transparent */
+.window > .headerbar, .window > .titlebar {
+  background: transparent !important;
+  background-color: rgba(0,0,0,0) !important;
+}
