@@ -2,6 +2,8 @@
 
 source ~/.config/polybar/scripts/colours.sh
 
+if (! command -v rotatron &> /dev/null); then printf ""; exit 0; fi
+
 MODE="$(rotatron mode 2>&1)"
 
 if [[ "$MODE" = "AUTOMATIC" ]]; then
