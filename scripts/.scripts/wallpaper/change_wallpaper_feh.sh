@@ -1,18 +1,19 @@
 #!/bin/sh
 
+print_file_path_if_exists() {
+  CANONICALIZED="$(readlink --canonicalize "$1")"
+  stat "$CANONICALIZED" &> /dev/null && printf "$CANONICALIZED"
+}
+
 pickBG() {
-  # feh --no-xinerama --bg-fill "$(readlink --canonicalize "$HOME"/.local/share/wallpapers/$(find "$HOME"/.local/share/wallpapers/ | grep -e ".jpg$" -e ".jpeg$" -e ".png$" -e ".gif$" | sed -r 's/^.*\/wallpapers\/(.*)$/\1/' | rofi -dmenu -i -p "Select Wallpaper: " -window-title "Wallpaper Changer" -monitor | while read -r SELECTION; do feh --no-xinerama --bg-fill "$SELECTION"; done) | tee "$HOME"/.background)"
-  #wal -i $(cat $HOME/.background)
-  # find $HOME/.local/share/wallpapers/ | grep -e ".jpg$" -e ".jpeg$" -e ".png$" -e ".gif$" | sed -r 's/^.*\/wallpapers\/(.*)$/\1/' | fzf --preview="feh --bg-fill --no-xinerama $HOME/.local/share/wallpapers/{}" | sed -r 's/(.*)/$HOME\/.local\/share\/wallpapers\/\1/g' > ~/.background
-  readlink --canonicalize "$HOME/.local/share/wallpapers/$(
-    (printf "%s\n%s\n%s" "$(cat "$HOME/.background")" "$(find "$HOME"/.local/share/wallpapers/)" "$(find "$HOME"/Pictures/wallpapers/)" |
+  NEW_BG=$(printf "%s\n%s\n%s" "$(cat "$HOME/.background")" "$(find "$HOME"/.local/share/wallpapers/)" "$(find "$HOME"/Pictures/wallpapers/)" |
       grep -e ".jpg$" -e ".jpeg$" -e ".png$" -e ".gif$" |
       sed -r 's/^.*\/wallpapers\/(.*)$/\1/' |
       fzf --preview="printf \"Colorscheme:\n\n\" && 
         (feh --bg-fill --no-xinerama $HOME/.local/share/wallpapers/{} 2> /dev/null || feh --bg-fill --no-xinerama $HOME/Pictures/wallpapers/{}) &&
         (color_juicer $HOME/.local/share/wallpapers/{} 4 15 2> /dev/null || color_juicer $HOME/Pictures/wallpapers/{} 4 15) &&
-        (polybar-msg cmd restart; i3-msg reload) &> /dev/null") || cat "$HOME"/.background
-  )" > ~/.background
+        (polybar-msg cmd restart; i3-msg reload) &> /dev/null")
+  (print_file_path_if_exists "$HOME/.local/share/wallpapers/$NEW_BG" || print_file_path_if_exists "$HOME/Pictures/wallpapers/$NEW_BG" || cat "$HOME"/.background) > ~/.background
 }
 
 compareStr() {

@@ -11,7 +11,7 @@ require('lazy').setup({
   { import = 'plugins.treesiter' },
   { import = 'plugins.telescope' },
   { import = 'plugins.mini' },
-  { import = 'plugins.ufu' },
+  -- { import = 'plugins.ufu' },
   { import = 'plugins.trouble' },
   { import = 'plugins.undo-tree' },
   { import = 'plugins.which-key' },
