@@ -62,6 +62,7 @@
   "promise-async": { "branch": "main", "commit": "119e8961014c9bfaf1487bf3c2a393d254f337e2" },
   "render-markdown.nvim": { "branch": "main", "commit": "6e0e8902dac70fecbdd8ce557d142062a621ec38" },
   "rfsee": { "branch": "main", "commit": "488037833937a79b40b22e775313b3d9543957da" },
+  "sqlflick.nvim": { "branch": "main", "commit": "367f6025a3ec0627ba133e2524f5aabf8362fb0a" },
   "sqlite.lua": { "branch": "master", "commit": "50092d60feb242602d7578398c6eb53b4a8ffe7b" },
   "stupyder.nvim": { "branch": "main", "commit": "7e426f3afabcdd7af2078aa856cbc098e2963df0" },
   "telescope-file-browser.nvim": { "branch": "master", "commit": "3610dc7dc91f06aa98b11dca5cc30dfa98626b7e" },

@@ -25,7 +25,9 @@ return {
         type = "cppdbg",
         request = "launch",
         program = function()
-          return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/bin/', 'file')
+          local inp = vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/bin/', 'file')
+          vim.print("INPUT = ",inp)
+          return inp
         end,
         cwd = '${workspaceFolder}',
         stopAtEntry = true,

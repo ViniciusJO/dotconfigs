@@ -133,3 +133,6 @@ export QT_STYLE_OVERRIDE="qt6ct"
 
 # eval "$($HOME/.local/bin/mise activate zsh)" # added by https://mise.run/zsh
 existCommand "mise" && eval "$(mise completions zsh)"
+
+# opencode
+export PATH=/home/vinicius/.opencode/bin:$PATH

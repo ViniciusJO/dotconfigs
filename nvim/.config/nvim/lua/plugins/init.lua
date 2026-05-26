@@ -64,4 +64,5 @@ require('lazy').setup({
   -- { import = 'plugins.nomad' }, -- BROKEN
   { import = 'plugins.fyler' },
   { import = 'plugins.claude' },
+  { import = 'plugins.sqlflick' },
 })
