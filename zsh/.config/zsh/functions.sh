@@ -123,3 +123,8 @@ function configc {
   ln -s /home/vinicius/Projects/codebase/C/Makefile `pwd`
   cp /home/vinicius/Projects/codebase/C/local.mak .
 }
+
+function mkcd {
+  mkdir -p $1
+  cd $1
+}

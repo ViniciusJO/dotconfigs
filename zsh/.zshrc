@@ -38,9 +38,9 @@
 
   ## Completiions
   # bob
-  [ ! -f $HOME/.local/share/zsh/completions/_bob ] && \
-    mkdir -p $HOME/.local/share/zsh/completions && \
-    bob complete zsh > $HOME/.local/share/zsh/completions/_bob
+  # [ ! -f $HOME/.local/share/zsh/completions/_bob ] && \
+  #   mkdir -p $HOME/.local/share/zsh/completions && \
+  #   bob complete zsh > $HOME/.local/share/zsh/completions/_bob
   autoload -U compinit && compinit
 
   # Plugins

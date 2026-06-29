@@ -6,7 +6,8 @@ alias reload="source $HOME/.zshrc"
 
 alias get_idf='. $HOME/.local/share/esp/esp-idf/export.sh'
 alias get_idf5='. $HOME/.local/share/esp/esp-idf-5/export.sh'
-alias get_pio='export PATH=$HOME/.platformio/penv/bin:$PATH'
+# alias get_pio='export PATH=$HOME/.platformio/penv/bin:$PATH'
+alias get_pio='source $HOME/.platformio/penv/bin/activate'
 
 alias xcopy="xclip -selection clipboard"
 alias xpaste="xclip -selection clipboard -o"
@@ -40,3 +41,4 @@ alias ..="cd .."
 alias grep='grep --color=auto'
 
 alias vv='NVIM_APPNAME=nvim-new nvim'
+alias vo='NVIM_APPNAME=nvim_old nvim'

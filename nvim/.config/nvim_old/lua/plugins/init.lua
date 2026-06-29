@@ -65,4 +65,6 @@ require('lazy').setup({
   { import = 'plugins.fyler' },
   { import = 'plugins.claude' },
   { import = 'plugins.sqlflick' },
+  { import = 'plugins.platformio' },
+
 })

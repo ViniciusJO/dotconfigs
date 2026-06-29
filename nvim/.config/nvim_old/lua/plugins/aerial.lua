@@ -9,8 +9,8 @@ return {
   },
   -- Optional dependencies
   dependencies = {
-     "nvim-treesitter/nvim-treesitter",
-     "nvim-tree/nvim-web-devicons"
+    "nvim-treesitter/nvim-treesitter",
+    "nvim-tree/nvim-web-devicons"
   },
   init = function ()
     require('which-key').add({{ "<leader>a", desc = "Aerial" }})
