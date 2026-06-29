@@ -5,4 +5,4 @@ zsh/.oh-my-zsh
 **/*-lock.json
 **/*.tmp
 ncspot/.config/ncspot/userstate.cbor
-nvim/.config/nvim/lazy-lock.json
+nvim/.config/nvim/lua/colorscheme.lua
