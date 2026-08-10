@@ -23,7 +23,6 @@ dex
 dfu-util
 docker
 docker-compose
-dolphin
 dosfstools
 exfat-utils
 eza
@@ -37,6 +36,9 @@ gdb
 git
 gperf
 guitarix
+gvfs
+gvfs-nfs
+gvfs-smb
 htop
 i3
 inetutils
@@ -104,6 +106,7 @@ strace
 sublime-text-4
 termshark
 thefuck
+thunar
 tldr
 tmux
 twolame
@@ -117,6 +120,7 @@ wezterm
 wget
 whois
 wine
+wiremix
 xclip
 xorg
 yabridge
