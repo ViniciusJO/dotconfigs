@@ -1,4 +1,9 @@
 #!/usr/bin/bash
+
+# Create user through sysusers.d
+# Investigate tmpfiles.d
+
+
 BLACK='\033[0;30m'
 RED='\033[0;31m'
 RED_BG='\033[41m'
