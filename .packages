@@ -101,6 +101,8 @@ rlwrap
 rofi
 screenfetch
 sox
+sshfs
+sshs
 steam
 strace
 sublime-text-4

@@ -1,19 +1,47 @@
 #!/bin/sh
 
+wbg() {
+  if [[ -f "$1" ]]; then
+    awww img "$1" -t random
+    # pkill swaybg
+    # swaybg -i "$1" -m fill &
+    # disown
+  else
+    false
+  fi
+}
+
 print_file_path_if_exists() {
   CANONICALIZED="$(readlink --canonicalize "$1")"
   stat "$CANONICALIZED" &> /dev/null && printf "$CANONICALIZED"
+}
+
+preview() {
+  printf "
+  BG_VAR=%s
+  wbg() {
+    if [[ -f \"\$1\" ]]; then
+      awww img \"\$1\" -t random
+      # pkill swaybg
+      # swaybg -i \"\$1\" -m fill &
+      # disown
+    else
+      false
+    fi
+  }
+
+  printf \"Colorscheme:\n\n\" && \
+    (wbg \$HOME/.local/share/wallpapers/\$BG_VAR 2> /dev/null || wbg \$HOME/Pictures/wallpapers/\$BG_VAR) && \
+    (color_juicer \$HOME/.local/share/wallpapers/\$BG_VAR 4 15 2> /dev/null || color_juicer \$HOME/Pictures/wallpapers/\$BG_VAR 4 15) && \
+    (i3-msg reload) &> /dev/null
+  " "$1"
 }
 
 pickBG() {
   NEW_BG=$(printf "%s\n%s\n%s" "$(cat "$HOME/.background")" "$(find "$HOME"/.local/share/wallpapers/)" "$(find "$HOME"/Pictures/wallpapers/)" |
       grep -e ".jpg$" -e ".jpeg$" -e ".png$" -e ".gif$" |
       sed -r 's/^.*\/wallpapers\/(.*)$/\1/' |
-      fzf --preview="printf \"Colorscheme:\n\n\" && 
-        (feh --bg-fill --no-xinerama $HOME/.local/share/wallpapers/{} 2> /dev/null || feh --bg-fill --no-xinerama $HOME/Pictures/wallpapers/{}) &&
-        (color_juicer $HOME/.local/share/wallpapers/{} 4 15 2> /dev/null || color_juicer $HOME/Pictures/wallpapers/{} 4 15) &&
-        (~/Code/color_juicer/zig-out/bin/color_juicer $HOME/.local/share/wallpapers/{} 2> /dev/null || ~/Code/color_juicer/zig-out/bin/color_juicer $HOME/Pictures/wallpapers/{}) &&
-        (polybar-msg cmd restart; i3-msg reload) &> /dev/null")
+      fzf --preview="$(preview "{}")")
   (print_file_path_if_exists "$HOME/.local/share/wallpapers/$NEW_BG" || print_file_path_if_exists "$HOME/Pictures/wallpapers/$NEW_BG" || cat "$HOME"/.background) > ~/.background
 }
 
@@ -28,7 +56,7 @@ compFileType() {
 changeBG() {
   if [ ! -z "$1" ] && [ -f "$1" ]; then
     if compFileType "$1" "PNG" || compFileType "$1" "JPEG" || compFileType "$1" "GIF"; then
-      feh --no-xinerama --bg-fill "$1"
+      wbg "$1"
       echo "$1" >"$HOME"/.background
       #echo "img"
     elif compFileType "$1" "ASCII"; then
@@ -43,8 +71,9 @@ changeBG() {
     pickBG
   fi
   
-  color_juicer "$(cat ~/.background)" 6 5
-  polybar-msg cmd restart
+  # color_juicer "$(cat ~/.background)" 6 5
+  color_juicer "$1" 6 5
+  # polybar-msg cmd restart
   i3-msg reload
   # sleep 10
 }

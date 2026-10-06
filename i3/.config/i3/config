@@ -57,6 +57,9 @@ exec --no-startup-id picom --backend glx
 # exec --no-startup-id nm-applet
 
 exec --no-startup-id $HOME/.scripts/wallpaper/change_wallpaper_feh.sh "$HOME/.background"
+# exec --no-startup-id $HOME/.scripts/wallpaper/change_wallpaper_swaybg.sh "$HOME/.background"
+# exec --no-startup-id awww-daemon &; awww restore
+# swaybg -i `cat ~/.background` &
 #exec --no-startup-id feh --no-xinerama --bg-fill "$(cat $HOME/.background)"
 
 # Mate
@@ -64,6 +67,8 @@ exec --no-startup-id /usr/lib/mate-polkit/polkit-mate-authentication-agent-1 &
 
 # Start Polybar
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+# exec_always --no-startup-id (pkill qs &> /dev/null; qs -p $HOME/Code/qickbar/shell.qml) &
+# exec_always --no-startup-id (pkill qs &> /dev/null; qs -p $HOME/.tmp/qs/Brain_Shell) &
 
 # Auto rotate screen
 exec_always --no-startup-id 2in1screen &
@@ -92,7 +97,7 @@ floating_modifier $mod
 
 # move tiling windows via drag & drop by left-clicking into the title bar,
 # or left-clicking anywhere into the window while holding the floating modifier.
-tiling_drag modifier titlebar
+# tiling_drag modifier titlebar
 
 # start a terminal
 bindsym $mod+Return exec ghostty
@@ -189,6 +194,13 @@ for_window [class="WebApp-ChatGPT*"] move to scratchpad
 #, move position 100 50, resize set 1720 980, border pixel 1
 bindsym $mod+x [class="WebApp-ChatGPT*"] scratchpad show
 
+
+
+
+for_window [title="Zengi"] floating enable, border normal, move position center
+
+
+
 workspace 1 output $sideMon
 workspace 2 output $sideMon
 workspace 3 output $mainMon
@@ -274,6 +286,12 @@ mode "resize" {
 }
 
 bindsym $mod+r mode "resize"
+
+# input type:keyboard {
+#     xkb_layout "br"
+#     xkb_variant "abnt2"
+#     xkb_model "abnt2"
+# }
 
 include ~/.cache/i3_colors
 
