@@ -101,8 +101,20 @@ ulimit -l unlimited
 export QT_QPA_PLATFORMTHEME="qt6ct"
 export QT_STYLE_OVERRIDE="qt6ct"
 
+# starship
+STARSHIP_CONFIG_FILE="$HOME/.cache/starship.toml"
+if [[ -f $STARSHIP_CONFIG_FILE ]]; then
+  export STARSHIP_CONFIG="$STARSHIP_CONFIG_FILE"
+fi
 
-
+ZSH_SYNTAX_SET_SCRIPT="$HOME/.cache/zsh_syntax_hightlight_set.sh"
+if [[ -f "$ZSH_SYNTAX_SET_SCRIPT" ]]; then
+  source "$ZSH_SYNTAX_SET_SCRIPT"
+  TRAPUSR1() {
+    reload
+    # source "$ZSH_SYNTAX_SET_SCRIPT"
+  }
+fi
 
 
 

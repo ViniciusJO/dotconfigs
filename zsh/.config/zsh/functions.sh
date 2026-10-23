@@ -128,3 +128,16 @@ function mkcd {
   mkdir -p $1
   cd $1
 }
+
+function miseit {
+  if command -v mise &>/dev/null && ; then
+    if [[ ! -f mise.toml ]]; then
+      echo mise.toml not found
+      return 1
+    fi
+    echo Opening mise environment:
+    echo
+    cat mise.toml
+    mise exec -- zsh
+  fi
+}

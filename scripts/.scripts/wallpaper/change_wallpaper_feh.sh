@@ -5,15 +5,23 @@ print_file_path_if_exists() {
   stat "$CANONICALIZED" &> /dev/null && printf "$CANONICALIZED"
 }
 
+# pickBG() {
+#   NEW_BG=$(printf "%s\n%s\n%s" "$(cat "$HOME/.background")" "$(find "$HOME"/.local/share/wallpapers/)" "$(find "$HOME"/Pictures/wallpapers/)" |
+#       grep -e ".jpg$" -e ".jpeg$" -e ".png$" -e ".gif$" |
+#       sed -r 's/^.*\/wallpapers\/(.*)$/\1/' |
+#       fzf --preview="printf \"Colorscheme:\n\n\" && 
+#         (feh --bg-fill --no-xinerama $HOME/.local/share/wallpapers/{} 2> /dev/null || feh --bg-fill --no-xinerama $HOME/Pictures/wallpapers/{}) &&
+#         (color_juicer $HOME/.local/share/wallpapers/{} 4 15 2> /dev/null || color_juicer $HOME/Pictures/wallpapers/{} 4 15) &&
+#         (~/Code/color_juicer/zig-out/bin/color_juicer $HOME/.local/share/wallpapers/{} 2> /dev/null || ~/Code/color_juicer/zig-out/bin/color_juicer $HOME/Pictures/wallpapers/{}) &&
+#         (polybar-msg cmd restart; i3-msg reload) &> /dev/null")
+#   (print_file_path_if_exists "$HOME/.local/share/wallpapers/$NEW_BG" || print_file_path_if_exists "$HOME/Pictures/wallpapers/$NEW_BG" || cat "$HOME"/.background) > ~/.background
+# }
+
 pickBG() {
   NEW_BG=$(printf "%s\n%s\n%s" "$(cat "$HOME/.background")" "$(find "$HOME"/.local/share/wallpapers/)" "$(find "$HOME"/Pictures/wallpapers/)" |
       grep -e ".jpg$" -e ".jpeg$" -e ".png$" -e ".gif$" |
       sed -r 's/^.*\/wallpapers\/(.*)$/\1/' |
-      fzf --preview="printf \"Colorscheme:\n\n\" && 
-        (feh --bg-fill --no-xinerama $HOME/.local/share/wallpapers/{} 2> /dev/null || feh --bg-fill --no-xinerama $HOME/Pictures/wallpapers/{}) &&
-        (color_juicer $HOME/.local/share/wallpapers/{} 4 15 2> /dev/null || color_juicer $HOME/Pictures/wallpapers/{} 4 15) &&
-        (~/Code/color_juicer/zig-out/bin/color_juicer $HOME/.local/share/wallpapers/{} 2> /dev/null || ~/Code/color_juicer/zig-out/bin/color_juicer $HOME/Pictures/wallpapers/{}) &&
-        (polybar-msg cmd restart; i3-msg reload) &> /dev/null")
+      fzf --preview="$HOME/.scripts/wallpaper/preview_bg_feh.sh {}")
   (print_file_path_if_exists "$HOME/.local/share/wallpapers/$NEW_BG" || print_file_path_if_exists "$HOME/Pictures/wallpapers/$NEW_BG" || cat "$HOME"/.background) > ~/.background
 }
 
@@ -43,9 +51,10 @@ changeBG() {
     pickBG
   fi
   
-  color_juicer "$(cat ~/.background)" 6 5
-  polybar-msg cmd restart
-  i3-msg reload
+  # color_juicer "$(cat ~/.background)" 6 5
+  # polybar-msg cmd restart
+  # i3-msg reload
+  ~/.scripts/wallpaper/reload_env.sh
   # sleep 10
 }
 

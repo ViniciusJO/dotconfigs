@@ -1,0 +1,27 @@
+# Select the palette named "system"
+palette = "system"
+
+# Define the colors in that palette
+[palettes.system]
+background = "#000000"
+foreground = "%%p1"
+accent = "%%c1"
+muted = "#6c7086"
+success = "%%p1"
+error = "%%c2"
+warning = "%%p3"
+
+# Example modules using the palette
+[directory]
+style = "bold accent"
+
+[git_branch]
+style = "bold muted"
+
+[git_status]
+style = "error"
+
+[character]
+success_symbol = "[❯](bold success)"
+error_symbol = "[❯](bold error)"
+
