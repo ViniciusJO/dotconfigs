@@ -1,29 +1,42 @@
 # TODO:
-- init:
-    - [ ] speedup paru install (bootstrap yay then download paru-bin)
+- init script:
     - [ ] speedup aur installations
 
-- general:
-	- [ ] starting with example.lua
+- nvim:
+    - general:
+        - [ ] starting with example.lua
+    - cmp:
+        - [ ] only completions with tab if there are a context (cannot tab 					                          freely)
+    - harpoon:
+        - [ ] keybindings
+    - bufferline:
+        - [ ] fix go to buffer
+        - [ ] move through tabs and buffers
+    - neoconf
+        - [ ] learn
+    - neo-tree:
+        - [ ] opening weirdly when opening a file instead of "nvim ."
+    - neotest:
+        - [ ] FIX
+    - leap:
+        - [ ] keymaps
+    - keymaps:
+        - resolve overlapping keymaps (find in `:checkhealth which-key`)
 
-- cmp:
-	- [ ] only completions with tab if there are a context (cannot tab 					                          freely)
-
-- harpoon:
-	- [ ] keybindings
-- bufferline:
-	- [ ] fix go to buffer
-	- [ ] move through tabs and buffers
-- neoconf
-	- [ ] learn
-- neo-tree:
-	- [ ] opening weirdly when opening a file instead of "nvim ."
-- neotest:
-	- [ ] FIX
-- leap:
-	- [ ] keymaps
-- keymaps:
-    - resolve overlapping keymaps (find in `:checkhealth which-key`)
+- theming:
+    - [x] nvim
+    - [x] zsh/starship
+    - [x] i3
+    - [x] tmux
+    - [x] polybar
+    - [x] quickshell
+    - [x] Dunst
+    - [ ] GTK
+        - [ ] GTK3
+        - [ ] GTK4
+    - [ ] Qt
+        - [ ] Qt5
+        - [ ] Qt6
 
 
 # Packages

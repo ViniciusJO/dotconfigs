@@ -1,0 +1,41 @@
+[global]
+    width = 340
+    origin = top-right
+    offset = (12, 12)
+
+    font = FiraCode Nerd Font Mono 10
+    markup = full
+
+    frame_width = 2
+    frame_color = "%%p1"
+    separator_color = frame
+
+    padding = 12
+    horizontal_padding = 14
+    gap_size = 8
+
+    corner_radius = 8
+    transparency = 0
+
+    sort = true
+    indicate_hidden = true
+    notification_limit = 5
+
+[urgency_low]
+    background = "#000000D9"
+    foreground = "%%p3"
+    frame_color = "%%p3"
+    timeout = 4
+
+[urgency_normal]
+    background = "#000000D9"
+    foreground = "%%p1"
+    frame_color = "%%p1"
+    timeout = 6
+
+[urgency_critical]
+    background = "#000000D9"
+    foreground = "%%c3"
+    frame_color = "%%c3"
+    timeout = 0
+

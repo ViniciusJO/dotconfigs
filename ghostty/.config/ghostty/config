@@ -10,7 +10,7 @@ window-padding-x = 16
 window-padding-y = 0
 background = #000000
 background-opacity = 0.85
-window-decoration = false
+window-decoration = server
 gtk-titlebar = false
 # window-titlebar-background = #000000
 # gtk-titlebar-style = tabs
@@ -34,6 +34,8 @@ scrollback-limit = 1000000
 
 # Terminal settings
 term = xterm-256color
+
+# gtk-single-instance = false
 
 # Use Ghostty window theme so the titlebar/tab area follows the terminal background
 # window-theme = ghostty

@@ -101,9 +101,12 @@ floating_modifier $mod
 # tiling_drag modifier titlebar
 
 # start a terminal
+# bindsym $mod+Shift+Return exec wezterm start --class "floaterm"
+# bindsym $mod+Shift+Return exec wezterm start --class "floaterm"
+# for_window [instance="floaterm"] floating enable
 bindsym $mod+Return exec ghostty
-bindsym $mod+Shift+Return exec wezterm start --class "floaterm"
-for_window [instance="floaterm"] floating enable
+bindsym $mod+Shift+Return exec ghostty --class=com.floaterm.ghostty
+for_window [class="^com\.floaterm\.ghostty$"] floating enable
 #i3-sensible-terminal
 
 # kill focused window

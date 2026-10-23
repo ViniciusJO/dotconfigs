@@ -17,3 +17,7 @@ pkill -USR1 -x zsh
 
 # nvim [automatic]
 
+#dunst
+dunstctl reload
+
+notify-send -u normal "Env config reloaded" 
