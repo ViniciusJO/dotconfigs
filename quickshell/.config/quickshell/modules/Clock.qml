@@ -33,13 +33,6 @@ Item {
         height: parent.height
 
         BarText {
-            visible: root.alternate
-            fontSize: root.fontSize
-            text: ""
-            color: Theme.pcont
-        }
-
-        BarText {
             fontSize: root.fontSize
             medium: true
             color: Theme.pcont
