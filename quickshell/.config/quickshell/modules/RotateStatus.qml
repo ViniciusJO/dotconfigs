@@ -33,4 +33,31 @@ Rectangle {
         leftAction: () => Rotatron.set()
         rightAction: () => Rotatron.toggle()
     }
+
+    // TapHandler {
+    //     id: tapHandler
+    //
+    //     acceptedButtons: Qt.LeftButton | Qt.RightButton
+    //
+    //     onPressedChanged: {
+    //         if (pressed)
+    //             component.longPressTriggered = false
+    //     }
+    //
+    //     onLongPressed: {
+    //         component.longPressTriggered = true
+    //         component.rightClicked()
+    //     }
+    //
+    //     onTapped: (eventPoint, button) => {
+    //         if (button === Qt.RightButton) {
+    //             if (!component.longPressTriggered)
+    //               Rotatron.set();
+    //                 // component.rightClicked()
+    //         } else if (!component.longPressTriggered) {
+    //               Rotatron.toggle();
+    //               // component.leftClicked()
+    //         }
+    //     }
+    // }
 }
