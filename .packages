@@ -24,6 +24,7 @@ dfu-util
 docker
 docker-compose
 dosfstools
+dunst
 exfat-utils
 eza
 fd
@@ -96,6 +97,7 @@ polybar
 python3
 qemu
 qpwgraph
+quickshell
 ripgrep
 rlwrap
 rofi

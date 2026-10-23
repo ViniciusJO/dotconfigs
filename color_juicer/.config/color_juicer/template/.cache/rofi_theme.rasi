@@ -1,0 +1,101 @@
+
+* {
+    bg:       #000000D9;
+    fg:       %%c4;
+    accent:   %%p1;
+    secondary: %%p2;
+    muted:    %%p3;
+    urgent:   %%c3;
+    white: #FFFFFF;
+    black: #000000;
+
+    background-color: @bg;
+    text-color: @white;
+
+    font: "FiraCode Nerd Font Mono 11";
+}
+
+window {
+    width: 65%;
+    padding: 20px;
+    border: 2px;
+    border-color: %%c1;
+    border-radius: 5px;
+    background-color: @bg;
+}
+
+mainbox {
+    spacing: 12px;
+    background-color: transparent;
+}
+
+inputbar {
+    padding: 10px;
+    spacing: 10px;
+    border-radius: 6px;
+    background-color: @background-color;
+    text-color: @fg;
+    children: [ prompt, entry ];
+}
+
+prompt {
+    text-color: @white;
+}
+
+entry {
+    placeholder: "Search...";
+    placeholder-color: #383838;
+    cursor-color: @black;
+    background-color: @black;
+}
+
+listview {
+    lines: 8;
+    columns: 3;
+    fixed-height: false;
+    spacing: 8px;
+    scrollbar: false;
+    background-color: transparent;
+}
+
+element {
+    padding: 8px 10px;
+    border-radius: 5px;
+    background-color: @background-color;
+}
+
+element-text {
+    background-color: transparent;
+    text-color: @white;
+}
+
+element selected {
+    background-color: @accent;
+    text-color: @black;
+}
+
+element urgent {
+    text-color: @urgent;
+}
+
+element selected urgent {
+    background-color: @urgent;
+    text-color: @black;
+}
+
+element-icon {
+    size: 22px;
+    background-color: transparent;
+    margin: 0 10px 0 0;
+}
+
+message {
+    padding: 10px;
+    background-color: @secondary;
+}
+
+textbox {
+    background-color: transparent;
+    text-color: @white;
+}
+

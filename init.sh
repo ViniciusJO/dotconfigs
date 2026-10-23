@@ -83,17 +83,21 @@ sudo pacman -S --noconfirm --needed --quiet git zsh stow
 stow             \
   binaries       \
 	bob/           \
+  color_juicer/  \
 	fonts/         \
   gdb/           \
+  ghostty/       \
 	i3/            \
   kde/           \
 	nchat/         \
 	ncspot/        \
+  newsboat/      \
 	nvim/          \
 	octave/        \
 	picom/         \
 	pip/           \
-	polybar/       \
+  plymouth       \
+  quickshell     \
 	rofi/          \
 	scripts/       \
 	sound_effects/ \

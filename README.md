@@ -31,12 +31,18 @@
     - [x] polybar
     - [x] quickshell
     - [x] Dunst
+    - [x] rofi
     - [ ] GTK
         - [ ] GTK3
         - [ ] GTK4
     - [ ] Qt
         - [ ] Qt5
         - [ ] Qt6
+    - [ ] eza ??
+    - [ ] exa
+    - [ ] ls
+    - [ ] grep
+    - [ ] git
 
 
 # Packages
