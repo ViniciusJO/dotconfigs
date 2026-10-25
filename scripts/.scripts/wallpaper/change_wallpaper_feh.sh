@@ -41,7 +41,7 @@ changeBG() {
       #echo "img"
     elif compFileType "$1" "ASCII"; then
       #echo "textfile"
-      changeBG "$(cat "$1")"
+      changeBG "$(cat "$1")" "$2"
     else
       #echo "pick-ignoring"
       pickBG
@@ -54,8 +54,10 @@ changeBG() {
   # color_juicer "$(cat ~/.background)" 6 5
   # polybar-msg cmd restart
   # i3-msg reload
-  ~/.scripts/wallpaper/reload_env.sh
   # sleep 10
+
+  # notify-send -u low "==> $2"
+  $HOME/.scripts/wallpaper/reload_env.sh "$2"
 }
 
-changeBG "$1"
+changeBG "$1" "$2"

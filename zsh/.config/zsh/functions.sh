@@ -141,3 +141,19 @@ function miseit {
     mise exec -- zsh
   fi
 }
+
+function keysound_on {
+  if ! pgrep -x buckle; then
+    buckle -s 0 -g 50 -f &
+    disown
+    echo "Keyboard sound on"
+  fi
+}
+
+function keysound_off {
+  if pgrep -x buckle; then
+    pkill buckle
+    echo "Keyboard sound off"
+  fi
+}
+

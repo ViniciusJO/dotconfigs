@@ -50,6 +50,7 @@
   botstrap_plugin zsh-completions https://github.com/zsh-users/zsh-completions.git
   botstrap_plugin zsh-syntax-highlighting https://github.com/zsh-users/zsh-syntax-highlighting.git
   botstrap_plugin fzf_tab https://github.com/Aloxaf/fzf-tab
+  botstrap_plugin zig_completions https://codeberg.org/ziglang/shell-completions.git
   # botstrap_plugin you_should_use https://github.com/MichaelAquilina/zsh-you-should-use.git
 
   botstrap_omzsh_plugin "aliases git npm pip python pyenv sudo systemd zsh-autosuggestions zsh-syntax-highlighting colored-man-pages command-not-found archlinux"
@@ -64,6 +65,8 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --icons --color=always $real
 zstyle ':fzf-tab:complete:nvim:*' fzf-preview 'if [ -f $realpath ]; then pygmentize -g $realpath; else eza -1 --icons --color $realpath; fi'
 zstyle ':fzf-tab:*' switch-group '<' '>'
 zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+export FPATH=$ZSH_PLUGINS/zig_completions:$FPATH
+
 
 # Special Keybindings
 bindkey "^[[H"  beginning-of-line				# END
