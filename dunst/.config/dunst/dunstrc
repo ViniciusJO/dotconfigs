@@ -1,0 +1,43 @@
+[global]
+    width = 340
+    origin = top-right
+    offset = (12, 12)
+
+    font = FiraCode Nerd Font Mono 10
+    markup = full
+
+    frame_width = 2
+    frame_color = "#7F786D"
+    separator_color = frame
+
+    padding = 12
+    horizontal_padding = 14
+    gap_size = 8
+
+    corner_radius = 8
+    transparency = 0
+
+    sort = true
+    indicate_hidden = true
+    notification_limit = 5
+
+[urgency_low]
+    background = "#000000D9"
+    foreground = "#339489"
+    frame_color = "#339489"
+    timeout = 4
+
+[urgency_normal]
+    background = "#000000D9"
+    foreground = "#7F786D"
+    frame_color = "#7F786D"
+    timeout = 6
+
+[urgency_critical]
+    background = "#000000D9"
+    foreground = "#B06B7C"
+    frame_color = "#B06B7C"
+    timeout = 0
+
+[notification-sounds]
+    script = ~/.local/bin/notify_sound.sh

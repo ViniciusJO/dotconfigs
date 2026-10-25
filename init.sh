@@ -64,11 +64,11 @@ unset OLD_URL
 # xdg
 mkdir -p "$HOME"/{Desktop,Documents,Downloads,Music,Pictures/Screenshots,Public,Templates,Videos,.local,.config}
 
-mkdir -p "$HOME"/.local/{logs,bin,lib,include,builds,thirdparty,share/{bob,fonts}}
+mkdir -p "$HOME"/.local/{logs,bin,lib,include,builds,thirdparty,share/{bob,fonts,sounds}}
 
 mkdir -p "$HOME"/.nchat
 
-mkdir -p "$HOME"/.config/ncspot
+mkdir -p "$HOME"/.config/{ncspot,systemd/user}
 
 export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$HOME/.local/loc_bin:$HOME/.local/share/bob/nvim-bin:$PATH
 
@@ -84,6 +84,7 @@ stow             \
   binaries       \
 	bob/           \
   color_juicer/  \
+  dunst/         \
 	fonts/         \
   gdb/           \
   ghostty/       \
