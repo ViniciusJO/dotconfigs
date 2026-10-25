@@ -1,0 +1,13 @@
+[Unit]
+Description=Play sound before system shutdown
+After=pipewire-pulse.service
+
+[Service]
+Type=simple
+ExecStart=%h/.scripts/watch-shutdown.sh
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=default.target
+
