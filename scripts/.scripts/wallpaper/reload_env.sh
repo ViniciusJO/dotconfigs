@@ -20,4 +20,12 @@ pkill -USR1 -x zsh
 #dunst
 dunstctl reload
 
-notify-send -u normal "Env config reloaded" 
+if [[ -z "$1" ]] || ! [[ "$1" == "false" ]]; then
+  notify-send -u normal "Env config reloaded" 
+fi
+
+# if [[ -f /tmp/.env_inited ]]; then
+#   notify-send -u normal "Env config reloaded" 
+# else
+#   touch /tmp/.env_inited
+# fi

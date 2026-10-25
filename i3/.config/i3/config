@@ -35,6 +35,8 @@ exec --no-startup-id setxkbmap br
 # Set NUMLOCK on
 exec --no-startup-id numlockx on
 
+exec --no-startup-id buckle -s 0 -g 50 -f
+
 # Reload cache for kde apps and fix dolphin MIME config
 exec --no-startup-id XDG_MENU_PREFIX=arch- kbuildsycoca6 &> /dev/null
 
@@ -56,7 +58,8 @@ exec --no-startup-id picom --backend glx
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 # exec --no-startup-id nm-applet
 
-exec --no-startup-id $HOME/.scripts/wallpaper/change_wallpaper_feh.sh "$HOME/.background"
+exec --no-startup-id $HOME/.scripts/wallpaper/change_wallpaper_feh.sh "$HOME/.background" "false"
+
 # exec --no-startup-id $HOME/.scripts/wallpaper/change_wallpaper_swaybg.sh "$HOME/.background"
 # exec --no-startup-id awww-daemon &; awww restore
 # swaybg -i `cat ~/.background` &
@@ -263,7 +266,7 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'play /usr/share/sounds/freedesktop/stereo/service-logout.oga & i3-msg exit'"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -326,3 +329,4 @@ include ~/.cache/i3_colors
 #         separator_symbol " ⁞ "
 # }
 
+exec --no-startup-id play /usr/share/sounds/freedesktop/stereo/service-login.oga

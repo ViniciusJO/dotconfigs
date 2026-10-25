@@ -1,0 +1,36 @@
+[Unit]
+Description=Play desktop shutdown sound
+DefaultDependencies=no
+Before=shutdown.target
+After=pipewire.service pipewire-pulse.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/true
+ExecStop=/usr/bin/play /usr/share/sounds/freedesktop/stereo/service-logout.oga
+#/usr/bin/paplay --volume=29491 /home/vinicius/Music/Effects/shutdown.wav
+RemainAfterExit=yes
+TimeoutStopSec=15
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+
+#[Unit]
+#Description=Exec shutdown procedures
+#DefaultDependencies=no
+#Conflicts=shutdown.target
+#Before=shutdown.target
+#After=pipewire-pulse.service
+#
+#[Service]
+#Type=oneshot
+#RemainAfterExit=yes
+#ExecStart=/usr/bin/true
+#ExecStop=/home/vinicius/.scripts/shutdown_procedures.sh
+#
+#[Install]
+#WantedBy=default.target
+

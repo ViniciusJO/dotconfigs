@@ -1,0 +1,25 @@
+/* Generated from your system palette */
+
+:root {
+    --user-theme-primary: %%p1;
+    --user-theme-secondary: %%p2;
+    --user-theme-tertiary: %%p3;
+    --user-theme-text: %%c4;
+    --user-theme-border: %%c1;
+}
+
+/* Selected tab */
+.tabbrowser-tab[selected] .tab-background {
+    background: var(--user-theme-primary) !important;
+}
+
+/* Toolbar button hover */
+.toolbarbutton-1:hover > .toolbarbutton-icon {
+    background-color: var(--user-theme-secondary) !important;
+}
+
+/* URL bar border */
+#urlbar[focused] > #urlbar-background {
+    border-color: var(--user-theme-border) !important;
+}
+
