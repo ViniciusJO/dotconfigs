@@ -1,3 +1,3 @@
 #!/usr/bin/env sh
 
-aplay /home/vinicius/Music/Effects/shutdown.wav
+play /home/vinicius/.local/share/sounds/service-logout.oga

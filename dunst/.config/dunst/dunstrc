@@ -40,4 +40,4 @@
     timeout = 0
 
 [notification-sounds]
-    script = ~/.local/bin/notify_sound.sh
+    script = ~/.scripts/notify_sound.sh
