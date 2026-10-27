@@ -35,7 +35,7 @@ exec --no-startup-id setxkbmap br
 # Set NUMLOCK on
 exec --no-startup-id numlockx on
 
-exec --no-startup-id buckle -s 0 -g 50 -f
+exec --no-startup-id [[ "$(cat ~/.cache/keysound.state)" == "on" ]] && buckle -s 0 -g 50 -f
 
 # Reload cache for kde apps and fix dolphin MIME config
 exec --no-startup-id XDG_MENU_PREFIX=arch- kbuildsycoca6 &> /dev/null

@@ -147,6 +147,7 @@ function keysound_on {
     buckle -s 0 -g 50 -f &
     disown
     echo "Keyboard sound on"
+    printf "on"  > ~/.cache/keysound.state
   fi
 }
 
@@ -154,6 +155,7 @@ function keysound_off {
   if pgrep -x buckle; then
     pkill buckle
     echo "Keyboard sound off"
+    printf "off" > ~/.cache/keysound.state
   fi
 }
 
