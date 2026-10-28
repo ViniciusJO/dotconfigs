@@ -329,4 +329,5 @@ include ~/.cache/i3_colors
 #         separator_symbol " ⁞ "
 # }
 
-exec --no-startup-id play /usr/share/sounds/freedesktop/stereo/service-login.oga
+# exec --no-startup-id play /usr/share/sounds/freedesktop/stereo/service-login.oga
+exec --no-startup-id $HOME/.scripts/startup_procedures.sh

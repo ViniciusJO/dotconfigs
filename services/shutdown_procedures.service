@@ -7,7 +7,8 @@ After=pipewire.service pipewire-pulse.service
 [Service]
 Type=oneshot
 ExecStart=/usr/bin/true
-ExecStop=/usr/bin/play /usr/share/sounds/freedesktop/stereo/service-logout.oga
+#ExecStop=/usr/bin/play /usr/share/sounds/freedesktop/stereo/service-logout.oga
+ExecStop=$HOME/.scripts/shutdown_procedures.sh
 #/usr/bin/paplay --volume=29491 /home/vinicius/Music/Effects/shutdown.wav
 RemainAfterExit=yes
 TimeoutStopSec=15
