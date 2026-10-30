@@ -159,3 +159,12 @@ function keysound_off {
   fi
 }
 
+function notes {
+  if [[ -z "$1" ]]; then
+    cat ~/.notes.md | glow
+  elif [[ "$1" == "edit" ]]; then
+    nvim ~/.notes.md
+  else
+    cat ~/.notes.md | head -n $1 | glow
+  fi
+}
