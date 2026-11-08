@@ -168,3 +168,17 @@ function notes {
     cat ~/.notes.md | head -n $1 | glow
   fi
 }
+
+function path {
+  [[ ! -z "$1" ]] && export PATH="$1:$PATH" || export PATH="$(pwd):$PATH"
+}
+
+function fpath {
+  [[ ! -z "$1" ]] && export FPATH="$1:$FPATH" || export FPATH="$(pwd):$FPATH"
+}
+
+function lpath {
+  [[ ! -z "$1" ]] && \
+  export LD_LIBRARY_PATH="$1:$LD_LIBRARY_PATH" || \
+  export LD_LIBRARY_PATH="$(pwd):$LD_LIBRARY_PATH"
+}

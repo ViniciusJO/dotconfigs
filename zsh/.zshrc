@@ -1,6 +1,12 @@
-  export BASE_ZSH_CONFIGS=$HOME/.config/zsh
-  export BASE_ZSH_SHARE=$HOME/.local/share/zsh
+export BASE_ZSH_CONFIGS=$HOME/.config/zsh
+export BASE_ZSH_SHARE=$HOME/.local/share/zsh
 
+function is_reload {
+  [[ -z "$ZSHRELOAD" || ! "$ZSHRELOAD" == "true" ]]
+}
+
+# TODO: duplication of entries on `reload` function
+if is_reload; then
   export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$HOME/.local/loc_bin:$HOME/.local/share/bob/nvim-bin:$PATH
   export C_INCLUDE_PATH=$HOME/.local/include:$C_INCLUDE_PATH
   export CPLUS_INCLUDE_PATH=$HOME/.local/include:$CPLUS_INCLUDE_PATH
@@ -9,54 +15,56 @@
 
   export FPATH=$BASE_ZSH_SHARE/completions:$FPATH
   export MANPATH="/usr/local/man:$HOME/.local/share/man:$MANPATH"
-  export MANPAGER="nvim +Man!"
+fi
 
-  export NODE_VERSION="24.4.1"
+export MANPAGER="nvim +Man!"
 
-  # Tools
-  export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export NODE_VERSION="24.4.1"
 
-  source "$BASE_ZSH_CONFIGS/aliases.sh"
-  source "$BASE_ZSH_CONFIGS/colors.sh"
-  source "$BASE_ZSH_CONFIGS/functions.sh"
+# Tools
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-  # General configs
-  # Preferred editor for local and remote sessions
-  export EDITOR=$(
-    ( existCommand "nvim" && echo "nvim" ) || \
-    ( existCommand "vim" && echo "vim" ) || \
-    ( existCommand "nano" && echo "nano" )
-  )
+source "$BASE_ZSH_CONFIGS/aliases.sh"
+source "$BASE_ZSH_CONFIGS/colors.sh"
+source "$BASE_ZSH_CONFIGS/functions.sh"
 
-  # Evals
-  existCommand "starship" || (curl -sS https://starship.rs/install.sh | sh -s -- --yes) && eval "$(starship init zsh)"
-  existCommand "zoxide"   && eval "$(zoxide init zsh)"
-  existCommand "fzf"			&& eval "$(fzf --zsh)"
-  existCommand "fuck"			&& eval "$(thefuck --alias)"
+# General configs
+# Preferred editor for local and remote sessions
+export EDITOR=$(
+  ( existCommand "nvim" && echo "nvim" ) || \
+  ( existCommand "vim" && echo "vim" ) || \
+  ( existCommand "nano" && echo "nano" )
+)
 
-  ## Completiions
-  # bob
-  # [ ! -f $HOME/.local/share/zsh/completions/_bob ] && \
-  #   mkdir -p $HOME/.local/share/zsh/completions && \
-  #   bob complete zsh > $HOME/.local/share/zsh/completions/_bob
-  autoload -U compinit && compinit
+# Evals
+existCommand "starship" || (curl -sS https://starship.rs/install.sh | sh -s -- --yes) && eval "$(starship init zsh)"
+existCommand "zoxide"   && eval "$(zoxide init zsh)"
+existCommand "fzf"			&& eval "$(fzf --zsh)"
+existCommand "fuck"			&& eval "$(thefuck --alias)"
 
-  # Plugins
-  export ZSH_PLUGINS=$HOME/.local/share/zsh/plugins
+## Completiions
+# bob
+# [ ! -f $HOME/.local/share/zsh/completions/_bob ] && \
+#   mkdir -p $HOME/.local/share/zsh/completions && \
+#   bob complete zsh > $HOME/.local/share/zsh/completions/_bob
+autoload -U compinit && compinit
 
-  botstrap_plugin zsh-autosuggestions https://github.com/zsh-users/zsh-autosuggestions
-  botstrap_plugin zsh-completions https://github.com/zsh-users/zsh-completions.git
-  botstrap_plugin zsh-syntax-highlighting https://github.com/zsh-users/zsh-syntax-highlighting.git
-  botstrap_plugin fzf_tab https://github.com/Aloxaf/fzf-tab
-  botstrap_plugin zig_completions https://codeberg.org/ziglang/shell-completions.git
-  # botstrap_plugin you_should_use https://github.com/MichaelAquilina/zsh-you-should-use.git
+# Plugins
+export ZSH_PLUGINS=$HOME/.local/share/zsh/plugins
 
-  botstrap_omzsh_plugin "aliases git npm pip python pyenv sudo systemd zsh-autosuggestions zsh-syntax-highlighting colored-man-pages command-not-found archlinux"
-  # botstrap_omzsh_plugin "aliases git docker npm pip python pyenv sudo systemd zsh-autosuggestions zsh-syntax-highlighting colored-man-pages command-not-found archlinux"
+botstrap_plugin zsh-autosuggestions https://github.com/zsh-users/zsh-autosuggestions
+botstrap_plugin zsh-completions https://github.com/zsh-users/zsh-completions.git
+botstrap_plugin zsh-syntax-highlighting https://github.com/zsh-users/zsh-syntax-highlighting.git
+botstrap_plugin fzf_tab https://github.com/Aloxaf/fzf-tab
+botstrap_plugin zig_completions https://codeberg.org/ziglang/shell-completions.git
+# botstrap_plugin you_should_use https://github.com/MichaelAquilina/zsh-you-should-use.git
 
-  find $ZSH_PLUGINS -maxdepth 2 -name "*.zsh" | while read -r plugin; do source $plugin; done
+botstrap_omzsh_plugin "aliases git npm pip python pyenv sudo systemd zsh-autosuggestions zsh-syntax-highlighting colored-man-pages command-not-found archlinux"
+# botstrap_omzsh_plugin "aliases git docker npm pip python pyenv sudo systemd zsh-autosuggestions zsh-syntax-highlighting colored-man-pages command-not-found archlinux"
+
+find $ZSH_PLUGINS -maxdepth 2 -name "*.zsh" | while read -r plugin; do source $plugin; done
 
 # Completions
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
@@ -65,7 +73,7 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --icons --color=always $real
 zstyle ':fzf-tab:complete:nvim:*' fzf-preview 'if [ -f $realpath ]; then pygmentize -g $realpath; else eza -1 --icons --color $realpath; fi'
 zstyle ':fzf-tab:*' switch-group '<' '>'
 zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
-export FPATH=$ZSH_PLUGINS/zig_completions:$FPATH
+is_reload || export FPATH=$ZSH_PLUGINS/zig_completions:$FPATH
 
 
 # Special Keybindings
@@ -107,16 +115,16 @@ export QT_STYLE_OVERRIDE="qt6ct"
 # starship
 STARSHIP_CONFIG_FILE="$HOME/.cache/starship.toml"
 if [[ -f $STARSHIP_CONFIG_FILE ]]; then
-  export STARSHIP_CONFIG="$STARSHIP_CONFIG_FILE"
+export STARSHIP_CONFIG="$STARSHIP_CONFIG_FILE"
 fi
 
 ZSH_SYNTAX_SET_SCRIPT="$HOME/.cache/zsh_syntax_hightlight_set.sh"
 if [[ -f "$ZSH_SYNTAX_SET_SCRIPT" ]]; then
-  source "$ZSH_SYNTAX_SET_SCRIPT"
-  TRAPUSR1() {
-    reload
-    # source "$ZSH_SYNTAX_SET_SCRIPT"
-  }
+source "$ZSH_SYNTAX_SET_SCRIPT"
+TRAPUSR1() {
+  reload
+  # source "$ZSH_SYNTAX_SET_SCRIPT"
+}
 fi
 
 
@@ -150,4 +158,8 @@ fi
 existCommand "mise" && eval "$(mise completions zsh)"
 
 # opencode
-export PATH=/home/vinicius/.opencode/bin:$PATH
+is_reload || export PATH=/home/vinicius/.opencode/bin:$PATH
+
+if [[ ! -e /tmp/desktop_session_out && -o login && "$XDG_VTNR" == 1 ]]; then
+  exec ~/.scripts/desktop-session.sh
+fi

@@ -2,7 +2,7 @@ alias y="yt-dlp -t mp4 --cookies-from-browser firefox"
 alias zshconfig="editDir $HOME/dotconfigs/zsh"
 alias nvimconfig="editDir $HOME/.config/nvim"
 alias dotconfig="editDir $HOME/dotconfigs"
-alias reload="source $HOME/.zshrc"
+alias reload="ZSHRELOAD='true' source $HOME/.zshrc"
 
 alias get_idf='. $HOME/.local/share/esp/esp-idf/export.sh'
 alias get_idf5='. $HOME/.local/share/esp/esp-idf-5/export.sh'
